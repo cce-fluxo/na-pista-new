@@ -55,7 +55,7 @@ export default function Home({
             </IconContainer>
             <IconContainer
               marginRight={15}
-              onPress={() => navigation.navigate("First")}
+              onPress={() => navigation.navigate("Menu Configurações")}
             >
               <Ionicons name="settings-sharp" size={24} color={colors.icon} />
             </IconContainer>
