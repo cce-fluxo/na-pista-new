@@ -7,10 +7,10 @@ import Login from "../Pages/Login";
 import CreateAccount from "../Pages/CreateAccount";
 import BasicInfo from "../Pages/BasicInfo";
 import WhereYouLive from "../Pages/WhereYouLive";
-// import Vehicles from "../Pages/Vehicles";
+import Vehicles from "../Pages/Vehicles";
+import Platform from "../Pages/Platform";
 // import EarningGoals from "../Pages/EarningGoals";
 // import Success from "../Pages/Success";
-// import Platform from "../Pages/Platform";
 // import Home from "../Pages/Home";
 // import SettingsMenu from '../Pages/SettingsMenu'
 
@@ -29,6 +29,8 @@ function SignedOutRoutes() {
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Criar conta" component={CreateAccount} />
         <Stack.Screen name="Onde voce mora" component={WhereYouLive} />
+        <Stack.Screen name="Veiculos" component={Vehicles} />
+        <Stack.Screen name="Plataformas" component={Platform} />
       </Stack.Navigator>
     </NavigationContainer>
   );
