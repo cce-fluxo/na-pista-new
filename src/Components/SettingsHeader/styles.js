@@ -8,9 +8,8 @@ import {
 } from "../../Constants/constants";
 
 export const HeaderView = styled.View`
-  flex: 1;
-  width: ${screenWidth};
-  height: ${screenHeight * 0.077};
+  width: ${screenWidth}px;
+  height: ${screenHeight * 0.077}px;
   background-color: ${colors.background};
   flex-direction: row;
   justify-content: flex-start;
@@ -18,12 +17,12 @@ export const HeaderView = styled.View`
 `;
 
 export const HeaderButton = styled.TouchableOpacity`
-  margin-left: ${screenWidth*0.067};
+  margin-left: ${screenWidth*0.067}px;
 `;
 
 export const HeaderText = styled.Text`
   color: ${colors.icon};
   font-family: ${fonts.Ubuntu};
   font-size: 20px;
-  margin-left: ${screenWidth*0.134};
+  margin-left: ${screenWidth*0.134}px;
 `;
