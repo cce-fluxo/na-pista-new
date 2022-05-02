@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import SafeArea from "../../../Utils/SafeArea/index";
 import Header from "../../../Components/SettingsHeader/index";
 import Button from "../../../Components/Button/index";
-import { Container, HelpText, InputText } from "./styles";
+import { Container, InputContainer, HelpText, InputText } from "./styles";
 import {
   colors,
   screenHeight,
@@ -41,19 +41,22 @@ export default function SettingsHelp({ navigation }) {
           Digite sua mensagem que lhe responderemos no seu email assim que
           possível.
         </HelpText>
-        <InputText
+        <InputContainer
           marginTop={screenHeight * 0.007}
           height={screenHeight * 0.38}
           width={screenWidth * 0.91}
-          placeholder="Digite sua mensagem"
-          onChangeText={(text) => setHelp(text)}
-          value={help}
-          multiline={true}
-        />
+        >
+          <InputText
+            placeholder="Digite sua mensagem"
+            onChangeText={(text) => setHelp(text)}
+            value={help}
+            multiline={true}
+          />
+        </InputContainer>
         <Button
           width={screenWidth * 0.91}
           marginLeft={0}
-          marginTop={screenHeight*0.30}
+          marginTop={screenHeight * 0.3}
           disabled={loading}
           loading={loading}
           text="Enviar"

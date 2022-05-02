@@ -16,11 +16,15 @@ export const HelpText = styled.Text`
   font-family: ${props => props.fontFamily};
 `;
 
-export const InputText = styled.TextInput`
-  color: black;
-  background-color: white;
-  padding: 10px;
+export const InputContainer = styled.View`
   margin-top: ${props => props.marginTop}px;
   height: ${props => props.height}px;
   width: ${props => props.width}px;
+  background-color: white;
+  align-self: center;
+`;
+
+export const InputText = styled.TextInput`
+  color: black;
+  padding: 10px;
 `;
