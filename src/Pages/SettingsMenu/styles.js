@@ -31,7 +31,25 @@ export const IconContainer = styled.TouchableOpacity`
   justify-content: space-around;
   align-items: center;
   max-height: ${screenHeight * 0.12}px;
-  max-width: ${screenWidth * 0.048}px;
+  max-width: ${screenWidth * 0.055}px;
   margin-right: ${props => props.marginRight}px;
   margin-left: ${props => props.marginLeft}px;
+  margin-top: ${props => props.marginTop}px;
+`;
+
+export const ButtonContainer = styled.TouchableOpacity`
+  align-self: center;
+  height: ${props => props.height}px;
+  width: ${props => props.width}px;
+  margin-right: ${props => props.marginRight}px;
+  margin-left: ${props => props.marginLeft}px;
+  margin-top: ${props => props.marginTop}px;
+`;
+
+export const View = styled.View`
+  width: ${screenWidth*0.91}px;
+  height: 1.4px;
+  background-color: ${colors.line};
+  margin:5px;
+  align-self: center;
 `;
