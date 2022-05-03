@@ -12,7 +12,8 @@ import Platform from "../Pages/Platform";
 import EarningGoals from "../Pages/EarningGoals";
 import Success from "../Pages/Success";
 import Home from "../Pages/Home";
-import SettingsMenu from '../Pages/SettingsMenu'
+import SettingsMenu from '../Pages/SettingsMenu';
+import SettingsHelp from "../Pages/Settings/Ajuda/index";
 
 const Stack = createStackNavigator();
 
@@ -35,8 +36,8 @@ function SignedOutRoutes() {
         <Stack.Screen name="Metas de Ganho" component={EarningGoals} />
         <Stack.Screen name="Sucesso" component={Success} />
         <Stack.Screen name="Home" component={Home} />
-        
-        
+        <Stack.Screen name="Menu Configurações" component={SettingsMenu} />
+        <Stack.Screen name="Ajuda" component={SettingsHelp} />
       </Stack.Navigator>
     </NavigationContainer>
   );
