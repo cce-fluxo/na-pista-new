@@ -35,41 +35,45 @@ export default function SettingsExportData({ navigation }) {
 
   return (
     <SafeArea>
+      <Modal
+        transparent={true}
+        animationType="slide"
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <OutsideView>
+          <ModalView
+            height={screenHeight * 0.26}
+            width={screenWidth * 0.911}
+          >
+            <ExportText
+              marginTop={0}
+              width={screenWidth * 0.78}
+              color={colors.inputTitle}
+              fontFamily={fonts.Ubuntu}
+            >
+              Feito! Vamos processar teu pedido e te enviaremos por email teus
+              dados assim que estiver pronto.
+            </ExportText>
+            <Button
+              width={screenWidth * 0.78}
+              marginLeft={0}
+              marginTop={screenHeight * 0.033}
+              disabled={loading}
+              loading={loading}
+              text="Beleza"
+              onPress={() => navigation.navigate("Menu Configurações")}
+              color="black"
+              background={colors.background}
+              border={4}
+              size={16}
+            />
+          </ModalView>
+        </OutsideView>
+      </Modal>
       <Container>
-        <Modal
-          animationType="slide"
-          visible={modalVisible}
-          onRequestClose={() => {
-            setModalVisible(!modalVisible);
-          }}
-        >
-          <OutsideView>
-            <ModalView>
-              <ExportText
-                marginTop={0}
-                width={screenWidth * 0.78}
-                color={colors.inputTitle}
-                fontFamily={fonts.Ubuntu}
-              >
-                Feito! Vamos processar teu pedido e te enviaremos por email teus
-                dados assim que estiver pronto.
-              </ExportText>
-              <Button
-                width={screenWidth * 0.78}
-                marginLeft={0}
-                marginTop={0}
-                disabled={loading}
-                loading={loading}
-                text="Beleza"
-                onPress={() => navigation.navigate("Menu Configurações")}
-                color="black"
-                background={colors.background}
-                border={4}
-                size={16}
-              />
-            </ModalView>
-          </OutsideView>
-        </Modal>
         <Header
           name="Ajuda"
           onPressNavigate={() => navigation.navigate("SettingsMenu")}
