@@ -76,7 +76,7 @@ export default function SettingsMenu({
         marginLeft={0}
         marginRight={0}
         marginTop={50}
-        onPress={() => navigation.navigate("Home")}
+        onPress={() => navigation.navigate("ExportarDados")}
       >
         <Text
           fontSize={20}

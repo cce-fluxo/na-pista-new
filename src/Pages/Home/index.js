@@ -16,6 +16,7 @@ import {
 } from "./styles";
 import SafeArea from "../../Utils/SafeArea";
 import Button from "../../Components/Button";
+import AddEarningModal from "../../Components/AddEarningModal";
 import {
   Ionicons,
   AntDesign,
@@ -240,6 +241,7 @@ export default function Home({
           </EarningContainer>
         </ScrollView>
       </MainContainer>
+      <AddEarningModal/>
     </SafeArea>
   );
 }
