@@ -54,6 +54,7 @@ export default function Home({
             >
               <AntDesign name="plus" size={24} color={colors.icon} />
             </IconContainer>
+            
             <IconContainer
               marginRight={15}
               onPress={() => navigation.navigate("Menu Configurações")}

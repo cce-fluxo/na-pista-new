@@ -9,7 +9,7 @@ import {
   AddText,
   AddView,
   CloseContainer,
-  ModalContainer
+  ModalContainer,
 } from "./styles";
 import Button from "../Button";
 import { colors, screenHeight, screenWidth } from "../../Constants/constants";
@@ -62,7 +62,11 @@ const AddEarningModal = ({
               height={screenHeight * 0.045}
               backgroundColor={"white"}
             >
-              <MaterialIcons name="pedal-bike" size={26} color={colors.modalIcons} />
+              <MaterialIcons
+                name="pedal-bike"
+                size={26}
+                color={colors.modalIcons}
+              />
             </AddContainer>
           </TextContainer>
           <TextContainer>
@@ -73,7 +77,11 @@ const AddEarningModal = ({
               height={screenHeight * 0.045}
               backgroundColor={"white"}
             >
-              <MaterialIcons name="pedal-bike" size={26} color={colors.modalIcons} />
+              <MaterialIcons
+                name="pedal-bike"
+                size={26}
+                color={colors.modalIcons}
+              />
             </AddContainer>
           </TextContainer>
           <TextContainer>
@@ -84,12 +92,15 @@ const AddEarningModal = ({
               height={screenHeight * 0.045}
               backgroundColor={"white"}
             >
-              <MaterialIcons name="attach-money" size={26} color={colors.modalIcons} />
+              <MaterialIcons
+                name="attach-money"
+                size={26}
+                color={colors.modalIcons}
+              />
             </AddContainer>
           </TextContainer>
-          
         </ModalContainer>
-        
+
         <CloseContainer
           onPress={() => setModalVisible(false)}
           width={screenWidth * 0.16}
