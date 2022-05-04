@@ -22,7 +22,7 @@ export default function SettingsHelp({ navigation }) {
     } catch (error) {
       console.error(error);
     }
-    setLoading(true);
+    setLoading(false);
   }
 
   return (
