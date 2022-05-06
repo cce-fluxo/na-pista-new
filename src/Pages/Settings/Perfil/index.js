@@ -19,17 +19,46 @@ export default function SettingsPerfil({ navigation }) {
   const [nome, setNome] = useState("");
   const [sobrenome, setSobrenome] = useState("");
   const [genero, setGenero] = useState("");
-  const [data, setData] = useState(null);
+  const [data, setData] = useState(0);
   const [estado, setEstado] = useState("");
   const [cidade, setCidade] = useState("");
   const [bairro, setBairro] = useState("");
   const [loading, setLoading] = useState(false);
 
-  async function getUser() {
-    try {
-    } catch (error) {
-      console.log(error);
-    }
+  const [initialList, setInitialList] = useState([
+    {
+      id: 1,
+      title: "iFood",
+    },
+    {
+      id: 2,
+      title: "Rappi",
+    },
+    {
+      id: 3,
+      title: "Uber Eats",
+    },
+    {
+      id: 4,
+      title: "Loggi",
+    },
+    {
+      id: 5,
+      title: "Zé Delivery",
+    },
+    {
+      id: 6,
+      title: "99 Food",
+    },
+    {
+      id: 7,
+      title: "James",
+    },
+  ]);
+
+  try {
+  } catch (error) {
+    console.log(error);
   }
 
   async function patchUser() {
@@ -41,11 +70,11 @@ export default function SettingsPerfil({ navigation }) {
 
   return (
     <SafeArea>
-      <Header
-        name="Perfil"
-        onPressNavigate={() => navigation.navigate("SettingsMenu")}
-      />
       <Container>
+        <Header
+          name="Perfil"
+          onPressNavigate={() => navigation.navigate("SettingsMenu")}
+        />
         <ScrollView>
           <Input
             title="Nome"
@@ -65,7 +94,7 @@ export default function SettingsPerfil({ navigation }) {
           />
           <Dropdown
             label="Identidade de gênero"
-            data={[]}
+            data={initialList}
             marginTop={screenHeight * 0.025}
           />
           <Date
@@ -73,9 +102,21 @@ export default function SettingsPerfil({ navigation }) {
             marginTop={screenHeight * 0.025}
             marginLeft={0}
           />
-          <Dropdown label="Estado" date={[]} marginTop={screenHeight * 0.025} />
-          <Dropdown label="Cidade" data={[]} marignTop={screenHeight * 0.025} />
-          <Dropdown label="Bairro" date={[]} marginTop={screenHeight * 0.025} />
+          <Dropdown
+            label="Estado"
+            date={initialList}
+            marginTop={screenHeight * 0.025}
+          />
+          <Dropdown
+            label="Cidade"
+            data={initialList}
+            marignTop={screenHeight * 0.025}
+          />
+          <Dropdown
+            label="Bairro"
+            date={initialList}
+            marginTop={screenHeight * 0.025}
+          />
           <Button
             width={screenWidth * 0.91}
             marginLeft={0}
