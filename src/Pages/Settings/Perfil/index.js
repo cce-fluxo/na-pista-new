@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ScrollView } from "react-native";
+import { ScrollView, View } from "react-native";
 
 import SafeArea from "../../../Utils/SafeArea/index";
 import Header from "../../../Components/SettingsHeader/index";
@@ -25,36 +25,67 @@ export default function SettingsPerfil({ navigation }) {
   const [bairro, setBairro] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const [initialList, setInitialList] = useState([
+  const dataGenero = [
     {
-      id: 1,
-      title: "iFood",
+      id: "1",
+      value: "f",
+      label: "Feminino",
     },
     {
-      id: 2,
-      title: "Rappi",
+      id: "2",
+      value: "m",
+      label: "Masculino",
+    },
+  ];
+
+  const dataState = [
+    {
+      id: "1",
+      value: "rj",
+      label: "RJ",
     },
     {
-      id: 3,
-      title: "Uber Eats",
+      id: "2",
+      value: "sp",
+      label: "SP",
+    },
+  ];
+
+  const dataCity = [
+    {
+      id: "1",
+      value: "rio",
+      label: "Rio de Janeiro",
     },
     {
-      id: 4,
-      title: "Loggi",
+      id: "2",
+      value: "saoPaulo",
+      label: "São Paulo",
+    },
+  ];
+
+  const dataNeighborhood = [
+    {
+      id: "1",
+      value: "botafogo",
+      label: "Botafogo",
     },
     {
-      id: 5,
-      title: "Zé Delivery",
+      id: "2",
+      value: "morumbi",
+      label: "Morumbi",
     },
     {
-      id: 6,
-      title: "99 Food",
+      id: "3",
+      value: "copa",
+      label: "Copacabana",
     },
     {
-      id: 7,
-      title: "James",
+      id: "4",
+      value: "fla",
+      label: "Flamengo",
     },
-  ]);
+  ];
 
   try {
   } catch (error) {
@@ -94,33 +125,21 @@ export default function SettingsPerfil({ navigation }) {
           />
           <Dropdown
             label="Identidade de gênero"
-            data={initialList}
-            marginTop={screenHeight * 0.025}
+            data={dataGenero}
+            marginTop={30}
           />
           <Date
             label="Data de nascimento"
             marginTop={screenHeight * 0.025}
             marginLeft={0}
           />
-          <Dropdown
-            label="Estado"
-            date={initialList}
-            marginTop={screenHeight * 0.025}
-          />
-          <Dropdown
-            label="Cidade"
-            data={initialList}
-            marignTop={screenHeight * 0.025}
-          />
-          <Dropdown
-            label="Bairro"
-            date={initialList}
-            marginTop={screenHeight * 0.025}
-          />
+          <Dropdown label="Estado" date={dataState} marginTop={30} />
+          <Dropdown label="Cidade" data={dataCity} marignTop={30} />
+          <Dropdown label="Bairro" date={dataNeighborhood} marginTop={30} />
           <Button
             width={screenWidth * 0.91}
             marginLeft={0}
-            marginTop={screenHeight * 0.3}
+            marginTop={screenHeight * 0.025}
             disabled={loading}
             loading={loading}
             text="Atualizar"
