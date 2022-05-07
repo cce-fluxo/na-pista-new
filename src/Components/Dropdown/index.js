@@ -35,8 +35,6 @@ const Dropdown = ({ label, data, marginTop, marginLeft, opacity }) => {
     </ItemContainer>
   );
 
-  const renderItem = ({ item }) => <Item item={item} />;
-
   return (
     <Container marginTop={marginTop}>
       <Title>{label}</Title>

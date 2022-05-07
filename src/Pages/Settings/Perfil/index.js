@@ -94,6 +94,7 @@ export default function SettingsPerfil({ navigation }) {
 
   async function patchUser() {
     try {
+      navigation.navigate("Menu Configurações")
     } catch (error) {
       console.log(error);
     }
@@ -104,7 +105,7 @@ export default function SettingsPerfil({ navigation }) {
       <Container>
         <Header
           name="Perfil"
-          onPressNavigate={() => navigation.navigate("SettingsMenu")}
+          onPressNavigate={() => navigation.navigate("Menu Configurações")}
         />
         <ScrollView>
           <Input
@@ -133,9 +134,9 @@ export default function SettingsPerfil({ navigation }) {
             marginTop={screenHeight * 0.025}
             marginLeft={0}
           />
-          <Dropdown label="Estado" date={dataState} marginTop={30} />
-          <Dropdown label="Cidade" data={dataCity} marignTop={30} />
-          <Dropdown label="Bairro" date={dataNeighborhood} marginTop={30} />
+          <Dropdown label="Estado" data={dataState} marginTop={30} />
+          <Dropdown label="Cidade" data={dataCity} marginTop={30} />
+          <Dropdown label="Bairro" data={dataNeighborhood} marginTop={30} />
           <Button
             width={screenWidth * 0.91}
             marginLeft={0}
