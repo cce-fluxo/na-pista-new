@@ -1,0 +1,32 @@
+on:
+  pull_request:
+    types: [opened]
+env:
+  projectOwner: quasarsystems
+  projectSlug: talent-factory-app
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: yarn
+      - uses: actions/github-script@v6
+        id: set-taskId
+        with:
+          script: |
+            console.log(process.env)
+
+            const taskId = process.env.GITHUB_HEAD_REF.slice(3)
+            return taskId
+          result-encoding: string
+      - run: |
+          curl --location --request POST 'https://api.clickup.com/api/v2/task/${{ steps.set-taskId.outputs.result }}/comment' \
+          --header 'Authorization: pk_18915135_0EH1PUK1H7DAXJ3T7X1RCEEUGWXDINFD' \
+          --header 'Content-Type: application/json' \
+          --data-raw '
+          {
+            "comment_text": " App is ready for review, you can see it here: https://expo.dev/@${{ env.projectOwner }}/${{ env.projectSlug }}?release-channel=pr-${{ github.event.number }}"
+          }'
