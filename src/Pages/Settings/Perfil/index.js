@@ -127,16 +127,16 @@ export default function SettingsPerfil({ navigation }) {
           <Dropdown
             label="Identidade de gênero"
             data={dataGenero}
-            marginTop={30}
+            marginTop={screenHeight * 0.025}
           />
           <Date
             label="Data de nascimento"
             marginTop={screenHeight * 0.025}
             marginLeft={0}
           />
-          <Dropdown label="Estado" data={dataState} marginTop={30} />
-          <Dropdown label="Cidade" data={dataCity} marginTop={30} />
-          <Dropdown label="Bairro" data={dataNeighborhood} marginTop={30} />
+          <Dropdown label="Estado" data={dataState} marginTop={screenHeight * 0.025} />
+          <Dropdown label="Cidade" data={dataCity} marginTop={screenHeight * 0.025} />
+          <Dropdown label="Bairro" data={dataNeighborhood} marginTop={screenHeight * 0.025} />
           <Button
             width={screenWidth * 0.91}
             marginLeft={0}
@@ -150,6 +150,7 @@ export default function SettingsPerfil({ navigation }) {
             border={4}
             size={16}
           />
+          <View style={{marginBottom: screenHeight * 0.025 }} ></View>
         </ScrollView>
       </Container>
     </SafeArea>

@@ -42,7 +42,6 @@ const Dropdown = ({ label, data, marginTop, marginLeft, opacity }) => {
         <SelectText>{selectedValue.label}</SelectText>
         <Icon name="chevron-down" size={30} color={colors.background} />
       </SelectContainer>
-
       <Modal
         isVisible={isModalVisible}
         onBackdropPress={() => setModalVisible(false)}
