@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { TouchableOpacity, Modal } from "react-native";
 
 import SafeArea from "../../../Utils/SafeArea/index";
-import Header from "../../../Components/SettingsHeader/index";
 import Checkbox from "../../../Components/Checkbox/index";
 import Button from "../../../Components/Button/index";
 import { Container, OutsideView, ModalView, ExportText } from "./styles";

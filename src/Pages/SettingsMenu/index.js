@@ -50,7 +50,7 @@ export default function SettingsMenu({
           marginRight={10}
           marginLeft={50}
           marginTop={0}
-          onPress={() => navigation.navigate("Plataformas")}
+          onPress={() => navigation.navigate("Configurações")}
         >
           <AntDesign name="right" size={22} color={colors.icon} />
         </IconContainer>

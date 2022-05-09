@@ -16,6 +16,7 @@ import SettingsMenu from '../Pages/SettingsMenu';
 import SettingsHelp from "../Pages/Settings/Ajuda/index";
 import SettingsExportData from "../Pages/Settings/ExportarDados/index";
 import SettingsPerfil from "../Pages/Settings/Perfil/index";
+import Settings from "../Pages/Settings/Configurações/index";
 
 const Stack = createStackNavigator();
 
@@ -41,6 +42,7 @@ function SignedOutRoutes() {
         <Stack.Screen name="Ajuda" component={SettingsHelp} />
         <Stack.Screen name="ExportarDados" component={SettingsExportData} />
         <Stack.Screen name="Perfil" component={SettingsPerfil} />
+        <Stack.Screen name="Configurações" component={Settings} />
       </Stack.Navigator>
     </NavigationContainer>
   );
