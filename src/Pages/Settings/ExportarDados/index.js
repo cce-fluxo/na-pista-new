@@ -43,10 +43,7 @@ export default function SettingsExportData({ navigation }) {
         }}
       >
         <OutsideView>
-          <ModalView
-            height={screenHeight * 0.26}
-            width={screenWidth * 0.911}
-          >
+          <ModalView height={screenHeight * 0.26} width={screenWidth * 0.911}>
             <ExportText
               marginTop={0}
               width={screenWidth * 0.78}
@@ -94,54 +91,17 @@ export default function SettingsExportData({ navigation }) {
         >
           Selecione abaixo quais dados você gostaria de exportar.
         </ExportText>
-        <TouchableOpacity
-          style={{ height: screenHeight * 0.07 }}
-          onPress={() =>
-            !corridasGanhos ? setCorridasGanhos(true) : setCorridasGanhos(false)
-          }
-        >
-          <Checkbox
-            marginTop={screenHeight * 0.033}
-            label="Corridas e ganhos"
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{ height: screenHeight * 0.07 }}
-          onPress={() => (!gastos ? setGastos(true) : setGastos(false))}
-        >
-          <Checkbox marginTop={screenHeight * 0.033} label="Gastos" />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{ height: screenHeight * 0.07 }}
-          onPress={() =>
-            !indicadores ? setIndicadores(true) : setIndicadores(false)
-          }
-        >
-          <Checkbox
-            marginTop={screenHeight * 0.033}
-            label="Indicadores calculados"
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{ height: screenHeight * 0.07 }}
-          onPress={() =>
-            !historico ? setHistorico(true) : setHistorico(false)
-          }
-        >
-          <Checkbox
-            marginTop={screenHeight * 0.033}
-            label="Histórico de metas"
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{ height: screenHeight * 0.07 }}
-          onPress={() => (!trajetos ? setTrajetos(true) : setTrajetos(false))}
-        >
-          <Checkbox
-            marginTop={screenHeight * 0.033}
-            label="Trajetos percorridos"
-          />
-        </TouchableOpacity>
+        <Checkbox marginTop={screenHeight * 0.033} label="Corridas e ganhos" />
+        <Checkbox marginTop={screenHeight * 0.033} label="Gastos" />
+        <Checkbox
+          marginTop={screenHeight * 0.033}
+          label="Indicadores calculados"
+        />
+        <Checkbox marginTop={screenHeight * 0.033} label="Histórico de metas" />
+        <Checkbox
+          marginTop={screenHeight * 0.033}
+          label="Trajetos percorridos"
+        />
         <Button
           width={screenWidth * 0.91}
           marginLeft={0}
