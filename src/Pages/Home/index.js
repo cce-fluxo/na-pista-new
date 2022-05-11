@@ -16,6 +16,7 @@ import {
 } from "./styles";
 import SafeArea from "../../Utils/SafeArea";
 import Button from "../../Components/Button";
+import Progress from "../../Components/Progress";
 import AddEarningModal from "../../Components/AddEarningModal";
 import {
   Ionicons,
@@ -30,7 +31,7 @@ export default function Home({
   navigation,
   marginRight,
   marginLeft,
-  marginTop,
+  marginTop, 
   width,
   height,
   borderRadius,
@@ -40,6 +41,42 @@ export default function Home({
   color,
   justifyContent,
 }) {
+
+  const [seconds, setSeconds] = useState(0);
+  const [minutes, setMinutes] = useState(0);
+  const [customInterval, setCustomInterval] = useState();
+
+  const startTimer = () => {
+    setCustomInterval(
+      setInterval(() => {
+        changeTime();
+      }, 1000)
+    );
+  }; 
+
+  const stopTimer = () => {
+    if(customInterval) {
+      clearInterval(customInterval);
+    }
+  }; 
+
+  const clear= () => {
+    stopTimer();
+    setSeconds(0);
+    setMinutes(0);
+  };
+
+  const changeTime = () => {
+    setSeconds((prevState) => {
+      if (prevState + 1 == 60) {
+        setMinutes(minutes + 1);
+        return 0; 
+      }
+      return prevState + 1;
+    })
+      
+  } 
+
   return (
     <SafeArea>
       <MainContainer showsVerticalScrollIndicator={false}>
@@ -54,7 +91,6 @@ export default function Home({
             >
               <AntDesign name="plus" size={24} color={colors.icon} />
             </IconContainer>
-            
             <IconContainer
               marginRight={15}
               onPress={() => navigation.navigate("Menu Configurações")}
@@ -91,7 +127,7 @@ export default function Home({
               gravar automaticamente o seu tempo de {"\n"}
               trabalho e a distância percorrida.
             </Text>
-            <ActivityButton>
+            <ActivityButton onPress={startTimer}>
               <FontAwesome name="play" size={22} color={colors.icon} />
             </ActivityButton>
             <View
@@ -123,7 +159,8 @@ export default function Home({
                 color={colors.time}
                 marginLeft={10}
               >
-                00:00
+                {minutes < 10 ? "0" + minutes : minutes}:
+                {seconds < 10 ? "0" + seconds : seconds}
               </Text>
             </View>
             <View
@@ -179,6 +216,15 @@ export default function Home({
                 <AntDesign name="right" size={18} color={colors.icon} />
               </IconContainer>
             </TextContainer>
+            <ProgressBarContainer>
+              <Progress text={"Dom"} color={colors.modalIcons} progress={0.5}/>
+              <Progress text={"Seg"} color={colors.earningGoalDayOff} progress={0}/>
+              <Progress text={"Ter"} color={colors.earningGoalDayOff} progress={0}/>
+              <Progress text={"Qua"} color={colors.earningGoalDayOff} progress={0}/>
+              <Progress text={"Qui"} color={colors.earningGoalDayOff} progress={0}/>
+              <Progress text={"Sex"} color={colors.earningGoalDayOff} progress={0.2}/>
+              <Progress text={"Sab"} color={colors.earningGoalDayOff} progress={0.8}/>
+            </ProgressBarContainer>
           </View>
         </Container>
 
@@ -242,7 +288,7 @@ export default function Home({
           </EarningContainer>
         </ScrollView>
       </MainContainer>
-      <AddEarningModal/>
+      <AddEarningModal />
     </SafeArea>
   );
 }

@@ -79,7 +79,13 @@ export const IconContainer = styled.TouchableOpacity`
 `;
 
 
-export const ProgressBarContainer = styled.View``;
+export const ProgressBarContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  width: ${screenWidth*0.88}px;
+  align-self: center;
+`;
 
 export const ActivityButton = styled.TouchableOpacity`
   height: 70px;
