@@ -6,6 +6,7 @@ import SafeArea from "../../../Utils/SafeArea/index";
 import Header from "../../../Components/SettingsHeader/index";
 import Checkbox from "../../../Components/Checkbox/index";
 import AddItemModal from "../../../Components/AddItemModal/index";
+import IncrementContainer from "../../../Components/IncrementContainer";
 import {
   Container,
   MiniView,
@@ -23,9 +24,6 @@ import {
 
 export default function Settings({ navigation }) {
   const [click, setClick] = useState(false);
-  const [diaria, setDiaria] = useState(80);
-  const [semanal, setSemanal] = useState(500);
-  const [mensal, setMensal] = useState(2000);
 
   const [dataCategorias, setDataCategorias] = useState([
     {
@@ -208,24 +206,6 @@ export default function Settings({ navigation }) {
                 <AntDesign name="down" size={22} color={colors.background} />
               </TouchableOpacity>
             </MiniView>
-            <MiniView
-              height={screenHeight * 0.0875}
-              width={screenWidth * 0.91}
-              marginTop={screenHeight * 0.025}
-            >
-              <TitleText
-                marginLeft={screenWidth * 0.05}
-                fontFamily={fonts.Ubuntu}
-              >
-                Conexões
-              </TitleText>
-              <TouchableOpacity
-                style={{ marginRight: screenWidth * 0.1 }}
-                onPress={() => setClick(true)}
-              >
-                <AntDesign name="down" size={22} color={colors.background} />
-              </TouchableOpacity>
-            </MiniView>
           </ScrollView>
         ) : (
           <ScrollView>
@@ -260,6 +240,25 @@ export default function Settings({ navigation }) {
                 Definindo suas metas de ganhos te ajudaremos a acompanhar se
                 está alcançando elas.
               </NormalText>
+              <IncrementContainer
+                title="Diária"
+                marginLeft={0}
+                marginTop={screenHeight * 0.025}
+                color="white"
+              />
+              <IncrementContainer
+                title="Semanal"
+                marginLeft={0}
+                marginTop={screenHeight * 0.025}
+                color="white"
+              />
+              <IncrementContainer
+                title="Mensal"
+                marginLeft={0}
+                marginTop={screenHeight * 0.025}
+                color="white"
+              />
+              <View style={{ height: screenHeight * 0.025 }}></View>
             </MaxView>
             <MaxView
               width={screenWidth * 0.91}
@@ -396,30 +395,6 @@ export default function Settings({ navigation }) {
                 setCheckboxes={setCheckboxesVeiculos}
               />
               <View style={{ height: screenHeight * 0.025 }}></View>
-            </MaxView>
-            <MaxView
-              width={screenWidth * 0.91}
-              marginTop={screenHeight * 0.025}
-            >
-              <MiniView
-                height={screenHeight * 0.0875}
-                width={screenWidth * 0.91}
-                marginTop={0}
-              >
-                <TitleText
-                  marginLeft={screenWidth * 0.05}
-                  fontFamily={fonts.Ubuntu}
-                >
-                  Conexões
-                </TitleText>
-                <TouchableOpacity
-                  style={{ marginRight: screenWidth * 0.1 }}
-                  onPress={() => setClick(false)}
-                >
-                  <AntDesign name="up" size={22} color={colors.background} />
-                </TouchableOpacity>
-              </MiniView>
-              <LineView width={screenWidth * 0.82}></LineView>
             </MaxView>
             <View style={{ height: screenHeight * 0.025 }}></View>
           </ScrollView>

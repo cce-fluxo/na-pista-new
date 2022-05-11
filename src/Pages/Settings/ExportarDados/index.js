@@ -71,8 +71,8 @@ export default function SettingsExportData({ navigation }) {
       </Modal>
       <Container>
         <Header
-          name="Ajuda"
-          onPressNavigate={() => navigation.navigate("SettingsMenu")}
+          name="Exportas Dados"
+          onPressNavigate={() => navigation.navigate("Menu Configurações")}
         />
         <ExportText
           marginTop={screenHeight * 0.022}
@@ -105,7 +105,7 @@ export default function SettingsExportData({ navigation }) {
         <Button
           width={screenWidth * 0.91}
           marginLeft={0}
-          marginTop={screenHeight * 0.25}
+          marginTop={screenHeight * 0.3}
           disabled={loading}
           loading={loading}
           text="Enviar"
