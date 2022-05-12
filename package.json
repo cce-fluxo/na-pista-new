@@ -27,10 +27,7 @@
     "react-native-gesture-handler": "~2.1.0",
     "react-native-modal": "^13.0.1",
     "react-native-modal-datetime-picker": "^13.1.2",
-<<<<<<< HEAD
-=======
     "react-native-paper": "^4.12.1",
->>>>>>> 738edb67694ad26c032027b58fccf254257f7633
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.10.1",
     "react-native-web": "0.17.1",

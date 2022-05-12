@@ -8,19 +8,20 @@ import {
 } from "../../Constants/constants";
 
 export const Container = styled.View`
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   max-width: ${screenWidth * 0.3}px;
-  transform: rotate(-90deg);
 `;
 
 export const ProgressBarContainer = styled.View`
-  width: ${screenWidth * 0.18}px;
+  width: ${(props) => props.width}px;
+  transform: rotate(-90deg);
 `;
 
 export const TextContainer = styled.View`
   text-align: center;
-  transform: rotate(90deg);
+  height: ${screenHeight * 0.024}px;
+  margin-top: 34px;
 `;
 
 export const Label = styled.Text`
@@ -28,5 +29,4 @@ export const Label = styled.Text`
   font-weight: bold;
   color: ${(props) => props.color};
   font-family: ${fonts.Ubuntu};
-  margin-bottom: 5px;
 `;

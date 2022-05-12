@@ -7,7 +7,6 @@ export const MainContainer = styled.ScrollView`
 
 export const Container = styled.View`
   background-color: #F8F8F8;
-  flex: 1;
   width: ${screenWidth}px;
 `;
 
@@ -20,7 +19,7 @@ export const View = styled.View`
   align-self: center;
   margin-top: ${props => props.marginTop}px;
   margin-left: ${props => props.marginLeft}px;
-  margin-bottom: 10px;
+  margin-bottom: ${props => props.marginBottom}px;
 `;
 
 export const Subcontainer = styled.View`
@@ -33,13 +32,13 @@ export const ScrollView = styled.ScrollView`
   position: absolute;
   top: 86px;
   align-self: center;
-  flex: 1;
 `;
 
 export const EarningContainer = styled.View`
   background-color: white;
+  flex-direction: column;
   width: ${screenWidth * 0.86}px;
-  height: ${screenHeight * 0.32}px;
+  height: ${screenHeight * 0.3}px;
   border-radius: 8px;
   margin-left: ${props => props.marginLeft}px;
   margin-right: ${props => props.marginRight}px;
@@ -49,10 +48,11 @@ export const EarningContainer = styled.View`
 
 
 export const TextContainer = styled.View`
-  flex: 1;
   padding: 10px;
-  margin-top: 10px;
+  margin-top: ${props=>props.marginTop}px;
   max-height: ${screenHeight*0.1}px;
+  max-width: ${props=>props.maxWidth}px;
+  margin-left: ${props=>props.marginLeft}px;
   flex-direction: row;
   justify-content: ${props => props.justifyContent};
 `;
@@ -65,11 +65,11 @@ export const Text = styled.Text`
   margin-left:  ${props => props.marginLeft}px;
   color: ${props => props.color};
   font-weight: normal;
+  margin-top: ${props => props.marginTop}px;
 `;
 
 
 export const IconContainer = styled.TouchableOpacity`
-  flex: 1;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
@@ -80,11 +80,14 @@ export const IconContainer = styled.TouchableOpacity`
 
 
 export const ProgressBarContainer = styled.View`
-  flex-direction: row;
+  flex-direction: ${props=>props.flexDirection};
   align-items: center;
   justify-content: space-around;
-  width: ${screenWidth*0.88}px;
+  width: ${props=>props.width}px;
+  height: ${props=>props.height}px;
   align-self: center;
+  transform: ${(props) => (props.rotate ? 'rotate(90deg)' : '')};
+  margin-top: ${props => props.marginTop}px;
 `;
 
 export const ActivityButton = styled.TouchableOpacity`
@@ -103,5 +106,12 @@ export const TimeContainer = styled.View`
   flex: 1;
   flex-direction: row;
   width: ${screenWidth * 0.9}px;
-  background-color:bl;
+`;
+
+export const LineView = styled.View`
+  width: ${screenWidth*0.75}px;
+  height: 1.4px;
+  background-color: ${colors.line};
+  margin:5px;
+  align-self: center;
 `;
