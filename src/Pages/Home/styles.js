@@ -24,13 +24,13 @@ export const View = styled.View`
 
 export const Subcontainer = styled.View`
   background-color: ${colors.background};
-  width: ${screenWidth * 1}px;
+  width: ${screenWidth}px;
   height: ${screenHeight * 0.32}px;
 `;
 
 export const ScrollView = styled.ScrollView`
   position: absolute;
-  top: 86px;
+  top: ${screenHeight*0.1}px;
   align-self: center;
 `;
 

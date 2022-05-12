@@ -43,7 +43,7 @@ export const ModalContainer = styled.View`
   width: ${screenWidth}px;
   height: ${screenHeight*0.22}px;
   flex-direction: column;
-  margin-top: ${screenHeight*0.4}px;;
+  margin-top: ${screenHeight*0.3}px;
   align-self: center;
 `;
 
@@ -56,7 +56,7 @@ export const CloseContainer = styled.TouchableOpacity`
   background-color: ${colors.modal};
   border-radius: 50px;
   position: absolute;
-  bottom: ${screenWidth * 0.05}px;
+  bottom: ${screenWidth * 0.16}px;
   left: ${screenWidth * 0.76}px;
   elevation: 5;
 `;

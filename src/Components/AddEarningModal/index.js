@@ -14,19 +14,7 @@ import {
 import Button from "../Button";
 import { colors, screenHeight, screenWidth } from "../../Constants/constants";
 
-const AddEarningModal = ({
-  marginTop,
-  marginLeft,
-  value,
-  label,
-  initialList,
-  setInitialList,
-  checkboxes,
-  setCheckboxes,
-  width,
-  height,
-  backgroundColor,
-}) => {
+const AddEarningModal = () => {
   const [isModalVisible, setModalVisible] = useState(false);
 
   const toggleModal = () => {

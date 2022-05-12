@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Container,
   Subcontainer,
@@ -28,40 +28,33 @@ import {
 } from "react-native-vector-icons";
 import { colors, screenHeight, screenWidth } from "../../Constants/constants";
 
+const getRemaining = (time) => {
+  const mins = Math.floor(time / 60);
+  const secs = time - mins * 60;
+  return { mins, secs };
+};
+
 export default function Home({ navigation }) {
-  const [seconds, setSeconds] = useState(0);
-  const [minutes, setMinutes] = useState(0);
-  const [customInterval, setCustomInterval] = useState();
+  const [remainingSecs, setRemainingSecs] = useState(0);
+  const [isActive, setIsActive] = useState(false);
+  const { mins, secs } = getRemaining(remainingSecs);
 
-  const startTimer = () => {
-    setCustomInterval(
-      setInterval(() => {
-        changeTime();
-      }, 1000)
-    );
+  const toggle = () => {
+    setIsActive(!isActive);
   };
 
-  const stopTimer = () => {
-    if (customInterval) {
-      clearInterval(customInterval);
+  useEffect(() => {
+    let interval = null;
+    if (isActive) {
+      interval = setInterval(() => {
+        setRemainingSecs((remainingSecs) => remainingSecs + 1);
+      }, 1000);
+    } else if (!isActive && remainingSecs !== 0) {
+      clearInterval(interval);
     }
-  };
 
-  const clear = () => {
-    stopTimer();
-    setSeconds(0);
-    setMinutes(0);
-  };
-
-  const changeTime = () => {
-    setSeconds((prevState) => {
-      if (prevState + 1 == 60) {
-        setMinutes(minutes + 1);
-        return 0;
-      }
-      return prevState + 1;
-    });
-  };
+    return () => clearInterval(interval);
+  }, [isActive, remainingSecs]);
 
   return (
     <SafeArea>
@@ -123,12 +116,16 @@ export default function Home({ navigation }) {
               marginLeft={20}
               marginTop={0}
             >
-              Clique no botão abaixo para começar e vamos {"\n"}
-              gravar automaticamente o seu tempo de {"\n"}
-              trabalho e a distância percorrida.
+              {isActive
+                ? "Estamos gravando automaticamente o seu\ntempo de trabalho e distância percorrida.\nClique no botão abaixo se quiser pausar."
+                : "Clique no botão abaixo para começar e vamos gravar automaticamente o seu tempo de\ntrabalho e a distância percorrida."}
             </Text>
-            <ActivityButton onPress={startTimer}>
-              <FontAwesome name="play" size={22} color={colors.icon} />
+            <ActivityButton onPress={toggle}>
+              <FontAwesome
+                name={isActive ? "stop" : "play"}
+                size={21}
+                color={colors.icon}
+              />
             </ActivityButton>
             <View
               marginTop={-screenHeight * 0.1}
@@ -167,8 +164,8 @@ export default function Home({ navigation }) {
                 marginLeft={10}
                 marginTop={0}
               >
-                {minutes < 10 ? "0" + minutes : minutes}:
-                {seconds < 10 ? "0" + seconds : seconds}
+                {/* {`${mins}:${secs}`} */}
+                {mins < 10 ? "0" + mins : mins}:{secs < 10 ? "0" + secs : secs}
               </Text>
             </View>
             <View
