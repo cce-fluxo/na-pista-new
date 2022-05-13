@@ -6,9 +6,9 @@ const api = axios.create({
 });
 
 api.interceptors.request.use(async (config) => {
-  const token = await AsyncStorage.getItem("@AppNaPista:token");
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+  const accessToken = await AsyncStorage.getItem("@AppNaPista:accessToken");
+  if (accessToken) {
+    config.headers.Authorization = `Bearer ${accessToken}`;
   }
   return config;
 });

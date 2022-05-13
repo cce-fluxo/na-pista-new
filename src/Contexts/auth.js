@@ -13,19 +13,18 @@ import api from "../Services/api";
 const AuthContext = createContext({});
 export default function AuthContextProvider({ children }) {
   const [signInLoading, setSignInLoading] = useState(true);
-  const [token, setToken] = useState("");
-  const [refresh_token, setRefresh_token] = useState("");
-  const [me, setMe] = useState({});
+  const [accessToken, setAccessToken] = useState("");
+  const [user, setUser] = useState({});
 
   const loadStoragedData = useCallback(async () => {
     setSignInLoading(true);
-    const [token, me] = await AsyncStorage.multiGet([
-      "@AppNaPista:token",
-      "@AppNaPista:me",
+    const [accessToken, user] = await AsyncStorage.multiGet([
+      "@AppNaPista:accessToken",
+      "@AppNaPista:user",
     ]);
-    if (token[1] && me[1]) {
-      setToken(token[1]);
-      setMe(JSON.parse(me[1]));
+    if (accessToken[1] && user[1]) {
+      setAccessToken(accessToken[1]);
+      setUser(JSON.parse(user[1]));
     }
     setSignInLoading(false);
   }, []);
@@ -39,7 +38,7 @@ export default function AuthContextProvider({ children }) {
         password,
       };
       const response = await api.post("/auth/login", data);
-      const { token, me, refresh_token } = response.data;
+      const { accessToken, user } = response.data
       console.log("Requisição enviada, resposta recebida");
 
       showMessage({
@@ -51,19 +50,17 @@ export default function AuthContextProvider({ children }) {
       });
 
       await AsyncStorage.multiSet([
-        ["@AppNaPista:refresh_token", refresh_token],
-        ["@AppNaPista:token", token],
-        ["@AppNaPista:me", JSON.stringify(me)],
+        ["@AppNaPista:accessToken", accessToken],
+        ["@AppNaPista:user", JSON.stringify(user)],
       ]);
 
-      setMe(me);
-      setRefresh_token(refresh_token);
-      setToken(token);
+      setUser(user);
+      setAccessToken(accessToken);
       navigation.navigate("Home");
     } catch (err) {
-      console.error(err);
+      console.log(err);
       showMessage({
-        message: "Erro ao efetuar o login",
+        message: "Nao foi possível efetuar o login!",
         type: "danger",
         icon: "danger",
       });
@@ -72,9 +69,9 @@ export default function AuthContextProvider({ children }) {
   }, []);
 
   const signOut = useCallback(async () => {
-    await AsyncStorage.multiRemove(["@AppNaPista:token", "@AppNaPista:me"]);
-    setToken("");
-    setMe({});
+    await AsyncStorage.multiRemove(["@AppNaPista:accessToken", "@AppNaPista:user"]);
+    setAccessToken("");
+    setUser({});
   }, []);
 
   useEffect(() => {
@@ -83,7 +80,7 @@ export default function AuthContextProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ signIn, signOut, token, me, setMe, signInLoading }}
+      value={{ signIn, signOut, accessToken, user, setUser, signInLoading }}
     >
       {children}
     </AuthContext.Provider>
