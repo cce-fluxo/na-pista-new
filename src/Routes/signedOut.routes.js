@@ -25,8 +25,7 @@ function SignedOutRoutes() {
         screenOptions={{
           headerShown: false,
         }}
-      >
-        <Stack.Screen name="Home" component={Home} />
+      > 
         <Stack.Screen name="First" component={FirstScreen} />
         <Stack.Screen name="Informacoes basicas" component={BasicInfo} />
         <Stack.Screen name="Login" component={Login} />
@@ -36,7 +35,7 @@ function SignedOutRoutes() {
         <Stack.Screen name="Plataformas" component={Platform} />
         <Stack.Screen name="Metas de Ganho" component={EarningGoals} />
         <Stack.Screen name="Sucesso" component={Success} />
-        
+        <Stack.Screen name="Home" component={Home} />        
         <Stack.Screen name="Menu Configurações" component={SettingsMenu} />
         <Stack.Screen name="Ajuda" component={SettingsHelp} />
         <Stack.Screen name="ExportarDados" component={SettingsExportData} />

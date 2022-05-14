@@ -6,8 +6,8 @@ import { useFonts, BebasNeue_400Regular } from '@expo-google-fonts/bebas-neue';
 import { Ubuntu_500Medium,Ubuntu_400Regular } from '@expo-google-fonts/ubuntu';
 
 
-
 export default function App() {
+
   const [fontsLoaded] = useFonts({
     BebasNeue_400Regular,
     Ubuntu_500Medium,
@@ -20,7 +20,7 @@ export default function App() {
   return (
     <>
       <StatusBar translucent backgroundColor={'black'} />
-      <SignedInRoutes/>
+      <SignedOutRoutes/>
     </>
   );
 }
