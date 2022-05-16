@@ -102,8 +102,8 @@ export default function Vehicles({ navigation, route }) {
         />
         <AddItemModal
           label="Adicionar novo veículo"
-          initialList={initialList}
-          setInitialList={setInitialList}
+          initialList={vehicles}
+          setInitialList={setVehicles}
           checkboxes={checkboxes}
           setCheckboxes={setCheckboxes}
         />

@@ -62,14 +62,14 @@ export default function BasicInfo({ navigation, route }) {
           title={"Nome"}
           marginLeft={0}
           marginTop={50}
-          onChangeText={onChangeEmail}
+          onChangeText={(text) => setFirstName(text)}
           placeholder=""
         />
         <Input
           title={"Sobrenome"}
           marginLeft={0}
           marginTop={30}
-          onChangeText={onChangePassword}
+          onChangeText={(text) => setLastName(text)}
           placeholder=""
         />
         <Dropdown label="Identidade de Gênero" data={data} marginTop={30} />

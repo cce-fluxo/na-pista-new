@@ -21,7 +21,7 @@ export default function CreateAccount({ navigation }) {
 
   async function checkEmail() {
     setLoading(true);
-    if (password === confirmPassword) {
+    if (!password || !confirmPassword || password === confirmPassword) {
       try {
         navigation.navigate("Informacoes basicas", { email, password });
       } catch (error) {
