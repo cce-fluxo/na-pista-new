@@ -13,7 +13,7 @@ export default function BasicInfo({ navigation, route }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [gender, setGender] = useState("m");
-  const [birthDate, setBirthDate] = useState("2022-05-15T18:25:51.090Z");
+  const [birthDate, setBirthDate] = useState("");
 
   function nextScreen() {
     if (!firstName || !lastName || !gender || !birthDate) {
@@ -72,8 +72,8 @@ export default function BasicInfo({ navigation, route }) {
           onChangeText={(text) => setLastName(text)}
           placeholder=""
         />
-        <Dropdown label="Identidade de Gênero" data={data} marginTop={30} />
-        <Date label="Data de Nascimento" marginTop={30} />
+        <Dropdown label="Identidade de Gênero" data={data} marginTop={30} setOption={setGender}/>
+        <Date label="Data de Nascimento" marginTop={30} marginLeft={0} date={birthDate} setDate={setBirthDate} />
 
         <ButtonContainer>
           <Button

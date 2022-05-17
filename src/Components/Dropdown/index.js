@@ -12,7 +12,7 @@ import {
 } from "./styles";
 import { colors, screenHeight } from "../../Constants/constants";
 
-const Dropdown = ({ label, data, marginTop, marginLeft, opacity }) => {
+const Dropdown = ({ label, data, marginTop, setOption }) => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [selectedValue, setSelectedValue] = useState({
     label: "Selecione...",
@@ -28,6 +28,7 @@ const Dropdown = ({ label, data, marginTop, marginLeft, opacity }) => {
       marginTop={20}
       onPress={() => {
         setSelectedValue(item);
+        setOption(item)
         setModalVisible(false);
       }}
     >

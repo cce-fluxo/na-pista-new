@@ -12,8 +12,9 @@ import {
 import SafeArea from "../../Utils/SafeArea";
 import Button from "../../Components/Button";
 import Input from "../../Components/Input";
+import api from "../../Services/api";
 
-export default function CreateAccount({ navigation }) {
+export default function CreateAccount({ navigation, route }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -21,9 +22,22 @@ export default function CreateAccount({ navigation }) {
 
   async function checkEmail() {
     setLoading(true);
-    if (!password || !confirmPassword || password === confirmPassword) {
+    if (password === confirmPassword) {
       try {
-        navigation.navigate("Informacoes basicas", { email, password });
+        const isAvailable = await api.post("/auth/email-availability", {
+          email,
+          password,
+        });
+        console.log(isAvailable)
+        if (!isAvailable) {
+          showMessage({
+            message: "Email ou senha não disponíveis!",
+            type: "danger",
+            icon: "danger",
+          });
+        } else {
+          navigation.navigate("Informacoes basicas", { email, password });
+        }
       } catch (error) {
         console.log(error);
       }

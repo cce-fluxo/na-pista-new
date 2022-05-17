@@ -1,22 +1,26 @@
-import {useState} from 'react';
+import { useState } from "react";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import Modal from "react-native-modal";
-import Icon from 'react-native-vector-icons/Entypo';
-import { colors } from '../../Constants/constants';
-import { Container, ModalContainer, Title, InputText,InputContainer } from './styles';
+import Icon from "react-native-vector-icons/Entypo";
+import { colors } from "../../Constants/constants";
+import {
+  Container,
+  ModalContainer,
+  Title,
+  InputText,
+  InputContainer,
+} from "./styles";
 
-
-const Date= ({label, marginTop, marginLeft} ) => {
+const Date = ({ label, marginTop, marginLeft, date, setDate }) => {
   const [isModalVisible, setModalVisible] = useState(false);
-  const [selectedValue, setSelectedValue] = useState('');
-  
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
 
-  const handleConfirm = (date) => {
-    console.warn("A date has been picked: ", date);
+  const handleConfirm = (datePicked) => {
+    console.warn("A date has been picked: ", datePicked);
+    setDate(datePicked);
     toggleModal();
   };
 
@@ -24,19 +28,19 @@ const Date= ({label, marginTop, marginLeft} ) => {
     <Container marginTop={marginTop} marginLeft={marginLeft}>
       <Title>{label}</Title>
       <InputContainer onPress={toggleModal}>
-        <InputText>{selectedValue}</InputText>
+        <InputText>{date}</InputText>
         <Icon name="calendar" size={30} color={colors.background} />
-      </InputContainer>  
-      
-          <DateTimePickerModal
-          isVisible={isModalVisible}
-          mode="date"
-          onConfirm={handleConfirm}
-          onCancel={toggleModal}
-          />
-        
+      </InputContainer>
+
+      <DateTimePickerModal
+        isVisible={isModalVisible}
+        mode="date"
+        onConfirm={handleConfirm}
+        onCancel={toggleModal}
+        onchange={(option) => setDate(option)}
+      />
     </Container>
   );
-}
+};
 
 export default Date;
