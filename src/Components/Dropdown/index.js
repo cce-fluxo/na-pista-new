@@ -28,7 +28,7 @@ const Dropdown = ({ label, data, marginTop, setOption }) => {
       marginTop={20}
       onPress={() => {
         setSelectedValue(item);
-        setOption(item)
+        setOption(item.value);
         setModalVisible(false);
       }}
     >

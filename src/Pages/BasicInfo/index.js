@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { showMessage } from "react-native-flash-message";
 
 import { Container, TitleContainer, Text, ButtonContainer } from "./styles";
@@ -46,6 +46,10 @@ export default function BasicInfo({ navigation, route }) {
       label: "Masculino",
     },
   ];
+
+  useEffect(() =>{
+    console.log(gender);
+  }, [gender],)
 
   return (
     <SafeArea>
