@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   Container,
   TitleContainer,
@@ -13,7 +13,44 @@ import Button from "../../Components/Button";
 import Checkbox from "../../Components/Checkbox";
 import AddItemModal from "../../Components/AddItemModal";
 
-export default function Platform({ navigation }) {
+export default function Platform({ navigation, route }) {
+  const {
+    email,
+    password,
+    firstName,
+    lastName,
+    gender,
+    birthDate,
+    state,
+    city,
+    neighborhood,
+    vehicles,
+  } = route.params;
+
+  function nextScreen() {
+    if (!vendors) {
+      showMessage({
+        message: "Falta preencher a lista de veículos!",
+        type: "danger",
+        icon: "danger",
+      });
+    } else {
+      navigation.navigate("Metas de Ganho", {
+        email,
+        password,
+        firstName,
+        lastName,
+        gender,
+        birthDate,
+        state,
+        city,
+        neighborhood,
+        vehicles,
+        vendors
+      });
+    }
+  }
+
   const [initialList, setInitialList] = useState([
     {
       id: 1,
