@@ -91,6 +91,8 @@ export default function CreateAccount({ navigation, route }) {
             text="Próximo"
             marginTop={350}
             marginLeft={0}
+            disabled={loading}
+            loading={loading}
             background={"white"}
             size={18}
             onPress={checkEmail}

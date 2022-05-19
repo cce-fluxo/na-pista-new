@@ -34,9 +34,8 @@ const AddItemModal = ({
   //   setModalVisible(false);
   // }
 
-  var key = checkboxes.length;
   function addItemToList() {
-    checkboxes.push({id: ++key, title: newItem});
+    checkboxes.push({name: newItem});
     setCheckboxes([...checkboxes]);
     setNewItem('');
     setModalVisible(false);

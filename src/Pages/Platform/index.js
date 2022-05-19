@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import {
   Container,
   TitleContainer,
@@ -12,6 +13,7 @@ import SafeArea from "../../Utils/SafeArea";
 import Button from "../../Components/Button";
 import Checkbox from "../../Components/Checkbox";
 import AddItemModal from "../../Components/AddItemModal";
+import api from "../../Services/api";
 
 export default function Platform({ navigation, route }) {
   const {
@@ -26,6 +28,16 @@ export default function Platform({ navigation, route }) {
     neighborhood,
     vehicles,
   } = route.params;
+
+  async function vendorsGet() {
+    try {
+      response = await api.get("/vendors");
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      return [];
+    }
+  }
 
   function nextScreen() {
     if (!vendors) {
@@ -51,36 +63,7 @@ export default function Platform({ navigation, route }) {
     }
   }
 
-  const [initialList, setInitialList] = useState([
-    {
-      id: 1,
-      title: "iFood",
-    },
-    {
-      id: 2,
-      title: "Rappi",
-    },
-    {
-      id: 3,
-      title: "Uber Eats",
-    },
-    {
-      id: 4,
-      title: "Loggi",
-    },
-    {
-      id: 5,
-      title: "Zé Delivery",
-    },
-    {
-      id: 6,
-      title: "99 Food",
-    },
-    {
-      id: 7,
-      title: "James",
-    },
-  ]);
+  const [initialList, setInitialList] = useState(vendorsGet);
 
   const [checkboxes, setCheckboxes] = useState(initialList);
 
@@ -119,7 +102,7 @@ export default function Platform({ navigation, route }) {
             marginLeft={0}
             background={"white"}
             size={18}
-            onPress={() => navigation.navigate("Metas de Ganho")}
+            onPress={nextScreen}
           />
         </ButtonContainer>
       </Container>

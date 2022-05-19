@@ -93,9 +93,24 @@ const WhereYouLive = ({ navigation, route }) => {
             especiais dos{"\n"} entregadores da sua região.
           </Text>
         </TitleContainer>
-        <Dropdown label="Estado" data={dataState} marginTop={30} setOption={setState}/>
-        <Dropdown label="Cidade" data={dataCity} marginTop={30} setOption={setCity}/>
-        <Dropdown label="Bairro" data={dataNeighborhood} marginTop={30} setOption={setNeighborhood}/>
+        <Dropdown
+          label="Estado"
+          data={dataState}
+          marginTop={30}
+          setOption={setState}
+        />
+        <Dropdown
+          label="Cidade"
+          data={dataCity}
+          marginTop={30}
+          setOption={setCity}
+        />
+        <Dropdown
+          label="Bairro"
+          data={dataNeighborhood}
+          marginTop={30}
+          setOption={setNeighborhood}
+        />
         <ButtonContainer>
           <Button
             width={"90%"}

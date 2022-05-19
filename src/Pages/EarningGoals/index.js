@@ -62,9 +62,10 @@ export default function EarningGoals({ navigation, route }) {
           text="Próximo"
           marginTop={20}
           marginLeft={0}
+          disabled={loading}
+          loading={loading}
           background={"white"}
           size={18}
-          disabled={false}
           onPress={() =>
             signUp(
               email,

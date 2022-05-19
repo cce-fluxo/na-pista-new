@@ -1,4 +1,5 @@
-import { useState } from "react";
+import React, { useState } from "react";
+
 import {
   Container,
   TitleContainer,
@@ -12,6 +13,7 @@ import SafeArea from "../../Utils/SafeArea";
 import Button from "../../Components/Button";
 import Checkbox from "../../Components/Checkbox";
 import AddItemModal from "../../Components/AddItemModal";
+import api from "../../Services/api";
 
 export default function Vehicles({ navigation, route }) {
   const {
@@ -25,36 +27,20 @@ export default function Vehicles({ navigation, route }) {
     city,
     neighborhood,
   } = route.params;
-  const [vehicles, setVehicles] = useState([
-    {
-      id: 1,
-      title: "A pé",
-    },
-    {
-      id: 2,
-      title: "Bicicleta",
-    },
-    {
-      id: 3,
-      title: "Bicicleta elétrica",
-    },
-    {
-      id: 4,
-      title: "Bicicleta motorizada",
-    },
-    {
-      id: 5,
-      title: "Moto",
-    },
-    {
-      id: 6,
-      title: "Carro",
-    },
-    {
-      id: 7,
-      title: "Patinete",
-    },
-  ]);
+
+  async function vehiclesGet() {
+    try {
+      response = await api.get("/vehicles");
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      return [];
+    }
+  }
+
+  const [initialList, setInitialList] = useState(vehiclesGet);
+
+  const [vehicles, setVehicles] = useState([]);
 
   function nextScreen() {
     if (!vehicles) {
