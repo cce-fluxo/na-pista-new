@@ -40,7 +40,7 @@ const Dropdown= ({label, data, marginTop, marginLeft, opacity
       <Title>{label}</Title>
       <SelectContainer onPress={toggleModal}>
         <SelectText>{selectedValue.label}</SelectText>
-        <Icon name="chevron-down" size={30} color={colors.background} />
+        <Icon name="chevron-down" size={30} color={colors.modalIcons} />
       </SelectContainer>  
 
 
