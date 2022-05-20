@@ -36,7 +36,7 @@ export default function SettingsMenu({
           marginRight={10}
           marginLeft={50}
           marginTop={0}
-          onPress={() => navigation.navigate("Plataformas")}
+          onPress={() => navigation.navigate("Perfil")}
         >
           <AntDesign name="right" size={22} color={colors.icon} />
         </IconContainer>
@@ -50,7 +50,7 @@ export default function SettingsMenu({
           marginRight={10}
           marginLeft={50}
           marginTop={0}
-          onPress={() => navigation.navigate("Plataformas")}
+          onPress={() => navigation.navigate("Configurações")}
         >
           <AntDesign name="right" size={22} color={colors.icon} />
         </IconContainer>
@@ -93,7 +93,7 @@ export default function SettingsMenu({
         marginLeft={0}
         marginRight={0}
         marginTop={50}
-        onPress={() => navigation.navigate("Home")}
+        onPress={() => navigation.navigate("Ajuda")}
       >
         <Text
           fontSize={20}

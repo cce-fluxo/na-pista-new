@@ -1,55 +1,62 @@
-import {useState} from 'react';
-import {
-  Container,
-  TitleContainer,
-  Text,
-  ButtonContainer,
-} from './styles';
-import SafeArea from '../../Utils/SafeArea';
-import Button from '../../Components/Button';
-import Input from '../../Components/Input';
+import React, { useState } from "react";
 
-export default function Login({navigation}) {
-  const [email,onChangeEmail]=useState('')
-  const [password,onChangePassword]=useState('')
+import { Container, TitleContainer, Text, ButtonContainer } from "./styles";
+import SafeArea from "../../Utils/SafeArea";
+import Button from "../../Components/Button";
+import Input from "../../Components/Input";
+import { useAuth } from "../../Contexts/auth";
+import {
+  colors,
+  screenHeight,
+  screenWidth,
+  fonts,
+} from "../../Constants/constants";
+
+export default function Login({ navigation }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const { signIn } = useAuth();
 
   return (
     <SafeArea>
       <Container>
-          <TitleContainer>
-            <Text>Login</Text>
-          </TitleContainer>
-          <Input 
-          title={'Email'}
+        <TitleContainer>
+          <Text>Login</Text>
+        </TitleContainer>
+        <Input
+          title={"Email"}
           marginLeft={0}
           marginTop={0}
-          keyboardType='email-address'
+          keyboardType="email-address"
           value={email}
-          onChangeText={onChangeEmail}
-          autoComplete='email'
-          placeholder=''
-          />
-          <Input 
-          title={'Senha'}
+          onChangeText={(text) => setEmail(text)}
+          autoComplete="email"
+          placeholder=""
+        />
+        <Input
+          title={"Senha"}
           marginLeft={0}
           marginTop={30}
           secureTextEntry
           value={password}
-          onChangeText={onChangePassword}
-          placeholder=''
+          onChangeText={(text) => setPassword(text)}
+          placeholder=""
+        />
+        <ButtonContainer>
+          <Button
+            width={"90%"}
+            text="Login"
+            marginTop={350}
+            marginLeft={0}
+            disabled={loading}
+            loading={loading}
+            background={"white"}
+            size={18}
+            onPress={() => signIn(email, password, setLoading, navigation)}
           />
-          <ButtonContainer>
-            <Button
-              width={'90%'}
-              text='Login'
-              marginTop={350}
-              marginLeft={0}
-              background={'white'}
-              size={18}
-              onPress={() => navigation.navigate('First')}
-            />
-          </ButtonContainer>
-      </Container>         
+        </ButtonContainer>
+      </Container>
     </SafeArea>
   );
 }

@@ -1,4 +1,5 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { showMessage } from "react-native-flash-message";
 
 import { Container, TitleContainer, Text, ButtonContainer } from "./styles";
 import SafeArea from "../../Utils/SafeArea";
@@ -7,9 +8,31 @@ import Input from "../../Components/Input";
 import Dropdown from "../../Components/Dropdown";
 import Date from "../../Components/Date";
 
-export default function BasicInfo({ navigation }) {
-  const [email, onChangeEmail] = useState("");
-  const [password, onChangePassword] = useState("");
+export default function BasicInfo({ navigation, route }) {
+  const { email, password } = route.params;
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [gender, setGender] = useState("m");
+  const [birthDate, setBirthDate] = useState("2022-05-19T19:16:09.259Z");
+
+  function nextScreen() {
+    if (!firstName || !lastName || !gender || !birthDate) {
+      showMessage({
+        message: "Alguma das informações falta ser preenchida!",
+        type: "danger",
+        icon: "danger",
+      });
+    } else {
+      navigation.navigate("Onde voce mora", {
+        email,
+        password,
+        firstName,
+        lastName,
+        gender,
+        birthDate,
+      });
+    }
+  }
 
   const data = [
     {
@@ -23,6 +46,10 @@ export default function BasicInfo({ navigation }) {
       label: "Masculino",
     },
   ];
+
+  useEffect(() => {
+    console.log(gender);
+  }, [gender]);
 
   return (
     <SafeArea>
@@ -51,7 +78,6 @@ export default function BasicInfo({ navigation }) {
         />
         <Dropdown label="Identidade de Gênero" data={data} marginTop={30} />
         <Date marginTop={30} marginLeft={0} label="Data de Nascimento" />
-
         <ButtonContainer>
           <Button
             width={"90%"}
@@ -60,7 +86,7 @@ export default function BasicInfo({ navigation }) {
             marginLeft={0}
             background={"white"}
             size={18}
-            onPress={() => navigation.navigate("Onde voce mora")}
+            onPress={nextScreen}
           />
         </ButtonContainer>
       </Container>

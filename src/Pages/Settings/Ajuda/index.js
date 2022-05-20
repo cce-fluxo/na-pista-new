@@ -10,6 +10,7 @@ import {
   screenWidth,
   fonts,
 } from "../../../Constants/constants";
+import { NativeScreenNavigationContainer } from "react-native-screens";
 
 export default function SettingsHelp({ navigation }) {
   const [help, setHelp] = useState("");
@@ -19,6 +20,7 @@ export default function SettingsHelp({ navigation }) {
     setLoading(true);
     try {
       console.log(help);
+      navigation.navigate("Menu Configurações");
     } catch (error) {
       console.error(error);
     }
@@ -30,7 +32,7 @@ export default function SettingsHelp({ navigation }) {
       <Container>
         <Header
           name="Ajuda"
-          onPressNavigate={() => navigation.navigate("SettingsMenu")}
+          onPressNavigate={() => navigation.navigate("Menu Configurações")}
         />
         <HelpText
           marginTop={screenHeight * 0.022}
@@ -56,7 +58,7 @@ export default function SettingsHelp({ navigation }) {
         <Button
           width={screenWidth * 0.91}
           marginLeft={0}
-          marginTop={screenHeight * 0.3}
+          marginTop={screenHeight * 0.275}
           disabled={loading}
           loading={loading}
           text="Enviar"

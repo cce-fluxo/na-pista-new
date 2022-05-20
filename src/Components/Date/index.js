@@ -2,11 +2,16 @@ import {useState} from 'react';
 // import DateTimePickerModal from "react-native-modal-datetime-picker";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Modal from "react-native-modal";
-import Icon from 'react-native-vector-icons/Entypo';
-import { colors } from '../../Constants/constants';
-import { Container, ModalContainer, Title, InputText,InputContainer } from './styles';
+import Icon from "react-native-vector-icons/Entypo";
+import { colors } from "../../Constants/constants";
+import {
+  Container,
+  ModalContainer,
+  Title,
+  InputText,
+  InputContainer,
+} from "./styles";
 
-  
 const DatePicker= ({label, marginTop, marginLeft} ) => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [text, setText] = useState('Selecione...');
@@ -55,6 +60,6 @@ const DatePicker= ({label, marginTop, marginLeft} ) => {
       />)}
     </Container>
   );
-}
+};
 
 export default DatePicker;
