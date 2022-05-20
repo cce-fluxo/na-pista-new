@@ -25,19 +25,11 @@ const AddItemModal = ({
     console.log(isModalVisible);
   };
 
-  // const addItemToList = () => {
-  //   var newArray = ({...initialList , id: idx, title: newItem});
-  //   incr(idx + 1);
-  //   console.log(initialList.length);
-  //   setInitialList(newArray);
-  //   setCheckboxes(newArray);
-  //   setModalVisible(false);
-  // }
-
+  var key = checkboxes.length;
   function addItemToList() {
-    checkboxes.push({name: newItem});
+    checkboxes.push({ id: ++key, title: newItem });
     setCheckboxes([...checkboxes]);
-    setNewItem('');
+    setNewItem("");
     setModalVisible(false);
   }
 

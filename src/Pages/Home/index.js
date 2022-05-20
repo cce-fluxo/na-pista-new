@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Container,
   Subcontainer,
@@ -13,9 +13,12 @@ import {
   ProgressBarContainer,
   ActivityButton,
   TimeContainer,
+  LineView,
 } from "./styles";
 import SafeArea from "../../Utils/SafeArea";
 import Button from "../../Components/Button";
+import Progress from "../../Components/Progress";
+import AddEarningModal from "../../Components/AddEarningModal";
 import {
   Ionicons,
   AntDesign,
@@ -25,30 +28,55 @@ import {
 } from "react-native-vector-icons";
 import { colors, screenHeight, screenWidth } from "../../Constants/constants";
 
-export default function Home({
-  navigation,
-  marginRight,
-  marginLeft,
-  marginTop,
-  width,
-  height,
-  borderRadius,
-  elevation,
-  fontSize,
-  lineHeight,
-  color,
-  justifyContent,
-}) {
+const getRemaining = (time) => {
+  const mins = Math.floor(time / 60);
+  const secs = time - mins * 60;
+  return { mins, secs };
+};
+
+export default function Home({ navigation }) {
+  const [remainingSecs, setRemainingSecs] = useState(0);
+  const [isActive, setIsActive] = useState(false);
+  const { mins, secs } = getRemaining(remainingSecs);
+
+  const toggle = () => {
+    setIsActive(!isActive);
+  };
+
+  useEffect(() => {
+    let interval = null;
+    if (isActive) {
+      interval = setInterval(() => {
+        setRemainingSecs((remainingSecs) => remainingSecs + 1);
+      }, 1000);
+    } else if (!isActive && remainingSecs !== 0) {
+      clearInterval(interval);
+    }
+
+    return () => clearInterval(interval);
+  }, [isActive, remainingSecs]);
+
   return (
     <SafeArea>
       <MainContainer showsVerticalScrollIndicator={false}>
         <Subcontainer>
-          <TextContainer justifyContent={"space-between"}>
-            <Text fontSize={20} lineHeight={30} color="black" marginLeft={20}>
+          <TextContainer
+            justifyContent={"space-between"}
+            marginTop={10}
+            maxWidth={screenWidth}
+            marginLeft={0}
+          >
+            <Text
+              fontSize={20}
+              lineHeight={30}
+              color="black"
+              marginLeft={20}
+              marginTop={0}
+            >
               Bom dia, Daniel
             </Text>
             <IconContainer
-              marginRight={-100}
+              marginRight={-28}
               onPress={() => navigation.navigate("Plataformas")}
             >
               <AntDesign name="plus" size={24} color={colors.icon} />
@@ -70,12 +98,14 @@ export default function Home({
             elevation={4}
             borderRadius={8}
             marginLeft={0}
+            marginBottom={0}
           >
             <Text
               fontSize={16}
               lineHeight={50}
               color={colors.icon}
               marginLeft={20}
+              marginTop={0}
             >
               Jornada do dia
             </Text>
@@ -84,13 +114,18 @@ export default function Home({
               lineHeight={20}
               color={colors.inputTitle}
               marginLeft={20}
+              marginTop={0}
             >
-              Clique no botão abaixo para começar e vamos {"\n"}
-              gravar automaticamente o seu tempo de {"\n"}
-              trabalho e a distância percorrida.
+              {isActive
+                ? "Estamos gravando automaticamente o seu\ntempo de trabalho e distância percorrida.\nClique no botão abaixo se quiser pausar."
+                : "Clique no botão abaixo para começar e vamos gravar automaticamente o seu tempo de\ntrabalho e a distância percorrida."}
             </Text>
-            <ActivityButton>
-              <FontAwesome name="play" size={22} color={colors.icon} />
+            <ActivityButton onPress={toggle}>
+              <FontAwesome
+                name={isActive ? "stop" : "play"}
+                size={21}
+                color={colors.icon}
+              />
             </ActivityButton>
             <View
               marginTop={-screenHeight * 0.1}
@@ -99,8 +134,14 @@ export default function Home({
               elevation={0}
               borderRadius={8}
               marginLeft={-screenWidth * 0.1}
+              marginBottom={0}
             >
-              <TextContainer justifyContent={"space-around"}>
+              <TextContainer
+                justifyContent={"space-around"}
+                marginTop={10}
+                maxWidth={screenWidth * 0.2}
+                marginLeft={15}
+              >
                 <Fontisto
                   name="stopwatch"
                   size={20}
@@ -110,7 +151,8 @@ export default function Home({
                   fontSize={12}
                   lineHeight={18}
                   color={colors.inputTitle}
-                  marginLeft={-10}
+                  marginLeft={5}
+                  marginTop={0}
                 >
                   TEMPO
                 </Text>
@@ -120,25 +162,33 @@ export default function Home({
                 lineHeight={31}
                 color={colors.time}
                 marginLeft={10}
+                marginTop={0}
               >
-                00:00
+                {mins < 10 ? "0" + mins : mins}:{secs < 10 ? "0" + secs : secs}
               </Text>
             </View>
             <View
-              marginTop={-screenHeight * 0.11}
+              marginTop={-screenHeight * 0.1}
               width={screenWidth * 0.28}
               height={screenHeight * 0.1}
               elevation={0}
               borderRadius={8}
               marginLeft={screenWidth * 0.55}
+              marginBottom={0}
             >
-              <TextContainer justifyContent={"space-around"}>
+              <TextContainer
+                justifyContent={"space-around"}
+                marginTop={10}
+                maxWidth={screenWidth * 0.8}
+                marginLeft={5}
+              >
                 <Entypo name="swap" size={20} color={colors.inputTitle} />
                 <Text
                   fontSize={12}
                   lineHeight={18}
                   color={colors.inputTitle}
-                  marginLeft={0}
+                  marginLeft={2}
+                  marginTop={0}
                 >
                   DISTÂNCIA
                 </Text>
@@ -148,6 +198,7 @@ export default function Home({
                 lineHeight={31}
                 color={colors.time}
                 marginLeft={20}
+                marginTop={0}
               >
                 0
               </Text>
@@ -160,13 +211,20 @@ export default function Home({
             elevation={4}
             borderRadius={8}
             marginLeft={0}
+            marginBottom={screenWidth * 0.3}
           >
-            <TextContainer justifyContent={"space-between"}>
+            <TextContainer
+              justifyContent={"space-between"}
+              marginTop={10}
+              maxWidth={screenWidth}
+              marginLeft={0}
+            >
               <Text
                 fontSize={16}
                 lineHeight={20}
                 color={colors.icon}
-                marginLeft={20}
+                marginLeft={30}
+                marginTop={0}
               >
                 Metas desta semana
               </Text>
@@ -177,17 +235,86 @@ export default function Home({
                 <AntDesign name="right" size={18} color={colors.icon} />
               </IconContainer>
             </TextContainer>
+            <ProgressBarContainer
+              height={screenHeight * 0.1}
+              width={screenWidth * 0.84}
+              flexDirection={"row"}
+              marginTop={0}
+            >
+              <Progress
+                text={"Dom"}
+                color={colors.modalIcons}
+                progress={0.5}
+                height={14}
+                borderRadius={0}
+                width={screenWidth * 0.17}
+              />
+              <Progress
+                text={"Seg"}
+                color={colors.earningGoalDayOff}
+                progress={0}
+                height={14}
+                borderRadius={0}
+                width={screenWidth * 0.17}
+              />
+              <Progress
+                text={"Ter"}
+                color={colors.earningGoalDayOff}
+                progress={0}
+                height={14}
+                borderRadius={0}
+                width={screenWidth * 0.17}
+              />
+              <Progress
+                text={"Qua"}
+                color={colors.earningGoalDayOff}
+                progress={0}
+                height={14}
+                borderRadius={0}
+                width={screenWidth * 0.17}
+              />
+              <Progress
+                text={"Qui"}
+                color={colors.earningGoalDayOff}
+                progress={0}
+                height={14}
+                borderRadius={0}
+                width={screenWidth * 0.17}
+              />
+              <Progress
+                text={"Sex"}
+                color={colors.earningGoalDayOff}
+                progress={0.2}
+                height={14}
+                borderRadius={0}
+                width={screenWidth * 0.17}
+              />
+              <Progress
+                text={"Sab"}
+                color={colors.earningGoalDayOff}
+                progress={0.8}
+                height={14}
+                borderRadius={0}
+                width={screenWidth * 0.17}
+              />
+            </ProgressBarContainer>
           </View>
         </Container>
 
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
           <EarningContainer marginRight={0} marginLeft={28}>
-            <TextContainer justifyContent={"space-between"}>
+            <TextContainer
+              justifyContent={"space-between"}
+              marginTop={10}
+              maxWidth={screenWidth}
+              marginLeft={0}
+            >
               <Text
                 fontSize={13}
                 lineHeight={20}
                 color={colors.inputTitle}
                 marginLeft={20}
+                marginTop={0}
               >
                 HOJE
               </Text>
@@ -198,16 +325,122 @@ export default function Home({
                 <AntDesign name="right" size={18} color={colors.icon} />
               </IconContainer>
             </TextContainer>
-            <ProgressBarContainer></ProgressBarContainer>
+            <Text
+              fontSize={14}
+              lineHeight={15}
+              color={colors.inputTitle}
+              marginLeft={30}
+              marginTop={10}
+            >
+              Meta Diária
+            </Text>
+            <ProgressBarContainer
+              rotate={true}
+              height={0}
+              width={0}
+              flexDirection={"column"}
+              marginTop={15}
+            >
+              <Progress
+                color={colors.earningGoalDayOff}
+                progress={0.5}
+                height={8}
+                borderRadius={20}
+                width={screenWidth * 0.72}
+              />
+            </ProgressBarContainer>
+            <TextContainer
+              justifyContent={"space-between"}
+              marginTop={10}
+              maxWidth={screenWidth * 0.76}
+              marginLeft={screenWidth * 0.05}
+            >
+              <Text
+                fontSize={14}
+                lineHeight={20}
+                color={colors.modalIcons}
+                marginLeft={0}
+                marginTop={-10}
+              >
+                R$12
+              </Text>
+              <Text
+                fontSize={14}
+                lineHeight={20}
+                color={colors.inputTitle}
+                marginLeft={0}
+                marginTop={-10}
+              >
+                R$80
+              </Text>
+            </TextContainer>
+            <LineView />
+            <TextContainer
+              justifyContent={"space-between"}
+              marginTop={15}
+              maxWidth={screenWidth * 0.76}
+              marginLeft={screenWidth * 0.05}
+            >
+              <Text
+                fontSize={16}
+                lineHeight={20}
+                color={colors.inputTitle}
+                marginLeft={0}
+                marginTop={-10}
+              >
+                Ganhos
+              </Text>
+              <Text
+                fontSize={16}
+                lineHeight={20}
+                color={colors.positive}
+                marginLeft={0}
+                marginTop={-10}
+              >
+                + R$12,00
+              </Text>
+            </TextContainer>
+            <LineView />
+            <TextContainer
+              justifyContent={"space-between"}
+              marginTop={15}
+              maxWidth={screenWidth * 0.76}
+              marginLeft={screenWidth * 0.05}
+            >
+              <Text
+                fontSize={16}
+                lineHeight={20}
+                color={colors.inputTitle}
+                marginLeft={0}
+                marginTop={-10}
+              >
+                Gastos
+              </Text>
+              <Text
+                fontSize={16}
+                lineHeight={20}
+                color={colors.negative}
+                marginLeft={0}
+                marginTop={-10}
+              >
+                - R$8,00
+              </Text>
+            </TextContainer>
           </EarningContainer>
 
           <EarningContainer marginRight={0} marginLeft={20}>
-            <TextContainer justifyContent={"space-between"}>
+            <TextContainer
+              justifyContent={"space-between"}
+              marginTop={10}
+              maxWidth={screenWidth}
+              marginLeft={0}
+            >
               <Text
                 fontSize={13}
                 lineHeight={20}
                 color={colors.inputTitle}
                 marginLeft={20}
+                marginTop={0}
               >
                 ESTA SEMANA
               </Text>
@@ -218,15 +451,121 @@ export default function Home({
                 <AntDesign name="right" size={18} color={colors.icon} />
               </IconContainer>
             </TextContainer>
+            <Text
+              fontSize={14}
+              lineHeight={15}
+              color={colors.inputTitle}
+              marginLeft={30}
+              marginTop={10}
+            >
+              Meta Semanal
+            </Text>
+            <ProgressBarContainer
+              rotate={true}
+              height={0}
+              width={0}
+              flexDirection={"column"}
+              marginTop={15}
+            >
+              <Progress
+                color={colors.earningGoalDayOff}
+                progress={0.2}
+                height={8}
+                borderRadius={20}
+                width={screenWidth * 0.72}
+              />
+            </ProgressBarContainer>
+            <TextContainer
+              justifyContent={"space-between"}
+              marginTop={15}
+              maxWidth={screenWidth * 0.76}
+              marginLeft={screenWidth * 0.05}
+            >
+              <Text
+                fontSize={14}
+                lineHeight={20}
+                color={colors.modalIcons}
+                marginLeft={0}
+                marginTop={-10}
+              >
+                R$140
+              </Text>
+              <Text
+                fontSize={14}
+                lineHeight={20}
+                color={colors.inputTitle}
+                marginLeft={0}
+                marginTop={-10}
+              >
+                R$500
+              </Text>
+            </TextContainer>
+            <LineView />
+            <TextContainer
+              justifyContent={"space-between"}
+              marginTop={15}
+              maxWidth={screenWidth * 0.76}
+              marginLeft={screenWidth * 0.05}
+            >
+              <Text
+                fontSize={16}
+                lineHeight={20}
+                color={colors.inputTitle}
+                marginLeft={0}
+                marginTop={-10}
+              >
+                Ganhos
+              </Text>
+              <Text
+                fontSize={16}
+                lineHeight={20}
+                color={colors.positive}
+                marginLeft={0}
+                marginTop={-10}
+              >
+                + R$140,00
+              </Text>
+            </TextContainer>
+            <LineView />
+            <TextContainer
+              justifyContent={"space-between"}
+              marginTop={15}
+              maxWidth={screenWidth * 0.76}
+              marginLeft={screenWidth * 0.05}
+            >
+              <Text
+                fontSize={16}
+                lineHeight={20}
+                color={colors.inputTitle}
+                marginLeft={0}
+                marginTop={-10}
+              >
+                Gastos
+              </Text>
+              <Text
+                fontSize={16}
+                lineHeight={20}
+                color={colors.negative}
+                marginLeft={0}
+                marginTop={-10}
+              >
+                - R$43,00
+              </Text>
+            </TextContainer>
           </EarningContainer>
-
           <EarningContainer marginRight={20} marginLeft={20}>
-            <TextContainer justifyContent={"space-between"}>
+            <TextContainer
+              justifyContent={"space-between"}
+              marginTop={10}
+              maxWidth={screenWidth}
+              marginLeft={0}
+            >
               <Text
                 fontSize={13}
                 lineHeight={20}
                 color={colors.inputTitle}
                 marginLeft={20}
+                marginTop={0}
               >
                 ESTE MÊS
               </Text>
@@ -237,9 +576,111 @@ export default function Home({
                 <AntDesign name="right" size={18} color={colors.icon} />
               </IconContainer>
             </TextContainer>
+            <Text
+              fontSize={14}
+              lineHeight={15}
+              color={colors.inputTitle}
+              marginLeft={30}
+              marginTop={10}
+            >
+              Meta Mensal
+            </Text>
+            <ProgressBarContainer
+              rotate={true}
+              height={0}
+              width={0}
+              flexDirection={"column"}
+              marginTop={15}
+            >
+              <Progress
+                color={colors.earningGoalDayOff}
+                progress={0.5}
+                height={8}
+                borderRadius={20}
+                width={screenWidth * 0.72}
+              />
+            </ProgressBarContainer>
+            <TextContainer
+              justifyContent={"space-between"}
+              marginTop={15}
+              maxWidth={screenWidth * 0.76}
+              marginLeft={screenWidth * 0.05}
+            >
+              <Text
+                fontSize={14}
+                lineHeight={20}
+                color={colors.modalIcons}
+                marginLeft={0}
+                marginTop={-10}
+              >
+                R$1130
+              </Text>
+              <Text
+                fontSize={14}
+                lineHeight={20}
+                color={colors.inputTitle}
+                marginLeft={0}
+                marginTop={-10}
+              >
+                R$2.000
+              </Text>
+            </TextContainer>
+            <LineView />
+            <TextContainer
+              justifyContent={"space-between"}
+              marginTop={10}
+              maxWidth={screenWidth * 0.76}
+              marginLeft={screenWidth * 0.05}
+            >
+              <Text
+                fontSize={16}
+                lineHeight={20}
+                color={colors.inputTitle}
+                marginLeft={0}
+                marginTop={-10}
+              >
+                Ganhos
+              </Text>
+              <Text
+                fontSize={16}
+                lineHeight={20}
+                color={colors.positive}
+                marginLeft={0}
+                marginTop={-10}
+              >
+                + R$1130,00
+              </Text>
+            </TextContainer>
+            <LineView />
+            <TextContainer
+              justifyContent={"space-between"}
+              marginTop={10}
+              maxWidth={screenWidth * 0.76}
+              marginLeft={screenWidth * 0.05}
+            >
+              <Text
+                fontSize={16}
+                lineHeight={20}
+                color={colors.inputTitle}
+                marginLeft={0}
+                marginTop={-10}
+              >
+                Gastos
+              </Text>
+              <Text
+                fontSize={16}
+                lineHeight={20}
+                color={colors.negative}
+                marginLeft={0}
+                marginTop={-10}
+              >
+                - R$729,00
+              </Text>
+            </TextContainer>
           </EarningContainer>
         </ScrollView>
       </MainContainer>
+      <AddEarningModal />
     </SafeArea>
   );
 }

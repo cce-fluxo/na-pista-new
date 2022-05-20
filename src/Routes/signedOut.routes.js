@@ -20,7 +20,7 @@ function SignedOutRoutes() {
         screenOptions={{
           headerShown: false,
         }}
-      >
+      > 
         <Stack.Screen name="First" component={FirstScreen} />
         <Stack.Screen name="Informacoes basicas" component={BasicInfo} />
         <Stack.Screen name="Login" component={Login} />

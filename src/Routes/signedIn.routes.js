@@ -1,31 +1,77 @@
 import * as React from "react";
+import Home from '../Pages/Home'
+import First from '../Pages/FirstScreen'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {colors, screenHeight, screenWidth} from '../Constants/constants';
+import { Entypo, MaterialIcons } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
 
-import Home from "../Pages/Home";
-import SettingsMenu from '../Pages/SettingsMenu';
-import SettingsHelp from "../Pages/Settings/Ajuda/index";
-import SettingsExportData from "../Pages/Settings/ExportarDados/index";
-import SettingsPerfil from "../Pages/Settings/Perfil/index";
-import Settings from "../Pages/Settings/Configurações/index";
 
-const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
-function SignedOutRoutes() {
+function SignedInRoutes() {
   return (
-      <Stack.Navigator
+    <NavigationContainer>
+        <Tab.Navigator
+        initialRouteName="Home"
         screenOptions={{
-          headerShown: false,
+            headerShown: false,
+            style: {
+            position: 'absolute',
+            height: screenHeight * 0.1,
+            minHeight: 60,
+            },
+            showLabel: true,
+            labelStyle: { fontSize: 14 },
+            tabBarActiveTintColor: colors.background
         }}
-      >
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Menu Configurações" component={SettingsMenu} />
-        <Stack.Screen name="Ajuda" component={SettingsHelp} />
-        <Stack.Screen name="ExportarDados" component={SettingsExportData} />
-        <Stack.Screen name="Perfil" component={SettingsPerfil} />
-        <Stack.Screen name="Configurações" component={Settings} />
-      </Stack.Navigator>
-  );
+        >
+        <Tab.Screen
+            name="Home"
+            component={Home}
+            options={{
+            tabBarLabel: 'Início',
+            tabBarIcon: ({ focused }) => (
+                <Entypo
+                name="home"
+                size={25}
+                color={focused ? colors.background : colors.inputTitle}
+                />
+            ),
+            }}
+        />
+        <Tab.Screen
+            name="Atividades"
+            component={First}
+            options={{
+            tabBarLabel: 'Atividades',
+            tabBarIcon: ({ focused }) => (
+                <MaterialIcons
+                name="list-alt"
+                size={25}
+                color={focused ? colors.background : colors.inputTitle}
+                />
+            ),
+            }}
+        />
+            <Tab.Screen
+                name="Resultados"
+                component={Home}
+                options={{
+                tabBarLabel: 'Resultados',
+                tabBarIcon: ({ focused }) => (
+                    <MaterialIcons
+                    name="bar-chart"
+                    size={25}
+                    color={focused ? colors.background : colors.inputTitle}
+                    />
+                ),
+                }}
+            />
+
+        </Tab.Navigator>
+</NavigationContainer>
+);
 }
 
-export default SignedOutRoutes;
+export default SignedInRoutes;

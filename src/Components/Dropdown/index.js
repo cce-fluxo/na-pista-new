@@ -41,12 +41,12 @@ const Dropdown = ({ label, data, marginTop, setOption }) => {
       <Title>{label}</Title>
       <SelectContainer onPress={toggleModal}>
         <SelectText>{selectedValue.label}</SelectText>
-        <Icon name="chevron-down" size={30} color={colors.background} />
-      </SelectContainer>
-      <Modal
-        isVisible={isModalVisible}
-        onBackdropPress={() => setModalVisible(false)}
-      >
+        <Icon name="chevron-down" size={30} color={colors.modalIcons} />
+      </SelectContainer>  
+
+
+      <Modal isVisible={isModalVisible}
+      onBackdropPress={() => setModalVisible(false)}>
         <ModalContainer>
           {data.map((item, index) => (
             <Item key={index} item={item} />
