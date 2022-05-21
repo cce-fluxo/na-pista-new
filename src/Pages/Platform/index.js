@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import {
   Container,
@@ -28,21 +28,23 @@ export default function Platform({ navigation, route }) {
     neighborhood,
     vehicles,
   } = route.params;
+  const [checkboxes, setCheckboxes] = useState([]);
+  const [vendors, setVendors] = useState([]);
 
   async function vendorsGet() {
     try {
       response = await api.get("/vendors");
-      return response.data;
+      console.log(response.data);
+      setCheckboxes(response.data);
     } catch (error) {
       console.log(error);
-      return [];
     }
   }
 
   function nextScreen() {
     if (!vendors) {
       showMessage({
-        message: "Falta preencher a lista de veículos!",
+        message: "Falta preencher a lista de plataformas!",
         type: "danger",
         icon: "danger",
       });
@@ -63,11 +65,11 @@ export default function Platform({ navigation, route }) {
     }
   }
 
-  const [initialList, setInitialList] = useState(vendorsGet);
+  useEffect(() => {
+    vendorsGet();
+  }, [])
 
-  const [checkboxes, setCheckboxes] = useState(initialList);
-
-  const Item = ({ item }) => <Checkbox marginTop={30} label={item.title} />;
+  const Item = ({ item }) => <Checkbox marginTop={30} label={item.name} />;
 
   const renderItem = ({ item }) => <Item item={item} />;
 
@@ -89,8 +91,8 @@ export default function Platform({ navigation, route }) {
         />
         <AddItemModal
           label="Adicionar nova plataforma"
-          initialList={initialList}
-          setInitialList={setInitialList}
+          initialList={vendors}
+          setInitialList={setVendors}
           checkboxes={checkboxes}
           setCheckboxes={setCheckboxes}
         />

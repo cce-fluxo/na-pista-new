@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import {
   Container,
@@ -27,20 +27,18 @@ export default function Vehicles({ navigation, route }) {
     city,
     neighborhood,
   } = route.params;
-
+  const [checkboxes, setCheckboxes] = useState([]);
+  const [vehicles, setVehicles] = useState([]);
+  
   async function vehiclesGet() {
     try {
       response = await api.get("/vehicles");
-      return response.data;
+      console.log(response.data);
+      setCheckboxes(response.data);
     } catch (error) {
       console.log(error);
-      return [];
     }
   }
-
-  const [initialList, setInitialList] = useState(vehiclesGet);
-
-  const [vehicles, setVehicles] = useState([]);
 
   function nextScreen() {
     if (!vehicles) {
@@ -65,9 +63,11 @@ export default function Vehicles({ navigation, route }) {
     }
   }
 
-  const [checkboxes, setCheckboxes] = useState(initialList);
+  useEffect(() => {
+    vehiclesGet();
+  }, [])
 
-  const Item = ({ item }) => <Checkbox marginTop={30} label={item.title} />;
+  const Item = ({ item }) => <Checkbox marginTop={30} label={item.name} />;
 
   const renderItem = ({ item }) => <Item item={item} />;
 
