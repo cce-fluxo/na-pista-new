@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 import {colors,screenHeight, screenWidth,fonts} from '../../Constants/constants';
 
 export const Container = styled.View`
-  width: ${screenWidth * 0.817}px;
+  width: ${screenWidth * 0.9}px;
   max-height: 72px;
   flex:1;
   align-self: center;
@@ -26,7 +26,7 @@ export const InputText = styled.TextInput.attrs({
   selectionColor:   'blue',
 })`
   
-  width: ${screenWidth * 0.817}px;
+  width: ${screenWidth * 0.9}px;
   height: 54px;
   background-color: white;
   border-radius: 3.5px;

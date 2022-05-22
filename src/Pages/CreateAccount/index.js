@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { showMessage } from "react-native-flash-message";
+import {TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, ActivityIndicator} from 'react-native'
+import {colors} from "../../Constants/constants"
+import { AntDesign } from "react-native-vector-icons";
 
 import {
   Container,
@@ -8,6 +11,7 @@ import {
   ButtonContainer,
   BottomText,
   UnderlineText,
+  IconContainer
 } from "./styles";
 import SafeArea from "../../Utils/SafeArea";
 import Button from "../../Components/Button";
@@ -28,7 +32,7 @@ export default function CreateAccount({ navigation, route }) {
           email,
           password,
         });
-        console.log(isAvailable)
+        console.log(isAvailable);
         if (!isAvailable) {
           showMessage({
             message: "Email ou senha não disponíveis!",
@@ -52,58 +56,79 @@ export default function CreateAccount({ navigation, route }) {
   }
 
   return (
-    <SafeArea>
-      <Container>
-        <TitleContainer>
-          <Text>Criar conta</Text>
-        </TitleContainer>
-        <Input
-          title={"Login"}
-          marginLeft={0}
-          marginTop={0}
-          keyboardType="email-address"
-          value={email}
-          onChangeText={(text) => setEmail(text)}
-          autoComplete="email"
-          placeholder=""
-        />
-        <Input
-          title={"Senha"}
-          marginLeft={0}
-          marginTop={30}
-          secureTextEntry
-          value={password}
-          onChangeText={(text) => setPassword(text)}
-          placeholder=""
-        />
-        <Input
-          title={"Repita a senha"}
-          marginLeft={0}
-          marginTop={30}
-          secureTextEntry
-          value={confirmPassword}
-          onChangeText={(text) => setConfirmPassword(text)}
-          placeholder=""
-        />
-        <ButtonContainer>
-          <Button
-            width={"90%"}
-            text="Próximo"
-            marginTop={350}
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={{ flex: 1, backgroundColor: `${colors.background}` }}
+    >
+      <SafeArea>
+        <Container>
+          <TitleContainer>
+            <IconContainer
+              marginRight={40}
+              marginLeft={0}
+              marginTop={20}
+              onPress={() => navigation.goBack()}
+            >
+              <AntDesign name="left" size={24} color={colors.icon} />
+            </IconContainer>
+            <Text>Criar conta</Text>
+          </TitleContainer>
+          <Input
+            title={"Email"}
             marginLeft={0}
-            disabled={loading}
-            loading={loading}
-            background={"white"}
-            size={18}
-            onPress={checkEmail}
+            marginTop={0}
+            keyboardType="email-address"
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+            autoComplete="email"
+            placeholder=""
           />
-          <BottomText>
-            Ao realizar seu cadastro você concorda com nossos {""}
-            <UnderlineText>Termos de Uso</UnderlineText> {""}e{" "}
-            <UnderlineText>Termos de Privacidade.</UnderlineText>
-          </BottomText>
-        </ButtonContainer>
-      </Container>
-    </SafeArea>
+          <Input
+            title={"Senha"}
+            marginLeft={0}
+            marginTop={30}
+            secureTextEntry
+            value={password}
+            onChangeText={(text) => setPassword(text)}
+            placeholder=""
+          />
+          <Input
+            title={"Repita a senha"}
+            marginLeft={0}
+            marginTop={30}
+            secureTextEntry
+            value={confirmPassword}
+            onChangeText={(text) => setConfirmPassword(text)}
+            placeholder=""
+          />
+          <ButtonContainer>
+            <Button
+              width={"90%"}
+              text="Próximo"
+              marginTop={350}
+              marginLeft={0}
+              disabled={
+                email === ""
+                  ? true
+                  : password === ""
+                  ? true
+                  : confirmPassword === ""
+                  ? true
+                  : false
+              }
+              loading={loading}
+              background={"white"}
+              size={18}
+              onPress={checkEmail}
+            />
+            <BottomText>
+              Ao realizar seu cadastro você concorda com nossos {""}
+              <UnderlineText>Termos de Uso</UnderlineText> {""}e{" "}
+              <UnderlineText>Termos de Privacidade.</UnderlineText>
+            </BottomText>
+          </ButtonContainer>
+        </Container>
+      </SafeArea>
+    </KeyboardAvoidingView>
   );
 }
