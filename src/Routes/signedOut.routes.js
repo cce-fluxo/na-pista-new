@@ -9,7 +9,7 @@ import BasicInfo from "../Pages/BasicInfo";
 import WhereYouLive from "../Pages/WhereYouLive";
 import Vehicles from "../Pages/Vehicles";
 import Platform from "../Pages/Platform";
-// import EarningGoals from "../Pages/EarningGoals";
+import EarningGoals from "../Pages/EarningGoals";
 // import Success from "../Pages/Success";
 // import Home from "../Pages/Home";
 // import SettingsMenu from '../Pages/SettingsMenu'
@@ -31,6 +31,7 @@ function SignedOutRoutes() {
         <Stack.Screen name="Onde voce mora" component={WhereYouLive} />
         <Stack.Screen name="Veiculos" component={Vehicles} />
         <Stack.Screen name="Plataformas" component={Platform} />
+        <Stack.Screen name="Metas de Ganho" component={EarningGoals} />
       </Stack.Navigator>
     </NavigationContainer>
   );
