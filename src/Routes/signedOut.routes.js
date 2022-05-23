@@ -10,7 +10,7 @@ import WhereYouLive from "../Pages/WhereYouLive";
 import Vehicles from "../Pages/Vehicles";
 import Platform from "../Pages/Platform";
 import EarningGoals from "../Pages/EarningGoals";
-// import Success from "../Pages/Success";
+import Success from "../Pages/Success";
 // import Home from "../Pages/Home";
 // import SettingsMenu from '../Pages/SettingsMenu'
 
@@ -32,6 +32,7 @@ function SignedOutRoutes() {
         <Stack.Screen name="Veiculos" component={Vehicles} />
         <Stack.Screen name="Plataformas" component={Platform} />
         <Stack.Screen name="Metas de Ganho" component={EarningGoals} />
+        <Stack.Screen name="Sucesso" component={Success} />
       </Stack.Navigator>
     </NavigationContainer>
   );
