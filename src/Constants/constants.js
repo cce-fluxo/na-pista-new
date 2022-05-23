@@ -8,6 +8,7 @@ export const colors= {
     inputTitle: 'rgba(0, 0, 0, 0.6)',
     icon: 'rgba(0, 0, 0, 0.87);',
     time: 'rgba(0, 0, 0, 0.38)',
+    line: 'rgba(33, 33, 33, 0.08);'
   };
 
 export const fonts={
