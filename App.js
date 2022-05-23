@@ -1,5 +1,5 @@
 import { StatusBar } from 'react-native';
-import Routes from './src/Routes/index.js';
+import SignedOutRoutes from './src/Routes/signedOut.routes.js';
 import AppLoading from 'expo-app-loading';
 import { useFonts, BebasNeue_400Regular } from '@expo-google-fonts/bebas-neue';
 import { Ubuntu_500Medium,Ubuntu_400Regular } from '@expo-google-fonts/ubuntu';
@@ -18,7 +18,7 @@ export default function App() {
   return (
     <>
       <StatusBar translucent backgroundColor={'black'} />
-      <Routes/>
+      <SignedOutRoutes/>
     </>
   );
 }
