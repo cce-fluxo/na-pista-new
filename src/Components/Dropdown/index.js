@@ -42,11 +42,12 @@ const Dropdown = ({ label, data, marginTop, setOption }) => {
       <SelectContainer onPress={toggleModal}>
         <SelectText>{selectedValue.label}</SelectText>
         <Icon name="chevron-down" size={30} color={colors.modalIcons} />
-      </SelectContainer>  
+      </SelectContainer>
 
-
-      <Modal isVisible={isModalVisible}
-      onBackdropPress={() => setModalVisible(false)}>
+      <Modal
+        isVisible={isModalVisible}
+        onBackdropPress={() => setModalVisible(false)}
+      >
         <ModalContainer>
           {data.map((item, index) => (
             <Item key={index} item={item} />

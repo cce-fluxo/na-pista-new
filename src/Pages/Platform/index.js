@@ -60,14 +60,14 @@ export default function Platform({ navigation, route }) {
         city,
         neighborhood,
         vehicles,
-        vendors
+        vendors,
       });
     }
   }
 
   useEffect(() => {
     vendorsGet();
-  }, [])
+  }, []);
 
   const Item = ({ item }) => <Checkbox marginTop={30} label={item.name} />;
 

@@ -26,7 +26,7 @@ export default function EarningGoals({ navigation, route }) {
     vehicles,
     vendors,
   } = route.params;
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const { signUp } = useAuth();
 
   return (

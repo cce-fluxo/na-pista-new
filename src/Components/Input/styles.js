@@ -1,31 +1,34 @@
-import styled from 'styled-components/native';
+import styled from "styled-components/native";
 
-import {colors,screenHeight, screenWidth,fonts} from '../../Constants/constants';
+import {
+  colors,
+  screenHeight,
+  screenWidth,
+  fonts,
+} from "../../Constants/constants";
 
 export const Container = styled.View`
   width: ${screenWidth * 0.9}px;
   max-height: 72px;
-  flex:1;
+  flex: 1;
   align-self: center;
   align-items: flex-start;
-  margin-top: ${props => props.marginTop}px;
-  margin-left: ${props => props.marginLeft}px;
-  
+  margin-top: ${(props) => props.marginTop}px;
+  margin-left: ${(props) => props.marginLeft}px;
 `;
 
 export const Title = styled.Text`
   font-size: 18px;
   font-weight: bold;
-  color:${colors.inputTitle};
-  font-family: ${ fonts.Ubuntu};
+  color: ${colors.inputTitle};
+  font-family: ${fonts.Ubuntu};
   margin-bottom: 5px;
 `;
 
 export const InputText = styled.TextInput.attrs({
-  placeholderTextColor: 'rgba(0, 0, 0, 0.5)',
-  selectionColor:   'blue',
+  placeholderTextColor: "rgba(0, 0, 0, 0.5)",
+  selectionColor: "blue",
 })`
-  
   width: ${screenWidth * 0.9}px;
   height: 54px;
   background-color: white;

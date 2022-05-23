@@ -48,26 +48,26 @@ export const IconContainer = styled.TouchableOpacity`
 export const TitleContainer = styled.View`
   padding: 20px;
   margin-top: 10px;
-  max-height: ${screenHeight*0.1}px;
+  max-height: ${screenHeight * 0.1}px;
   max-width: ${screenWidth}px;
   flex-direction: row;
   justify-content: space-between;
 `;
 
 export const Text = styled.Text`
-  font-family: ${  fonts.Ubuntu};
-  font-size:  ${props=> props.fontSize}px;
-  margin-left:  ${props=> props.marginLeft}px;
-  margin-top:  ${props=> props.marginTop}px;
-  margin-bottom:  ${props=> props.marginBottom}px;
-  color: ${props => props.color};
+  font-family: ${fonts.Ubuntu};
+  font-size: ${(props) => props.fontSize}px;
+  margin-left: ${(props) => props.marginLeft}px;
+  margin-top: ${(props) => props.marginTop}px;
+  margin-bottom: ${(props) => props.marginBottom}px;
+  color: ${(props) => props.color};
   font-weight: normal;
 `;
 
 export const Input = styled.TextInput.attrs({
-  placeholderTextColor: 'rgba(0, 0, 0, 0.5)',
-  selectionColor:   'black',
-  })` 
+  placeholderTextColor: "rgba(0, 0, 0, 0.5)",
+  selectionColor: "black",
+})`
   width: ${screenWidth * 0.76}px;
   height: 60px;
   background-color: white;
@@ -76,4 +76,3 @@ export const Input = styled.TextInput.attrs({
   align-self: center;
   margin-bottom: 15px;
 `;
-

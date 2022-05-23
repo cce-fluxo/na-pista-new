@@ -16,17 +16,17 @@ export const OutsideView = styled.View`
 `;
 
 export const ModalView = styled.View`
-  height: ${props => props.height}px;
-  width: ${props => props.width}px;
+  height: ${(props) => props.height}px;
+  width: ${(props) => props.width}px;
   justify-content: center;
   align-items: center;
   background-color: white;
 `;
 
 export const ExportText = styled.Text`
-  margin-top: ${props => props.marginTop}px;
-  width: ${props => props.width}px;
-  color: ${props => props.color};
+  margin-top: ${(props) => props.marginTop}px;
+  width: ${(props) => props.width}px;
+  color: ${(props) => props.color};
   font-size: 14px;
-  font-family: ${props => props.fontFamily};
+  font-family: ${(props) => props.fontFamily};
 `;

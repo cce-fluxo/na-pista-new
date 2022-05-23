@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import { Container, Title, InputText, TextError } from './styles';
+import { Container, Title, InputText, TextError } from "./styles";
 
 const Input = ({
   title,

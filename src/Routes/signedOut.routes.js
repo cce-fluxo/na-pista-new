@@ -16,21 +16,21 @@ const Stack = createStackNavigator();
 
 function SignedOutRoutes() {
   return (
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}
-      > 
-        <Stack.Screen name="First" component={FirstScreen} />
-        <Stack.Screen name="Informacoes basicas" component={BasicInfo} />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Criar conta" component={CreateAccount} />
-        <Stack.Screen name="Onde voce mora" component={WhereYouLive} />
-        <Stack.Screen name="Veiculos" component={Vehicles} />
-        <Stack.Screen name="Plataformas" component={Platform} />
-        <Stack.Screen name="Metas de Ganho" component={EarningGoals} />
-        <Stack.Screen name="Sucesso" component={Success} />
-      </Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name="First" component={FirstScreen} />
+      <Stack.Screen name="Informacoes basicas" component={BasicInfo} />
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Criar conta" component={CreateAccount} />
+      <Stack.Screen name="Onde voce mora" component={WhereYouLive} />
+      <Stack.Screen name="Veiculos" component={Vehicles} />
+      <Stack.Screen name="Plataformas" component={Platform} />
+      <Stack.Screen name="Metas de Ganho" component={EarningGoals} />
+      <Stack.Screen name="Sucesso" component={Success} />
+    </Stack.Navigator>
   );
 }
 

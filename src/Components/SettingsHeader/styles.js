@@ -17,12 +17,12 @@ export const HeaderView = styled.View`
 `;
 
 export const HeaderButton = styled.TouchableOpacity`
-  margin-left: ${screenWidth*0.067}px;
+  margin-left: ${screenWidth * 0.067}px;
 `;
 
 export const HeaderText = styled.Text`
   color: ${colors.icon};
   font-family: ${fonts.Ubuntu};
   font-size: 20px;
-  margin-left: ${screenWidth*0.134}px;
+  margin-left: ${screenWidth * 0.134}px;
 `;

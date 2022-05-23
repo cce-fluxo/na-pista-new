@@ -29,7 +29,7 @@ export default function Vehicles({ navigation, route }) {
   } = route.params;
   const [checkboxes, setCheckboxes] = useState([]);
   const [vehicles, setVehicles] = useState([]);
-  
+
   async function vehiclesGet() {
     try {
       response = await api.get("/vehicles");
@@ -65,7 +65,7 @@ export default function Vehicles({ navigation, route }) {
 
   useEffect(() => {
     vehiclesGet();
-  }, [])
+  }, []);
 
   const Item = ({ item }) => <Checkbox marginTop={30} label={item.name} />;
 

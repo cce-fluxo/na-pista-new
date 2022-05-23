@@ -8,9 +8,9 @@ export default Header = ({ name, onPressNavigate }) => {
   return (
     <HeaderView>
       <HeaderButton onPress={onPressNavigate}>
-          <AntDesign name="left" size={22} color={colors.icon} />
+        <AntDesign name="left" size={22} color={colors.icon} />
       </HeaderButton>
       <HeaderText>{name}</HeaderText>
     </HeaderView>
   );
-}
+};

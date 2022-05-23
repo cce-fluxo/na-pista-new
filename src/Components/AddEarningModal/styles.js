@@ -24,14 +24,14 @@ export const AddContainer = styled.TouchableOpacity`
   width: ${(props) => props.width}px;
   height: ${(props) => props.height}px;
   flex-direction: row;
-  background-color: ${props=>props.backgroundColor};
+  background-color: ${(props) => props.backgroundColor};
   border-radius: 50px;
   elevation: 5;
 `;
 
 export const TextContainer = styled.View`
-  width: ${screenWidth*0.9}px;
-  height: ${screenHeight*0.07}px;
+  width: ${screenWidth * 0.9}px;
+  height: ${screenHeight * 0.07}px;
   flex-direction: row;
   align-self: center;
   align-items: flex-end;
@@ -41,9 +41,9 @@ export const TextContainer = styled.View`
 
 export const ModalContainer = styled.View`
   width: ${screenWidth}px;
-  height: ${screenHeight*0.22}px;
+  height: ${screenHeight * 0.22}px;
   flex-direction: column;
-  margin-top: ${screenHeight*0.3}px;
+  margin-top: ${screenHeight * 0.3}px;
   align-self: center;
 `;
 

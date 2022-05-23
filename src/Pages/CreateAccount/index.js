@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import { showMessage } from "react-native-flash-message";
-import {TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, ActivityIndicator} from 'react-native'
-import {colors} from "../../Constants/constants"
+import {
+  TouchableWithoutFeedback,
+  Keyboard,
+  KeyboardAvoidingView,
+  ActivityIndicator,
+} from "react-native";
+import { colors } from "../../Constants/constants";
 import { AntDesign } from "react-native-vector-icons";
 
 import {
@@ -11,7 +16,7 @@ import {
   ButtonContainer,
   BottomText,
   UnderlineText,
-  IconContainer
+  IconContainer,
 } from "./styles";
 import SafeArea from "../../Utils/SafeArea";
 import Button from "../../Components/Button";

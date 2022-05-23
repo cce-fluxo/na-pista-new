@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState, useCallback } from "react";
 import Modal from "react-native-modal";
 import {
   Container,
@@ -35,18 +35,15 @@ const AddItemModal = ({
   };
 
   var key = checkboxes.length;
-  
-  function addItemToList() {
-    checkboxes.push({ id: ++key, title: newItem });
-    setCheckboxes([...checkboxes]);
+
+  const addItemToList = useCallback(() => {
+    setCheckboxes((prevState) => [
+      { id: checkboxes.length + 1, title: newItem },
+      ...prevState,
+    ]);
     setNewItem("");
     setModalVisible(false);
-  }
-  const addItemToList = useCallback(() => {
-        setCheckboxes((prevState) => [{ id: checkboxes.length + 1, title: newItem }, ...prevState]);
-        setNewItem('');
-        setModalVisible(false);  
-  }, [checkboxes.length])
+  }, [checkboxes.length]);
 
   return (
     <Container>
@@ -96,7 +93,7 @@ const AddItemModal = ({
             background={newItem === "" ? colors.inputTitle : colors.background}
             size={18}
             onPress={addItemToList}
-            style = {{color:'red'}}
+            style={{ color: "red" }}
           />
         </ModalContainer>
       </Modal>

@@ -76,7 +76,12 @@ export default function BasicInfo({ navigation, route }) {
           onChangeText={setLastName}
           placeholder=""
         />
-        <Dropdown label="Identidade de Gênero" data={data} marginTop={30} setOption={setGender}/>
+        <Dropdown
+          label="Identidade de Gênero"
+          data={data}
+          marginTop={30}
+          setOption={setGender}
+        />
         <Date marginTop={30} marginLeft={0} label="Data de Nascimento" />
         <ButtonContainer>
           <Button

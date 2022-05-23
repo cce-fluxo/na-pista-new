@@ -10,9 +10,9 @@ export const Container = styled.View`
 
 export const MiniView = styled.View`
   background-color: white;
-  height: ${props => props.height};
-  width: ${props => props.width};
-  margin-top: ${props => props.marginTop};
+  height: ${(props) => props.height};
+  width: ${(props) => props.width};
+  margin-top: ${(props) => props.marginTop};
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
@@ -22,8 +22,8 @@ export const MiniView = styled.View`
 export const TitleText = styled.Text`
   color: black;
   font-size: 18px;
-  font-family: ${props => props.fontFamily};
-  margin-left: ${props => props.marginLeft};
+  font-family: ${(props) => props.fontFamily};
+  margin-left: ${(props) => props.marginLeft};
 `;
 
 export const MaxView = styled.View`
@@ -31,21 +31,21 @@ export const MaxView = styled.View`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width: ${props => props.width};
-  margin-top: ${props => props.marginTop};
+  width: ${(props) => props.width};
+  margin-top: ${(props) => props.marginTop};
   border-radius: 8px;
 `;
 
 export const LineView = styled.View`
   background-color: rgba(33, 33, 33, 0.08);
   height: 1px;
-  width: ${props => props.width};
+  width: ${(props) => props.width};
 `;
 
 export const NormalText = styled.Text`
   color: rgba(0, 0, 0, 0.6);
   font-size: 12px;
-  font-family: ${props => props.fontFamily};
-  width: ${props => props.width};
-  margin-top: ${props => props.marginTop};
+  font-family: ${(props) => props.fontFamily};
+  width: ${(props) => props.width};
+  margin-top: ${(props) => props.marginTop};
 `;

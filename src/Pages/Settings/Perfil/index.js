@@ -94,7 +94,7 @@ export default function SettingsPerfil({ navigation }) {
 
   async function patchUser() {
     try {
-      navigation.navigate("Menu Configurações")
+      navigation.navigate("Menu Configurações");
     } catch (error) {
       console.log(error);
     }
@@ -134,9 +134,21 @@ export default function SettingsPerfil({ navigation }) {
             marginTop={screenHeight * 0.025}
             marginLeft={0}
           />
-          <Dropdown label="Estado" data={dataState} marginTop={screenHeight * 0.025} />
-          <Dropdown label="Cidade" data={dataCity} marginTop={screenHeight * 0.025} />
-          <Dropdown label="Bairro" data={dataNeighborhood} marginTop={screenHeight * 0.025} />
+          <Dropdown
+            label="Estado"
+            data={dataState}
+            marginTop={screenHeight * 0.025}
+          />
+          <Dropdown
+            label="Cidade"
+            data={dataCity}
+            marginTop={screenHeight * 0.025}
+          />
+          <Dropdown
+            label="Bairro"
+            data={dataNeighborhood}
+            marginTop={screenHeight * 0.025}
+          />
           <Button
             width={screenWidth * 0.91}
             marginLeft={0}
@@ -150,7 +162,7 @@ export default function SettingsPerfil({ navigation }) {
             border={4}
             size={16}
           />
-          <View style={{marginBottom: screenHeight * 0.025 }} ></View>
+          <View style={{ marginBottom: screenHeight * 0.025 }}></View>
         </ScrollView>
       </Container>
     </SafeArea>

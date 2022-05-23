@@ -1,25 +1,30 @@
-import styled from 'styled-components/native';
-import { fonts, colors, screenHeight, screenWidth } from '../../Constants/constants';
+import styled from "styled-components/native";
+import {
+  fonts,
+  colors,
+  screenHeight,
+  screenWidth,
+} from "../../Constants/constants";
 
 export const MainContainer = styled.ScrollView`
   flex: 1;
 `;
 
 export const Container = styled.View`
-  background-color: #F8F8F8;
+  background-color: #f8f8f8;
   width: ${screenWidth}px;
 `;
 
 export const View = styled.View`
   background-color: white;
-  width: ${props => props.width}px;
-  height: ${props => props.height}px;
-  border-radius: ${props => props.borderRadius}px;
-  elevation: ${props => props.elevation};
+  width: ${(props) => props.width}px;
+  height: ${(props) => props.height}px;
+  border-radius: ${(props) => props.borderRadius}px;
+  elevation: ${(props) => props.elevation};
   align-self: center;
-  margin-top: ${props => props.marginTop}px;
-  margin-left: ${props => props.marginLeft}px;
-  margin-bottom: ${props => props.marginBottom}px;
+  margin-top: ${(props) => props.marginTop}px;
+  margin-left: ${(props) => props.marginLeft}px;
+  margin-bottom: ${(props) => props.marginBottom}px;
 `;
 
 export const Subcontainer = styled.View`
@@ -30,7 +35,7 @@ export const Subcontainer = styled.View`
 
 export const ScrollView = styled.ScrollView`
   position: absolute;
-  top: ${screenHeight*0.1}px;
+  top: ${screenHeight * 0.1}px;
   align-self: center;
 `;
 
@@ -40,54 +45,50 @@ export const EarningContainer = styled.View`
   width: ${screenWidth * 0.86}px;
   height: ${screenHeight * 0.3}px;
   border-radius: 8px;
-  margin-left: ${props => props.marginLeft}px;
-  margin-right: ${props => props.marginRight}px;
+  margin-left: ${(props) => props.marginLeft}px;
+  margin-right: ${(props) => props.marginRight}px;
   margin-bottom: 5px;
   elevation: 4;
 `;
 
-
 export const TextContainer = styled.View`
   padding: 10px;
-  margin-top: ${props=>props.marginTop}px;
-  max-height: ${screenHeight*0.1}px;
-  max-width: ${props=>props.maxWidth}px;
-  margin-left: ${props=>props.marginLeft}px;
+  margin-top: ${(props) => props.marginTop}px;
+  max-height: ${screenHeight * 0.1}px;
+  max-width: ${(props) => props.maxWidth}px;
+  margin-left: ${(props) => props.marginLeft}px;
   flex-direction: row;
-  justify-content: ${props => props.justifyContent};
+  justify-content: ${(props) => props.justifyContent};
 `;
-
 
 export const Text = styled.Text`
-  font-family: ${  fonts.Ubuntu};
-  font-size:  ${props => props.fontSize}px;
-  line-height:   ${props => props.lineHeight}px;
-  margin-left:  ${props => props.marginLeft}px;
-  color: ${props => props.color};
+  font-family: ${fonts.Ubuntu};
+  font-size: ${(props) => props.fontSize}px;
+  line-height: ${(props) => props.lineHeight}px;
+  margin-left: ${(props) => props.marginLeft}px;
+  color: ${(props) => props.color};
   font-weight: normal;
-  margin-top: ${props => props.marginTop}px;
+  margin-top: ${(props) => props.marginTop}px;
 `;
-
 
 export const IconContainer = styled.TouchableOpacity`
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  max-height: ${screenHeight*0.03}px;
-  max-width: ${screenWidth*0.07}px;
-  margin-right: ${props => props.marginRight}px;
+  max-height: ${screenHeight * 0.03}px;
+  max-width: ${screenWidth * 0.07}px;
+  margin-right: ${(props) => props.marginRight}px;
 `;
 
-
 export const ProgressBarContainer = styled.View`
-  flex-direction: ${props=>props.flexDirection};
+  flex-direction: ${(props) => props.flexDirection};
   align-items: center;
   justify-content: space-around;
-  width: ${props=>props.width}px;
-  height: ${props=>props.height}px;
+  width: ${(props) => props.width}px;
+  height: ${(props) => props.height}px;
   align-self: center;
-  transform: ${(props) => (props.rotate ? 'rotate(90deg)' : '')};
-  margin-top: ${props => props.marginTop}px;
+  transform: ${(props) => (props.rotate ? "rotate(90deg)" : "")};
+  margin-top: ${(props) => props.marginTop}px;
 `;
 
 export const ActivityButton = styled.TouchableOpacity`
@@ -109,9 +110,9 @@ export const TimeContainer = styled.View`
 `;
 
 export const LineView = styled.View`
-  width: ${screenWidth*0.75}px;
+  width: ${screenWidth * 0.75}px;
   height: 1.4px;
   background-color: ${colors.line};
-  margin:5px;
+  margin: 5px;
   align-self: center;
 `;

@@ -9,17 +9,17 @@ export const Container = styled.View`
 `;
 
 export const HelpText = styled.Text`
-  margin-top: ${props => props.marginTop}px;
-  width: ${props => props.width}px;
-  color: ${props => props.color};
+  margin-top: ${(props) => props.marginTop}px;
+  width: ${(props) => props.width}px;
+  color: ${(props) => props.color};
   font-size: 14px;
-  font-family: ${props => props.fontFamily};
+  font-family: ${(props) => props.fontFamily};
 `;
 
 export const InputContainer = styled.View`
-  margin-top: ${props => props.marginTop}px;
-  height: ${props => props.height}px;
-  width: ${props => props.width}px;
+  margin-top: ${(props) => props.marginTop}px;
+  height: ${(props) => props.height}px;
+  width: ${(props) => props.width}px;
   background-color: white;
   align-self: center;
 `;
