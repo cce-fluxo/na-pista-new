@@ -1,4 +1,5 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
+
 import {
   Container,
   TitleContainer,
@@ -12,44 +13,61 @@ import SafeArea from "../../Utils/SafeArea";
 import Button from "../../Components/Button";
 import Checkbox from "../../Components/Checkbox";
 import AddItemModal from "../../Components/AddItemModal";
+import api from "../../Services/api";
 
-export default function Vehicles({ navigation }) {
-  const [initialList, setInitialList] = useState(
-    [
-        {
-        id: 1,
-        title: "A pé",
-        },
-        {
-        id: 2,
-        title: "Bicicleta",
-        },
-        {
-        id: 3,
-        title: "Bicicleta elétrica",
-        },
-        {
-        id: 4,
-        title: "Bicicleta motorizada",
-        },
-        {
-        id: 5,
-        title: "Moto",
-        },
-        {
-        id: 6,
-        title: "Carro",
-        },
-        {
-        id: 7,
-        title: "Patinete",
-        },
-    ]
-    );
-
-  const [checkboxes, setCheckboxes] = useState(initialList);
+export default function Vehicles({ navigation, route }) {
+  const {
+    email,
+    password,
+    firstName,
+    lastName,
+    gender,
+    birthDate,
+    state,
+    city,
+    neighborhood,
+  } = route.params;
+  const [checkboxes, setCheckboxes] = useState([]);
+  const [vehicles, setVehicles] = useState([]);
   
-  const Item = ({ item }) => <Checkbox marginTop={30} label={item.title} />;
+  async function vehiclesGet() {
+    try {
+      response = await api.get("/vehicles");
+      console.log(response.data);
+      setCheckboxes(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  function nextScreen() {
+    if (!vehicles) {
+      showMessage({
+        message: "Falta preencher a lista de veículos!",
+        type: "danger",
+        icon: "danger",
+      });
+    } else {
+      navigation.navigate("Plataformas", {
+        email,
+        password,
+        firstName,
+        lastName,
+        gender,
+        birthDate,
+        state,
+        city,
+        neighborhood,
+        vehicles,
+      });
+    }
+  }
+
+  useEffect(() => {
+    vehiclesGet();
+  }, [])
+
+  const Item = ({ item }) => <Checkbox marginTop={30} label={item.name} />;
 
   const renderItem = ({ item }) => <Item item={item} />;
 
@@ -70,9 +88,9 @@ export default function Vehicles({ navigation }) {
         />
         <AddItemModal
           label="Adicionar novo veículo"
-          initialList = {initialList}
-          setInitialList={setInitialList}
-          checkboxes = {checkboxes}
+          initialList={vehicles}
+          setInitialList={setVehicles}
+          checkboxes={checkboxes}
           setCheckboxes={setCheckboxes}
         />
         <ButtonContainer>
@@ -83,7 +101,7 @@ export default function Vehicles({ navigation }) {
             marginLeft={0}
             background={"white"}
             size={18}
-            onPress={() => navigation.navigate("Plataformas")}
+            onPress={nextScreen}
           />
         </ButtonContainer>
       </Container>

@@ -29,47 +29,118 @@ export default function AuthContextProvider({ children }) {
     setSignInLoading(false);
   }, []);
 
-  const signIn = useCallback(async (email, password, setLoading, navigation) => {
-    setLoading(true);
-    try {
-      let data;
-      data = {
-        email,
-        password,
-      };
-      const response = await api.post("/auth/login", data);
-      const { accessToken, user } = response.data
-      console.log("Requisição enviada, resposta recebida");
+  const signIn = useCallback(
+    async (email, password, setLoading, navigation) => {
+      setLoading(true);
+      try {
+        let data;
+        data = {
+          email,
+          password,
+        };
+        const response = await api.post("/auth/login", data);
+        const { accessToken, user } = response.data;
+        console.log("Requisição enviada, resposta recebida");
 
-      showMessage({
-        message: "Login efetuado com sucesso",
-        description: "Bem vindo ao App Na Pista",
-        type: "success",
-        icon: "success",
-        duration: 4000,
-      });
+        showMessage({
+          message: "Login efetuado com sucesso",
+          description: "Bem vindo ao App Na Pista",
+          type: "success",
+          icon: "success",
+          duration: 4000,
+        });
 
-      await AsyncStorage.multiSet([
-        ["@AppNaPista:accessToken", accessToken],
-        ["@AppNaPista:user", JSON.stringify(user)],
-      ]);
+        await AsyncStorage.multiSet([
+          ["@AppNaPista:accessToken", accessToken],
+          ["@AppNaPista:user", JSON.stringify(user)],
+        ]);
 
-      setUser(user);
-      setAccessToken(accessToken);
-      navigation.navigate("Home");
-    } catch (err) {
-      console.log(err);
-      showMessage({
-        message: "Nao foi possível efetuar o login!",
-        type: "danger",
-        icon: "danger",
-      });
-    }
-    setLoading(false);
-  }, []);
+        setUser(user);
+        setAccessToken(accessToken);
+        navigation.navigate("SignedIn");
+      } catch (err) {
+        console.log(err);
+        showMessage({
+          message: "Nao foi possível efetuar o login!",
+          type: "danger",
+          icon: "danger",
+        });
+      }
+      setLoading(false);
+    },
+    []
+  );
+
+  const signUp = useCallback(
+    async (
+      email,
+      password,
+      firstName,
+      lastName,
+      gender,
+      birthDate,
+      state,
+      city,
+      neighborhood,
+      vehicles,
+      vendors,
+      setLoading,
+      navigation
+    ) => {
+      setLoading(true);
+      try {
+        let data;
+        data = {
+          email,
+          password,
+          firstName,
+          lastName,
+          gender,
+          birthDate,
+          state,
+          city,
+          neighborhood,
+          vehicles,
+          vendors,
+        };
+        const response = await api.post("/auth/signup", data);
+        const { accessToken, user } = response.data;
+        console.log("Requisição enviada, resposta recebida");
+
+        showMessage({
+          message: "Login efetuado com sucesso",
+          description: "Bem vindo ao App Na Pista",
+          type: "success",
+          icon: "success",
+          duration: 4000,
+        });
+
+        await AsyncStorage.multiSet([
+          ["@AppNaPista:accessToken", accessToken],
+          ["@AppNaPista:user", JSON.stringify(user)],
+        ]);
+
+        setUser(user);
+        setAccessToken(accessToken);
+        navigation.navigate("Sucesso");
+      } catch (err) {
+        console.log(err);
+        showMessage({
+          message: "Nao foi possível efetuar o cadastro!",
+          type: "danger",
+          icon: "danger",
+        });
+      }
+      setLoading(false);
+    },
+    []
+  );
 
   const signOut = useCallback(async () => {
-    await AsyncStorage.multiRemove(["@AppNaPista:accessToken", "@AppNaPista:user"]);
+    await AsyncStorage.multiRemove([
+      "@AppNaPista:accessToken",
+      "@AppNaPista:user",
+    ]);
     setAccessToken("");
     setUser({});
   }, []);
@@ -80,7 +151,15 @@ export default function AuthContextProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ signIn, signOut, accessToken, user, setUser, signInLoading }}
+      value={{
+        signIn,
+        signOut,
+        signUp,
+        accessToken,
+        user,
+        setUser,
+        signInLoading,
+      }}
     >
       {children}
     </AuthContext.Provider>

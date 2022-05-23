@@ -1,10 +1,18 @@
 import { useState } from "react";
-
-import Input from "../Input";
-import Icon from "react-native-vector-icons/AntDesign";
 import Modal from "react-native-modal";
-import { Container, ModalContainer, AddContainer, AddText } from "./styles";
+import {
+  Container,
+  ModalContainer,
+  AddContainer,
+  AddText,
+  Input,
+  TitleContainer,
+  IconContainer,
+  Text,
+} from "./styles";
+import { AntDesign } from "@expo/vector-icons";
 import Button from "../Button";
+import { colors } from "../../Constants/constants";
 
 const AddItemModal = ({
   marginTop,
@@ -15,6 +23,7 @@ const AddItemModal = ({
   setInitialList,
   checkboxes,
   setCheckboxes,
+  text,
 }) => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [newItem, setNewItem] = useState("");
@@ -25,16 +34,14 @@ const AddItemModal = ({
     console.log(isModalVisible);
   };
 
-  // const addItemToList = () => {
-  //   var newArray = ({...initialList , id: idx, title: newItem});
-  //   incr(idx + 1);
-  //   console.log(initialList.length);
-  //   setInitialList(newArray);
-  //   setCheckboxes(newArray);
-  //   setModalVisible(false);
-  // }
-
   var key = checkboxes.length;
+  
+  function addItemToList() {
+    checkboxes.push({ id: ++key, title: newItem });
+    setCheckboxes([...checkboxes]);
+    setNewItem("");
+    setModalVisible(false);
+  }
   const addItemToList = useCallback(() => {
         setCheckboxes((prevState) => [{ id: checkboxes.length + 1, title: newItem }, ...prevState]);
         setNewItem('');
@@ -44,7 +51,7 @@ const AddItemModal = ({
   return (
     <Container>
       <AddContainer onPress={toggleModal}>
-        <Icon name="pluscircle" size={30} color={"black"} />
+        <AntDesign name="pluscircle" size={30} color={"black"} />
         <AddText>Adicionar outro</AddText>
       </AddContainer>
       <Modal
@@ -52,21 +59,44 @@ const AddItemModal = ({
         onBackdropPress={() => setModalVisible(false)}
       >
         <ModalContainer>
+          <TitleContainer>
+            <Text
+              fontSize={20}
+              color={"black"}
+              marginLeft={10}
+              marginTop={0}
+              marginBottom={0}
+            >
+              Adicionar
+            </Text>
+            <IconContainer onPress={toggleModal}>
+              <AntDesign name="close" size={24} color="black" />
+            </IconContainer>
+          </TitleContainer>
+          <Text
+            fontSize={14}
+            color={colors.inputTitle}
+            marginLeft={30}
+            marginTop={4}
+            marginBottom={10}
+          >
+            {text}
+          </Text>
           <Input
-            title={label}
-            marginTop={20}
             value={newItem}
             onChangeText={(e) => setNewItem(e)}
-            marginLeft={0}
+            style={{ borderWidth: 1.0, borderColor: colors.line }}
           />
           <Button
-            width={"90%"}
-            text="Adicionar"
+            width={"85%"}
+            text="Beleza"
             marginTop={20}
+            disabled={newItem === "" ? true : false}
             marginLeft={0}
-            background={"white"}
+            background={newItem === "" ? colors.inputTitle : colors.background}
             size={18}
             onPress={addItemToList}
+            style = {{color:'red'}}
           />
         </ModalContainer>
       </Modal>

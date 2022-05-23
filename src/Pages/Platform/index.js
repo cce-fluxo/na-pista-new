@@ -1,4 +1,5 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
+
 import {
   Container,
   TitleContainer,
@@ -12,42 +13,63 @@ import SafeArea from "../../Utils/SafeArea";
 import Button from "../../Components/Button";
 import Checkbox from "../../Components/Checkbox";
 import AddItemModal from "../../Components/AddItemModal";
+import api from "../../Services/api";
 
-export default function Platform({ navigation }) {
-  const [initialList, setInitialList] = useState([
-    {
-      id: 1,
-      title: "iFood",
-    },
-    {
-      id: 2,
-      title: "Rappi",
-    },
-    {
-      id: 3,
-      title: "Uber Eats",
-    },
-    {
-      id: 4,
-      title: "Loggi",
-    },
-    {
-      id: 5,
-      title: "Zé Delivery",
-    },
-    {
-      id: 6,
-      title: "99 Food",
-    },
-    {
-      id: 7,
-      title: "James",
-    },
-  ]);
+export default function Platform({ navigation, route }) {
+  const {
+    email,
+    password,
+    firstName,
+    lastName,
+    gender,
+    birthDate,
+    state,
+    city,
+    neighborhood,
+    vehicles,
+  } = route.params;
+  const [checkboxes, setCheckboxes] = useState([]);
+  const [vendors, setVendors] = useState([]);
 
-  const [checkboxes, setCheckboxes] = useState(initialList);
+  async function vendorsGet() {
+    try {
+      response = await api.get("/vendors");
+      console.log(response.data);
+      setCheckboxes(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
-  const Item = ({ item }) => <Checkbox marginTop={30} label={item.title} />;
+  function nextScreen() {
+    if (!vendors) {
+      showMessage({
+        message: "Falta preencher a lista de plataformas!",
+        type: "danger",
+        icon: "danger",
+      });
+    } else {
+      navigation.navigate("Metas de Ganho", {
+        email,
+        password,
+        firstName,
+        lastName,
+        gender,
+        birthDate,
+        state,
+        city,
+        neighborhood,
+        vehicles,
+        vendors
+      });
+    }
+  }
+
+  useEffect(() => {
+    vendorsGet();
+  }, [])
+
+  const Item = ({ item }) => <Checkbox marginTop={30} label={item.name} />;
 
   const renderItem = ({ item }) => <Item item={item} />;
 
@@ -69,8 +91,8 @@ export default function Platform({ navigation }) {
         />
         <AddItemModal
           label="Adicionar nova plataforma"
-          initialList={initialList}
-          setInitialList={setInitialList}
+          initialList={vendors}
+          setInitialList={setVendors}
           checkboxes={checkboxes}
           setCheckboxes={setCheckboxes}
         />
@@ -82,7 +104,7 @@ export default function Platform({ navigation }) {
             marginLeft={0}
             background={"white"}
             size={18}
-            onPress={() => navigation.navigate("Metas de Ganho")}
+            onPress={nextScreen}
           />
         </ButtonContainer>
       </Container>
