@@ -35,12 +35,11 @@ const AddItemModal = ({
   // }
 
   var key = checkboxes.length;
-  function addItemToList() {
-    checkboxes.push({id: ++key, title: newItem});
-    setCheckboxes([...checkboxes]);
-    setNewItem('');
-    setModalVisible(false);
-  }
+  const addItemToList = useCallback(() => {
+        setCheckboxes((prevState) => [{ id: checkboxes.length + 1, title: newItem }, ...prevState]);
+        setNewItem('');
+        setModalVisible(false);  
+  }, [checkboxes.length])
 
   return (
     <Container>
