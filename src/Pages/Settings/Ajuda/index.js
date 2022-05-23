@@ -20,7 +20,7 @@ export default function SettingsHelp({ navigation }) {
     setLoading(true);
     try {
       console.log(help);
-      navigation.navigate("Menu Configurações")
+      navigation.navigate("Menu Configurações");
     } catch (error) {
       console.error(error);
     }
@@ -58,7 +58,7 @@ export default function SettingsHelp({ navigation }) {
         <Button
           width={screenWidth * 0.91}
           marginLeft={0}
-          marginTop={screenHeight * 0.3}
+          marginTop={screenHeight * 0.275}
           disabled={loading}
           loading={loading}
           text="Enviar"

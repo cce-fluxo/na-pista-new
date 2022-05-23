@@ -22,7 +22,6 @@ export const ModalContainer=styled.View`
 
 
 export const AddContainer = styled.TouchableOpacity`
-  flex: 1;
   align-self: center;
   align-items: center;
   justify-content: flex-start;

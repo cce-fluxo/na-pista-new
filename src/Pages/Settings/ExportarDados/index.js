@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { TouchableOpacity, Modal } from "react-native";
 
 import SafeArea from "../../../Utils/SafeArea/index";
-import Header from "../../../Components/SettingsHeader/index";
 import Checkbox from "../../../Components/Checkbox/index";
 import Button from "../../../Components/Button/index";
 import { Container, OutsideView, ModalView, ExportText } from "./styles";
@@ -44,10 +43,7 @@ export default function SettingsExportData({ navigation }) {
         }}
       >
         <OutsideView>
-          <ModalView
-            height={screenHeight * 0.26}
-            width={screenWidth * 0.911}
-          >
+          <ModalView height={screenHeight * 0.26} width={screenWidth * 0.911}>
             <ExportText
               marginTop={0}
               width={screenWidth * 0.78}
@@ -75,8 +71,8 @@ export default function SettingsExportData({ navigation }) {
       </Modal>
       <Container>
         <Header
-          name="Ajuda"
-          onPressNavigate={() => navigation.navigate("SettingsMenu")}
+          name="Exportas Dados"
+          onPressNavigate={() => navigation.navigate("Menu Configurações")}
         />
         <ExportText
           marginTop={screenHeight * 0.022}
@@ -95,58 +91,21 @@ export default function SettingsExportData({ navigation }) {
         >
           Selecione abaixo quais dados você gostaria de exportar.
         </ExportText>
-        <TouchableOpacity
-          style={{ height: screenHeight * 0.07 }}
-          onPress={() =>
-            !corridasGanhos ? setCorridasGanhos(true) : setCorridasGanhos(false)
-          }
-        >
-          <Checkbox
-            marginTop={screenHeight * 0.033}
-            label="Corridas e ganhos"
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{ height: screenHeight * 0.07 }}
-          onPress={() => (!gastos ? setGastos(true) : setGastos(false))}
-        >
-          <Checkbox marginTop={screenHeight * 0.033} label="Gastos" />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{ height: screenHeight * 0.07 }}
-          onPress={() =>
-            !indicadores ? setIndicadores(true) : setIndicadores(false)
-          }
-        >
-          <Checkbox
-            marginTop={screenHeight * 0.033}
-            label="Indicadores calculados"
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{ height: screenHeight * 0.07 }}
-          onPress={() =>
-            !historico ? setHistorico(true) : setHistorico(false)
-          }
-        >
-          <Checkbox
-            marginTop={screenHeight * 0.033}
-            label="Histórico de metas"
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{ height: screenHeight * 0.07 }}
-          onPress={() => (!trajetos ? setTrajetos(true) : setTrajetos(false))}
-        >
-          <Checkbox
-            marginTop={screenHeight * 0.033}
-            label="Trajetos percorridos"
-          />
-        </TouchableOpacity>
+        <Checkbox marginTop={screenHeight * 0.033} label="Corridas e ganhos" />
+        <Checkbox marginTop={screenHeight * 0.033} label="Gastos" />
+        <Checkbox
+          marginTop={screenHeight * 0.033}
+          label="Indicadores calculados"
+        />
+        <Checkbox marginTop={screenHeight * 0.033} label="Histórico de metas" />
+        <Checkbox
+          marginTop={screenHeight * 0.033}
+          label="Trajetos percorridos"
+        />
         <Button
           width={screenWidth * 0.91}
           marginLeft={0}
-          marginTop={screenHeight * 0.25}
+          marginTop={screenHeight * 0.3}
           disabled={loading}
           loading={loading}
           text="Enviar"

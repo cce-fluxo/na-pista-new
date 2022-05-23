@@ -4,12 +4,11 @@ import { fonts, colors, screenHeight, screenWidth } from '../../Constants/consta
 export const Container = styled.View`
     width: ${screenWidth * 0.817}px;
     max-height:85px;
-    flex:1;
     align-self: center;
     align-items: flex-start;
     margin-top: ${props => props.marginTop}px;
     margin-left: ${props => props.marginLeft}px;
-    background-color: ${colors.background};
+    background-color: ${props => props.color};
 `;
 
 export const Title = styled.Text`
@@ -21,7 +20,6 @@ export const Title = styled.Text`
 `;
 
 export const ItemContainer = styled.View`
-    flex: 1;
     align-self: center;
     align-items: center;
     justify-content: space-between;
