@@ -11,7 +11,7 @@ import {
   InputContainer,
   InputText,
   MaxContainer,
-  Title
+  Title,
 } from "./styles";
 import {
   colors,
@@ -76,25 +76,29 @@ export default function AddGastos({ navigation }) {
     <SafeArea>
       <Container>
         <Header name="Adicionar gasto" onPressNavigate={null} />
-        <Date marginTop={30} marginLeft={0} label="Data" />
-        <Dropdown label="Tipo" data={data} marginTop={30} setOption={setType} />
+        <Date marginTop={screenHeight * 0.02} marginLeft={0} label="Data" />
+        <Dropdown
+          label="Tipo"
+          data={data}
+          marginTop={screenHeight * 0.02}
+          setOption={setType}
+        />
         <Input
           title="Valor"
           marginLeft={0}
-          marginTop={30}
+          marginTop={screenHeight * 0.02}
           value={amount}
           onChangeText={(text) => setAmount(text)}
           placeholder="R$"
         />
         <MaxContainer
           width={screenWidth * 0.9}
-          marginTop={60}
+          marginTop={screenHeight * 0.04}
           marginLeft={0}
         >
-          <Title
-            color={colors.inputTitle}
-            font={fonts.Ubuntu}
-          >Notas (opcional)</Title>
+          <Title color={colors.inputTitle} font={fonts.Ubuntu}>
+            Notas (opcional)
+          </Title>
           <InputContainer
             marginTop={0}
             height={screenHeight * 0.2}
@@ -109,9 +113,9 @@ export default function AddGastos({ navigation }) {
           </InputContainer>
         </MaxContainer>
         <Button
-          width={screenWidth * 0.91}
+          width={screenWidth * 0.9}
           marginLeft={0}
-          marginTop={screenHeight * 0.275}
+          marginTop={0}
           disabled={loading}
           loading={loading}
           text="Salvar"
