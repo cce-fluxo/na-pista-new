@@ -8,26 +8,8 @@ export const Container = styled.View`
   align-items: center;
 `;
 
-export const TitleContainer = styled.View`
-  width: ${(props) => props.width}px;
-  flex: 1;
-  align-self: center;
-  align-items: flex-start;
-  margin-top: ${(props) => props.marginTop}px;
-  margin-left: ${(props) => props.marginLeft}px;
-`;
-
-export const Title = styled.Text`
-  font-size: 18px;
-  font-weight: bold;
-  color: ${(props) => props.color};
-  font-family: ${(props) => props.font};
-  margin-bottom: 5px;
-`;
-
 export const AddView = styled.View`
   width: ${(props) => props.width}px;
-  flex: 1;
   align-self: center;
   flex-direction: row;
   justify-content: flex-start;
@@ -37,8 +19,9 @@ export const AddView = styled.View`
 `;
 
 export const AddText = styled.Text`
-  font-size: 24px;
+  font-size: 20px;
   font-weight: bold;
   color: ${(props) => props.color};
   font-family: ${(props) => props.font};
+  margin-left: ${(props) => props.marginLeft}px;
 `;

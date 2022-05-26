@@ -1,28 +1,41 @@
-import React, { useState } from "react";
-import { View, ScrollView, TouchableOpacity } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
+import React, { useState, useEffect } from "react";
+import { TouchableOpacity } from "react-native";
 
 import SafeArea from "../../Utils/SafeArea/index";
 import Header from "../../Components/SettingsHeader/index";
+import Dropdown from "../../Components/Dropdown/index";
 import Input from "../../Components/Input/index";
 import Date from "../../Components/Date/index";
 import Button from "../../Components/Button/index";
-import { Container, TitleContainer, Title, AddView, AddText } from "./styles";
+import { Container, AddView, AddText } from "./styles";
 import {
   colors,
   screenHeight,
   screenWidth,
   fonts,
 } from "../../Constants/constants";
+import api from "../../Services/api";
 
-export default function AddGanhos({ navigation }) {
+export default function AddGanhos({ navigation, route }) {
+  const [name, setName] = useState("");
   const [doneAt, setDoneAt] = useState("");
   const [amount, setAmount] = useState(0);
   const [extraAmount, setExtraAmount] = useState(0);
   const [distance, setDistance] = useState(0);
   const [duration, setDuration] = useState(0);
+
+  const [vendors, setVendors] = useState([]);
   const [click, setClick] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  async function getPlataforms() {
+    try {
+      response = await api.get("/vendors");
+      setVendors(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   async function addEarning() {
     setLoading(true);
@@ -34,6 +47,10 @@ export default function AddGanhos({ navigation }) {
     setLoading(false);
   }
 
+  useEffect(() => {
+    getPlataforms();
+  }, []);
+
   return (
     <SafeArea>
       <Container>
@@ -41,16 +58,12 @@ export default function AddGanhos({ navigation }) {
           name="Adicionar ganho"
           onPressNavigate={() => navigation.navigate("First")}
         />
-        <TitleContainer
-          width={screenWidth * 0.9}
+        <Dropdown
+          label="Plataforma"
+          data={vendors}
           marginTop={screenHeight * 0.025}
-          marginLeft={0}
-        >
-          <Title color={colors.inputTitle} font={fonts.Ubuntu}>
-            Plataforma
-          </Title>
-        </TitleContainer>
-        <ScrollView></ScrollView>
+          setOption={setName}
+        />
         <Date label="Data" marginTop={screenHeight * 0.025} marginLeft={0} />
         <Input
           title="Valor total"
@@ -67,12 +80,9 @@ export default function AddGanhos({ navigation }) {
             marginLeft={0}
           >
             <TouchableOpacity onPress={() => setClick(true)}>
-              <AntDesign name="plus" size={24} color={colors.background} />
-              <View style={{width: 10}} />
-              <AddText
-                color={colors.background}
-                font={fonts.Ubuntu}
-              >Adicionar gorjeta</AddText>
+              <AddText marginLeft={screenWidth * 0.001} color={colors.background} font={fonts.Ubuntu}>
+                + Adicionar gorjeta
+              </AddText>
             </TouchableOpacity>
           </AddView>
         ) : (
@@ -82,7 +92,7 @@ export default function AddGanhos({ navigation }) {
             marginTop={screenHeight * 0.025}
             value={extraAmount}
             onChangeText={(text) => setExtraAmount(text)}
-            placeholder={extraAmount}
+            placeholder="R$"
           />
         )}
         <Input
@@ -91,7 +101,7 @@ export default function AddGanhos({ navigation }) {
           marginTop={screenHeight * 0.025}
           value={distance}
           onChangeText={(text) => setDistance(text)}
-          placeholder={distance}
+          placeholder=""
         />
         <Input
           title="Duração total"
@@ -99,12 +109,12 @@ export default function AddGanhos({ navigation }) {
           marginTop={screenHeight * 0.025}
           value={duration}
           onChangeText={(text) => setDuration(text)}
-          placeholder={duration}
+          placeholder=""
         />
         <Button
           width={screenWidth * 0.91}
           marginLeft={0}
-          marginTop={screenHeight * 0.025}
+          marginTop={screenHeight * 0.1}
           disabled={loading}
           loading={loading}
           text="Adicionar"
