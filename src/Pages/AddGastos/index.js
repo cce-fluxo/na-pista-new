@@ -64,8 +64,7 @@ export default function AddGastos({ navigation }) {
   async function addGasto() {
     setLoading(true);
     try {
-      console.log(help);
-      navigation.navigate("Menu Configurações");
+      console.log(date, type, amount, notes);
     } catch (error) {
       console.error(error);
     }
