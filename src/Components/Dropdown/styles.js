@@ -8,7 +8,7 @@ import {
 } from "../../Constants/constants";
 
 export const Container = styled.View`
-  width: ${screenWidth * 0.817}px;
+  width: ${screenWidth * 0.9}px;
   max-height: 86px;
   flex: 1;
   align-self: center;
