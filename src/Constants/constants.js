@@ -13,7 +13,7 @@ export const colors = {
   modalIcons: "#CC9900",
   earningGoalDayOff: "#FFD966",
   positive: "#2AA144",
-  negative: "#B00020"
+  negative: "#B00020",
 };
 
 export const fonts = {

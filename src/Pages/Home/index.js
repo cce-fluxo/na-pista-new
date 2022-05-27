@@ -76,13 +76,21 @@ export default function Home({ navigation }) {
               Bom dia, Daniel
             </Text>
             <IconContainer marginRight={-screenWidth * 0.25}>
-              <AntDesign name="plus" size={screenWidth * 0.066} color={colors.icon} />
+              <AntDesign
+                name="plus"
+                size={screenWidth * 0.066}
+                color={colors.icon}
+              />
             </IconContainer>
             <IconContainer
               marginRight={screenWidth * 0.067}
               onPress={() => navigation.navigate("Menu Configurações")}
             >
-              <Ionicons name="settings-sharp" size={screenWidth * 0.066} color={colors.icon} />
+              <Ionicons
+                name="settings-sharp"
+                size={screenWidth * 0.066}
+                color={colors.icon}
+              />
             </IconContainer>
           </TextContainer>
         </Subcontainer>
@@ -107,8 +115,8 @@ export default function Home({ navigation }) {
               Jornada do dia
             </Text>
             <Text
-              fontSize={screenWidth*0.04}
-              lineHeight={screenWidth*0.05}
+              fontSize={screenWidth * 0.04}
+              lineHeight={screenWidth * 0.05}
               color={colors.inputTitle}
               marginLeft={screenWidth * 0.044}
               marginTop={0}
@@ -120,7 +128,7 @@ export default function Home({ navigation }) {
             <ActivityButton onPress={toggle}>
               <FontAwesome
                 name={isActive ? "stop" : "play"}
-                size={screenWidth*0.04}
+                size={screenWidth * 0.04}
                 color={colors.icon}
               />
             </ActivityButton>
@@ -141,12 +149,12 @@ export default function Home({ navigation }) {
               >
                 <Fontisto
                   name="stopwatch"
-                  size={screenWidth*0.045}
+                  size={screenWidth * 0.045}
                   color={colors.inputTitle}
                 />
                 <Text
-                  fontSize={screenWidth*0.03}
-                  lineHeight={screenWidth*0.04}
+                  fontSize={screenWidth * 0.03}
+                  lineHeight={screenWidth * 0.04}
                   color={colors.inputTitle}
                   marginLeft={screenWidth * 0.027}
                   marginTop={0}
@@ -155,13 +163,13 @@ export default function Home({ navigation }) {
                 </Text>
               </TextContainer>
               <Text
-                fontSize={screenWidth*0.1}
-                lineHeight={screenWidth*0.1}
+                fontSize={screenWidth * 0.1}
+                lineHeight={screenWidth * 0.1}
                 color={colors.time}
                 marginLeft={0}
                 marginTop={-screenWidth * 0.01}
               >
-                {mins < 10 ?  mins : mins}:{secs < 10 ? "0" + secs : secs}
+                {mins < 10 ? mins : mins}:{secs < 10 ? "0" + secs : secs}
               </Text>
             </View>
 
@@ -180,10 +188,14 @@ export default function Home({ navigation }) {
                 maxWidth={screenWidth * 0.8}
                 marginLeft={0}
               >
-                <Entypo name="swap" size={screenWidth*0.045} color={colors.inputTitle} />
+                <Entypo
+                  name="swap"
+                  size={screenWidth * 0.045}
+                  color={colors.inputTitle}
+                />
                 <Text
-                  fontSize={screenWidth*0.03}
-                  lineHeight={screenWidth*0.04}
+                  fontSize={screenWidth * 0.03}
+                  lineHeight={screenWidth * 0.04}
                   color={colors.inputTitle}
                   marginLeft={0}
                   marginTop={0}
@@ -192,8 +204,8 @@ export default function Home({ navigation }) {
                 </Text>
               </TextContainer>
               <Text
-                fontSize={screenWidth*0.1}
-                lineHeight={screenWidth*0.1}
+                fontSize={screenWidth * 0.1}
+                lineHeight={screenWidth * 0.1}
                 color={colors.time}
                 marginLeft={screenWidth * 0.057}
                 marginTop={-screenWidth * 0.01}
@@ -230,7 +242,11 @@ export default function Home({ navigation }) {
                 marginRight={screenWidth * 0.027}
                 onPress={() => navigation.navigate("Plataformas")}
               >
-                <AntDesign name="right" size={screenWidth * 0.05} color={colors.icon} />
+                <AntDesign
+                  name="right"
+                  size={screenWidth * 0.05}
+                  color={colors.icon}
+                />
               </IconContainer>
             </TextContainer>
             <ProgressBarContainer
@@ -323,7 +339,11 @@ export default function Home({ navigation }) {
                 marginRight={screenWidth * 0.03}
                 onPress={() => navigation.navigate("Plataformas")}
               >
-                <AntDesign name="right" size={screenWidth * 0.05} color={colors.icon} />
+                <AntDesign
+                  name="right"
+                  size={screenWidth * 0.05}
+                  color={colors.icon}
+                />
               </IconContainer>
             </TextContainer>
             <Text
@@ -429,10 +449,7 @@ export default function Home({ navigation }) {
             </TextContainer>
           </EarningContainer>
 
-          <EarningContainer
-            marginRight={screenWidth * 0.036}
-            marginLeft={0}
-          >
+          <EarningContainer marginRight={screenWidth * 0.036} marginLeft={0}>
             <TextContainer
               justifyContent={"space-between"}
               marginTop={screenWidth * 0.03}
@@ -452,7 +469,11 @@ export default function Home({ navigation }) {
                 marginRight={screenWidth * 0.03}
                 onPress={() => navigation.navigate("Plataformas")}
               >
-                <AntDesign name="right" size={screenWidth * 0.05} color={colors.icon} />
+                <AntDesign
+                  name="right"
+                  size={screenWidth * 0.05}
+                  color={colors.icon}
+                />
               </IconContainer>
             </TextContainer>
             <Text
@@ -558,10 +579,7 @@ export default function Home({ navigation }) {
             </TextContainer>
           </EarningContainer>
 
-          <EarningContainer
-            marginRight={screenWidth * 0.036}
-            marginLeft={0}
-          >
+          <EarningContainer marginRight={screenWidth * 0.036} marginLeft={0}>
             <TextContainer
               justifyContent={"space-between"}
               marginTop={screenWidth * 0.03}
@@ -581,7 +599,11 @@ export default function Home({ navigation }) {
                 marginRight={screenWidth * 0.03}
                 onPress={() => navigation.navigate("Plataformas")}
               >
-                <AntDesign name="right" size={screenWidth * 0.05} color={colors.icon} />
+                <AntDesign
+                  name="right"
+                  size={screenWidth * 0.05}
+                  color={colors.icon}
+                />
               </IconContainer>
             </TextContainer>
             <Text
@@ -686,8 +708,6 @@ export default function Home({ navigation }) {
               </Text>
             </TextContainer>
           </EarningContainer>
-
-          
         </ScrollView>
       </MainContainer>
       <AddEarningModal />

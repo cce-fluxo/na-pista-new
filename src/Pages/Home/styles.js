@@ -25,7 +25,6 @@ export const View = styled.View`
   margin-top: ${(props) => props.marginTop}px;
   margin-left: ${(props) => props.marginLeft}px;
   margin-bottom: ${(props) => props.marginBottom}px;
-  
 `;
 
 export const Subcontainer = styled.View`
@@ -45,7 +44,7 @@ export const EarningContainer = styled.View`
   flex-direction: column;
   width: ${screenWidth * 0.86}px;
   height: ${screenHeight * 0.32}px;
-  border-radius: 8px; 
+  border-radius: 8px;
   margin-left: ${(props) => props.marginLeft}px;
   margin-right: ${(props) => props.marginRight}px;
   margin-bottom: ${screenWidth * 0.014}px;
@@ -93,8 +92,8 @@ export const ActivityButton = styled.TouchableOpacity`
   height: ${screenHeight * 0.085}px;
   background-color: ${colors.background};
   border-radius: 50px;
-  margin-left: ${screenWidth*0.044}px;
-  margin-top: ${screenWidth*0.034}px;
+  margin-left: ${screenWidth * 0.044}px;
+  margin-top: ${screenWidth * 0.034}px;
   align-items: center;
   justify-content: center;
   elevation: 4;
@@ -108,7 +107,7 @@ export const TimeContainer = styled.View`
 
 export const LineView = styled.View`
   width: ${screenWidth * 0.8}px;
-  height: ${screenWidth * 0.004}px;;
+  height: ${screenWidth * 0.004}px;
   background-color: ${colors.line};
   align-self: center;
 `;
