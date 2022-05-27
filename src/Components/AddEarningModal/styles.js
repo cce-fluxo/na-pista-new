@@ -25,7 +25,7 @@ export const AddContainer = styled.TouchableOpacity`
   height: ${(props) => props.height}px;
   flex-direction: row;
   background-color: ${(props) => props.backgroundColor};
-  border-radius: 50px;
+  border-radius: ${screenWidth * 0.14}px;
   elevation: 5;
 `;
 
@@ -36,7 +36,7 @@ export const TextContainer = styled.View`
   align-self: center;
   align-items: flex-end;
   justify-content: flex-end;
-  margin-right: 10px;
+  margin-right: ${screenHeight * 0.03}px;
 `;
 
 export const ModalContainer = styled.View`
@@ -54,16 +54,16 @@ export const CloseContainer = styled.TouchableOpacity`
   width: ${(props) => props.width}px;
   height: ${(props) => props.height}px;
   background-color: ${colors.modal};
-  border-radius: 50px;
+  border-radius: ${screenWidth * 0.14}px;
   position: absolute;
-  bottom: ${screenWidth * 0.16}px;
+  bottom: ${screenWidth * 0.18}px;
   left: ${screenWidth * 0.76}px;
   elevation: 5;
 `;
 
 export const AddText = styled.Text`
   font-family: ${fonts.Ubuntu};
-  font-size: 14px;
+  font-size: ${screenWidth * 0.038}px;
   color: black;
   margin-left: 10px;
   margin-right: 10px;

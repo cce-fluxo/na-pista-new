@@ -25,6 +25,7 @@ export const View = styled.View`
   margin-top: ${(props) => props.marginTop}px;
   margin-left: ${(props) => props.marginLeft}px;
   margin-bottom: ${(props) => props.marginBottom}px;
+  
 `;
 
 export const Subcontainer = styled.View`
@@ -43,16 +44,16 @@ export const EarningContainer = styled.View`
   background-color: white;
   flex-direction: column;
   width: ${screenWidth * 0.86}px;
-  height: ${screenHeight * 0.3}px;
-  border-radius: 8px;
+  height: ${screenHeight * 0.32}px;
+  border-radius: 8px; 
   margin-left: ${(props) => props.marginLeft}px;
   margin-right: ${(props) => props.marginRight}px;
-  margin-bottom: 5px;
+  margin-bottom: ${screenWidth * 0.014}px;
   elevation: 4;
 `;
 
 export const TextContainer = styled.View`
-  padding: 10px;
+  padding: ${screenWidth * 0.027}px;
   margin-top: ${(props) => props.marginTop}px;
   max-height: ${screenHeight * 0.1}px;
   max-width: ${(props) => props.maxWidth}px;
@@ -72,11 +73,7 @@ export const Text = styled.Text`
 `;
 
 export const IconContainer = styled.TouchableOpacity`
-  flex-direction: row;
-  justify-content: space-around;
   align-items: center;
-  max-height: ${screenHeight * 0.03}px;
-  max-width: ${screenWidth * 0.07}px;
   margin-right: ${(props) => props.marginRight}px;
 `;
 
@@ -92,12 +89,12 @@ export const ProgressBarContainer = styled.View`
 `;
 
 export const ActivityButton = styled.TouchableOpacity`
-  height: 70px;
-  width: 70px;
+  width: ${screenWidth * 0.14}px;
+  height: ${screenHeight * 0.085}px;
   background-color: ${colors.background};
   border-radius: 50px;
-  margin-left: 20px;
-  margin-top: 18px;
+  margin-left: ${screenWidth*0.044}px;
+  margin-top: ${screenWidth*0.034}px;
   align-items: center;
   justify-content: center;
   elevation: 4;
@@ -110,9 +107,8 @@ export const TimeContainer = styled.View`
 `;
 
 export const LineView = styled.View`
-  width: ${screenWidth * 0.75}px;
-  height: 1.4px;
+  width: ${screenWidth * 0.8}px;
+  height: ${screenWidth * 0.004}px;;
   background-color: ${colors.line};
-  margin: 5px;
   align-self: center;
 `;

@@ -20,12 +20,12 @@ export const ProgressBarContainer = styled.View`
 
 export const TextContainer = styled.View`
   text-align: center;
-  height: ${screenHeight * 0.024}px;
-  margin-top: 34px;
+  height: ${screenHeight * 0.04}px;
+  margin-top: ${screenWidth * 0.05}px;
 `;
 
 export const Label = styled.Text`
-  font-size: 14px;
+  font-size: ${screenWidth * 0.035}px;
   font-weight: bold;
   color: ${(props) => props.color};
   font-family: ${fonts.Ubuntu};

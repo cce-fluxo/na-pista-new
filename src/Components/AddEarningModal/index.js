@@ -26,11 +26,11 @@ const AddEarningModal = () => {
     <Container>
       <AddContainer
         onPress={toggleModal}
-        width={screenWidth * 0.16}
-        height={screenHeight * 0.072}
+        width={screenWidth * 0.14}
+        height={screenHeight * 0.085}
         backgroundColor={colors.modal}
       >
-        <AntDesign name="plus" size={26} color="white" />
+        <AntDesign name="plus" size={screenWidth * 0.072} color="white" />
       </AddContainer>
       <Modal
         isVisible={isModalVisible}
@@ -46,13 +46,13 @@ const AddEarningModal = () => {
             <AddText>Adicionar Ganho</AddText>
             <AddContainer
               onPress={toggleModal}
-              width={screenWidth * 0.1}
-              height={screenHeight * 0.045}
+              width={screenWidth * 0.09}
+              height={screenHeight * 0.05}
               backgroundColor={"white"}
             >
               <MaterialIcons
                 name="pedal-bike"
-                size={26}
+                size={screenWidth * 0.07}
                 color={colors.modalIcons}
               />
             </AddContainer>
@@ -61,13 +61,13 @@ const AddEarningModal = () => {
             <AddText>Adicionar Ganhos Múltiplos</AddText>
             <AddContainer
               onPress={toggleModal}
-              width={screenWidth * 0.1}
-              height={screenHeight * 0.045}
+              width={screenWidth * 0.09}
+              height={screenHeight * 0.05}
               backgroundColor={"white"}
             >
               <MaterialIcons
                 name="pedal-bike"
-                size={26}
+                size={screenWidth * 0.07}
                 color={colors.modalIcons}
               />
             </AddContainer>
@@ -76,13 +76,13 @@ const AddEarningModal = () => {
             <AddText>Adicionar Gasto</AddText>
             <AddContainer
               onPress={toggleModal}
-              width={screenWidth * 0.1}
-              height={screenHeight * 0.045}
+              width={screenWidth * 0.09}
+              height={screenHeight * 0.05}
               backgroundColor={"white"}
             >
               <MaterialIcons
                 name="attach-money"
-                size={26}
+                size={screenWidth * 0.07}
                 color={colors.modalIcons}
               />
             </AddContainer>
@@ -91,10 +91,10 @@ const AddEarningModal = () => {
 
         <CloseContainer
           onPress={() => setModalVisible(false)}
-          width={screenWidth * 0.16}
-          height={screenHeight * 0.072}
+          width={screenWidth * 0.14}
+          height={screenHeight * 0.08}
         >
-          <AntDesign name="close" size={26} color="white" />
+          <AntDesign name="close" size={screenWidth * 0.072} color="white" />
         </CloseContainer>
       </Modal>
     </Container>
