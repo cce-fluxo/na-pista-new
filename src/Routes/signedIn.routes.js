@@ -1,9 +1,10 @@
 import * as React from "react";
-import InicioRoutes from "./inicio.routes";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { colors, screenHeight, screenWidth } from "../Constants/constants";
 import { Entypo, MaterialIcons } from "@expo/vector-icons";
-import { NavigationContainer } from "@react-navigation/native";
+
+import { colors, screenHeight, screenWidth } from "../Constants/constants";
+import InicioRoutes from "./inicio.routes";
+import AtividadesRoutes from "./atividades.routes";
 
 const Tab = createBottomTabNavigator();
 
@@ -39,7 +40,7 @@ function SignedInRoutes() {
       />
       <Tab.Screen
         name="Atividades"
-        component={InicioRoutes}
+        component={AtividadesRoutes}
         options={{
           tabBarLabel: "Atividades",
           tabBarIcon: ({ focused }) => (
