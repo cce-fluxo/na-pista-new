@@ -40,7 +40,7 @@ export default function AddGanhos({ navigation, route }) {
   async function addEarning() {
     setLoading(true);
     try {
-      navigation.navigate("Menu Configurações");
+      console.log(name, doneAt, amount, extraAmount, distance, duration);
     } catch (error) {
       console.log(error);
     }
