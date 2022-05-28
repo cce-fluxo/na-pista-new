@@ -28,11 +28,11 @@ const Dropdown = ({ label, data, marginTop, setOption }) => {
       marginTop={20}
       onPress={() => {
         setSelectedValue(item);
-        setOption(item.value);
+        setOption(item.name);
         setModalVisible(false);
       }}
     >
-      <SelectText>{item.label}</SelectText>
+      <SelectText>{item.name}</SelectText>
     </ItemContainer>
   );
 
