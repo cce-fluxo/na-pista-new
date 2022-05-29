@@ -31,33 +31,27 @@ export default function AddGastos({ navigation }) {
   const data = [
     {
       id: "1",
-      value: "Combustível",
-      label: "Combustível",
+      name: "Combustível",
     },
     {
       id: "2",
-      value: "Aluguel",
-      label: "Aluguel",
+      name: "Aluguel",
     },
     {
       id: "3",
-      value: "Alimentação",
-      label: "Alimentação",
+      name: "Alimentação",
     },
     {
       id: "4",
-      value: "Manutenção",
-      label: "Manutenção",
+      name: "Manutenção",
     },
     {
       id: "5",
-      value: "Multa",
-      label: "Multa",
+      name: "Multa",
     },
     {
       id: "6",
-      value: "Outro",
-      label: "Outro",
+      name: "Outro",
     },
   ];
 
