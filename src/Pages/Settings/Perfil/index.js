@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { ScrollView, View } from "react-native";
 
-import SafeArea from "../../../Utils/SafeArea/index";
-import Header from "../../../Components/SettingsHeader/index";
-import Input from "../../../Components/Input/index";
-import Dropdown from "../../../Components/Dropdown/index";
-import Date from "../../../Components/Date/index";
-import Button from "../../../Components/Button/index";
+import SafeArea from "../../../Utils/SafeArea";
+import Header from "../../../Components/SettingsHeader";
+import Input from "../../../Components/Input";
+import Dropdown from "../../../Components/Dropdown";
+import Date from "../../../Components/Date";
+import Button from "../../../Components/Button";
 import { Container } from "./styles";
 import {
   colors,
@@ -14,90 +14,91 @@ import {
   screenWidth,
   fonts,
 } from "../../../Constants/constants";
+import api from "../../../Services/api";
+import { useAuth } from "../../../Contexts/auth";
 
 export default function SettingsPerfil({ navigation }) {
-  const [nome, setNome] = useState("");
-  const [sobrenome, setSobrenome] = useState("");
-  const [genero, setGenero] = useState("");
-  const [data, setData] = useState(0);
-  const [estado, setEstado] = useState("");
-  const [cidade, setCidade] = useState("");
-  const [bairro, setBairro] = useState("");
+  const { user } = useAuth();
+  const [firstName, setFirstName] = useState(user.firstName);
+  const [lastName, setLastName] = useState(user.lastName);
+  const [gender, setGender] = useState(user.gender);
+  const [birthDate, setBirthDate] = useState(user.birthDate);
+  const [state, setState] = useState(user.state);
+  const [city, setCity] = useState(user.city);
+  const [neighborhood, setNeighborhood] = useState(user.neighborhood);
   const [loading, setLoading] = useState(false);
 
   const dataGenero = [
     {
       id: "1",
-      value: "f",
-      label: "Feminino",
+      name: "Feminino",
     },
     {
       id: "2",
-      value: "m",
-      label: "Masculino",
+      name: "Masculino",
     },
   ];
 
   const dataState = [
     {
       id: "1",
-      value: "rj",
-      label: "RJ",
+      name: "RJ",
     },
     {
       id: "2",
-      value: "sp",
-      label: "SP",
+      name: "SP",
     },
   ];
 
   const dataCity = [
     {
       id: "1",
-      value: "rio",
-      label: "Rio de Janeiro",
+      name: "Rio de Janeiro",
     },
     {
       id: "2",
-      value: "saoPaulo",
-      label: "São Paulo",
+      name: "São Paulo",
     },
   ];
 
   const dataNeighborhood = [
     {
       id: "1",
-      value: "botafogo",
-      label: "Botafogo",
+      name: "Botafogo",
     },
     {
       id: "2",
-      value: "morumbi",
-      label: "Morumbi",
+      name: "Morumbi",
     },
     {
       id: "3",
-      value: "copa",
-      label: "Copacabana",
+      name: "Copacabana",
     },
     {
       id: "4",
-      value: "fla",
-      label: "Flamengo",
+      name: "Flamengo",
     },
   ];
 
-  try {
-  } catch (error) {
-    console.log(error);
-  }
-
   async function patchUser() {
+    setLoading(true);
+    const data = {
+      email: user.email,
+      firstName: firstName,
+      lastName: lastName,
+      gender: gender,
+      birthDate: birthDate,
+      state: state,
+      city: city,
+      neighborhood: neighborhood,
+    }
     try {
-      navigation.navigate("Menu Configurações");
+      response = await api.patch(`/user/${user.id}`, data );
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
+    setLoading(false);
   }
 
   return (
@@ -112,22 +113,23 @@ export default function SettingsPerfil({ navigation }) {
             title="Nome"
             marginLeft={0}
             marginTop={screenHeight * 0.025}
-            value={nome}
-            onChangeText={(text) => setNome(text)}
-            placeholder={nome}
+            value={firstName}
+            onChangeText={(text) => setFirstName(text)}
+            placeholder={firstName}
           />
           <Input
             title="Sobrenome"
             marginLeft={0}
             marginTop={screenHeight * 0.025}
-            value={sobrenome}
-            onChangeText={(text) => setSobrenome(text)}
-            placeholder={sobrenome}
+            value={lastName}
+            onChangeText={(text) => setLastName(text)}
+            placeholder={lastName}
           />
           <Dropdown
             label="Identidade de gênero"
             data={dataGenero}
             marginTop={screenHeight * 0.025}
+            setOption={setGender}
           />
           <Date
             label="Data de nascimento"
@@ -138,19 +140,22 @@ export default function SettingsPerfil({ navigation }) {
             label="Estado"
             data={dataState}
             marginTop={screenHeight * 0.025}
+            setOption={setState}
           />
           <Dropdown
             label="Cidade"
             data={dataCity}
             marginTop={screenHeight * 0.025}
+            setOption={setCity}
           />
           <Dropdown
             label="Bairro"
             data={dataNeighborhood}
             marginTop={screenHeight * 0.025}
+            setOption={setNeighborhood}
           />
           <Button
-            width={screenWidth * 0.91}
+            width={screenWidth * 0.9}
             marginLeft={0}
             marginTop={screenHeight * 0.025}
             disabled={loading}
