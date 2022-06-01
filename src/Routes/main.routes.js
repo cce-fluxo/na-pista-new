@@ -2,7 +2,7 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import SignedIn from "./signedIn.routes";
+import InicioRoutes from "./inicio.routes";
 import SignedOut from "./signedOut.routes";
 
 const Stack = createStackNavigator();
@@ -17,8 +17,8 @@ export default function MainRoutes() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="SignedIn"
-          component={SignedIn}
+          name="InicioRoutes"
+          component={InicioRoutes}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

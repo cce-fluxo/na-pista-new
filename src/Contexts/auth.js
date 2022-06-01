@@ -57,7 +57,7 @@ export default function AuthContextProvider({ children }) {
 
         setUser(user);
         setAccessToken(accessToken);
-        navigation.navigate("SignedIn");
+        navigation.navigate("InicioRoutes");
       } catch (err) {
         console.log(err);
         showMessage({

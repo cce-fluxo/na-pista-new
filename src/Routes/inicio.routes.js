@@ -1,7 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import Home from "../Pages/Home";
+import SignedIn from "./signedIn.routes";
 import SettingsMenu from "../Pages/SettingsMenu";
 import SettingsHelp from "../Pages/Settings/Ajuda/index";
 import SettingsExportData from "../Pages/Settings/ExportarDados/index";
@@ -14,8 +14,8 @@ export default function InicioRoutes() {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Home"
-        component={Home}
+        name="SignedIn"
+        component={SignedIn}
         options={{ headerShown: false }}
       />
       <Stack.Screen

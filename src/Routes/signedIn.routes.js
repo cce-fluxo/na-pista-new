@@ -3,15 +3,15 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Entypo, MaterialIcons } from "@expo/vector-icons";
 
 import { colors, screenHeight, screenWidth } from "../Constants/constants";
-import InicioRoutes from "./inicio.routes";
+import Home from "../Pages/Home";
 import AtividadesRoutes from "./atividades.routes";
 
 const Tab = createBottomTabNavigator();
 
-function SignedInRoutes() {
+ export default function SignedInRoutes() {
   return (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName="Inicio"
       screenOptions={{
         headerShown: false,
         style: {
@@ -26,7 +26,7 @@ function SignedInRoutes() {
     >
       <Tab.Screen
         name="Home"
-        component={InicioRoutes}
+        component={Home}
         options={{
           tabBarLabel: "Início",
           tabBarIcon: ({ focused }) => (
@@ -54,7 +54,7 @@ function SignedInRoutes() {
       />
       <Tab.Screen
         name="Resultados"
-        component={InicioRoutes}
+        component={AtividadesRoutes}
         options={{
           tabBarLabel: "Resultados",
           tabBarIcon: ({ focused }) => (
@@ -69,5 +69,3 @@ function SignedInRoutes() {
     </Tab.Navigator>
   );
 }
-
-export default SignedInRoutes;

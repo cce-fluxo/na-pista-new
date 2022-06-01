@@ -1,6 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
+import SignedIn from "./signedIn.routes";
 import AddGanhos from "../Pages/AddGanhos";
 import AddGanhosMultiplos from "../Pages/AddGanhosMultiplos";
 import AddGastos from "../Pages/AddGastos";
@@ -10,6 +11,11 @@ const Stack = createStackNavigator();
 export default function AtividadesRoutes() {
   return (
     <Stack.Navigator>
+      <Stack.Screen
+        name="SignedIn"
+        component={SignedIn}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen
         name="AddGanhos"
         conponent={AddGanhos}
