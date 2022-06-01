@@ -83,7 +83,6 @@ export default function SettingsPerfil({ navigation }) {
   async function patchUser() {
     setLoading(true);
     const data = {
-      email: user.email,
       firstName: firstName,
       lastName: lastName,
       gender: gender,
@@ -91,12 +90,12 @@ export default function SettingsPerfil({ navigation }) {
       state: state,
       city: city,
       neighborhood: neighborhood,
-    }
+    };
     try {
-      response = await api.patch(`/user/${user.id}`, data );
+      response = await api.patch("/me", data);
       console.log(response);
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
     setLoading(false);
   }
@@ -129,6 +128,7 @@ export default function SettingsPerfil({ navigation }) {
             label="Identidade de gênero"
             data={dataGenero}
             marginTop={screenHeight * 0.025}
+            option={gender}
             setOption={setGender}
           />
           <Date
@@ -140,18 +140,21 @@ export default function SettingsPerfil({ navigation }) {
             label="Estado"
             data={dataState}
             marginTop={screenHeight * 0.025}
+            option={state}
             setOption={setState}
           />
           <Dropdown
             label="Cidade"
             data={dataCity}
             marginTop={screenHeight * 0.025}
+            option={city}
             setOption={setCity}
           />
           <Dropdown
             label="Bairro"
             data={dataNeighborhood}
             marginTop={screenHeight * 0.025}
+            option={neighborhood}
             setOption={setNeighborhood}
           />
           <Button

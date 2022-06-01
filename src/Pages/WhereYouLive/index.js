@@ -97,18 +97,21 @@ const WhereYouLive = ({ navigation, route }) => {
           label="Estado"
           data={dataState}
           marginTop={30}
+          option="Selecione..."
           setOption={setState}
         />
         <Dropdown
           label="Cidade"
           data={dataCity}
           marginTop={30}
+          option="Selecione..."
           setOption={setCity}
         />
         <Dropdown
           label="Bairro"
           data={dataNeighborhood}
           marginTop={30}
+          option="Selecione..."
           setOption={setNeighborhood}
         />
         <ButtonContainer>

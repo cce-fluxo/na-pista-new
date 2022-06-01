@@ -62,6 +62,7 @@ export default function AddGanhos({ navigation, route }) {
           label="Plataforma"
           data={vendors}
           marginTop={screenHeight * 0.025}
+          option="Selecione..."
           setOption={setName}
         />
         <Date label="Data" marginTop={screenHeight * 0.025} marginLeft={0} />

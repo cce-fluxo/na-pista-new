@@ -80,6 +80,7 @@ export default function BasicInfo({ navigation, route }) {
           label="Identidade de Gênero"
           data={data}
           marginTop={30}
+          option="Selecione..."
           setOption={setGender}
         />
         <Date marginTop={30} marginLeft={0} label="Data de Nascimento" />

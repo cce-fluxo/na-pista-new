@@ -74,6 +74,7 @@ export default function AddGastos({ navigation }) {
           label="Tipo"
           data={data}
           marginTop={screenHeight * 0.02}
+          option="Selecione..."
           setOption={setType}
         />
         <Input

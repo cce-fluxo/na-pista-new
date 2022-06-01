@@ -10,13 +10,13 @@ import {
   SelectText,
   Title,
 } from "./styles";
-import { colors, screenHeight } from "../../Constants/constants";
+import { colors } from "../../Constants/constants";
 
-const Dropdown = ({ label, data, marginTop, setOption }) => {
+const Dropdown = ({ label, data, marginTop, option, setOption }) => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [selectedValue, setSelectedValue] = useState({
-    label: "Selecione...",
-    value: "",
+    id: 0,
+    name: option,
   });
 
   const toggleModal = () => {
@@ -40,7 +40,7 @@ const Dropdown = ({ label, data, marginTop, setOption }) => {
     <Container marginTop={marginTop}>
       <Title>{label}</Title>
       <SelectContainer onPress={toggleModal}>
-        <SelectText>{selectedValue.label}</SelectText>
+        <SelectText>{selectedValue.name}</SelectText>
         <Icon name="chevron-down" size={30} color={colors.modalIcons} />
       </SelectContainer>
 

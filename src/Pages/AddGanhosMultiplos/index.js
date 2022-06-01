@@ -96,6 +96,7 @@ export default function AddGanhos({ navigation, route }) {
           label="Período"
           data={periods}
           marginTop={screenHeight * 0.025}
+          option="Selecione..."
           setOption={setPeriod}
         />
         <IncrementUnitaryContainer
