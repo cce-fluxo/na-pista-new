@@ -2,8 +2,8 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import SignedIn from "./signedIn.routes";
 import SignedOut from "./signedOut.routes";
+import SignedIn from "./signedIn.routes";
 
 const Stack = createStackNavigator();
 

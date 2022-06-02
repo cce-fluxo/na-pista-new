@@ -14,7 +14,7 @@ import Success from "../Pages/Success";
 
 const Stack = createStackNavigator();
 
-function SignedOutRoutes() {
+export default function SignedOutRoutes() {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -33,5 +33,3 @@ function SignedOutRoutes() {
     </Stack.Navigator>
   );
 }
-
-export default SignedOutRoutes;
