@@ -1,71 +1,66 @@
-import * as React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Entypo, MaterialIcons } from "@expo/vector-icons";
+import React from "react";
+import { createStackNavigator } from "@react-navigation/stack";
 
-import { colors, screenHeight, screenWidth } from "../Constants/constants";
-import Home from "../Pages/Home";
-import AtividadesRoutes from "./atividades.routes";
+import TabNavigatorRoutes from "./tabNavigator.routes";
+import SettingsMenu from "../Pages/SettingsMenu";
+import SettingsHelp from "../Pages/Settings/Ajuda";
+import SettingsExportData from "../Pages/Settings/ExportarDados";
+import SettingsPerfil from "../Pages/Settings/Perfil";
+import Settings from "../Pages/Settings/Configurações";
+import AddGanhos from "../Pages/AddGanhos";
+import AddGanhosMultiplos from "../Pages/AddGanhosMultiplos";
+import AddGastos from "../Pages/AddGastos";
 
-const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
- export default function SignedInRoutes() {
+export default function SignedInRoutes() {
   return (
-    <Tab.Navigator
-      initialRouteName="Inicio"
-      screenOptions={{
-        headerShown: false,
-        style: {
-          position: "absolute",
-          height: screenHeight * 0.1,
-          minHeight: 60,
-        },
-        showLabel: true,
-        labelStyle: { fontSize: 14 },
-        tabBarActiveTintColor: colors.background,
-      }}
-    >
-      <Tab.Screen
-        name="Home"
-        component={Home}
-        options={{
-          tabBarLabel: "Início",
-          tabBarIcon: ({ focused }) => (
-            <Entypo
-              name="home"
-              size={25}
-              color={focused ? colors.background : colors.inputTitle}
-            />
-          ),
-        }}
+    <Stack.Navigator>
+      <Stack.Screen
+        name="TabNavigatorRoutes"
+        component={TabNavigatorRoutes}
+        options={{ headerShown: false }}
       />
-      <Tab.Screen
-        name="Atividades"
-        component={AtividadesRoutes}
-        options={{
-          tabBarLabel: "Atividades",
-          tabBarIcon: ({ focused }) => (
-            <MaterialIcons
-              name="list-alt"
-              size={25}
-              color={focused ? colors.background : colors.inputTitle}
-            />
-          ),
-        }}
+      <Stack.Screen
+        name="Menu Configurações"
+        component={SettingsMenu}
+        options={{ headerShown: false }}
       />
-      <Tab.Screen
-        name="Resultados"
-        component={AtividadesRoutes}
-        options={{
-          tabBarLabel: "Resultados",
-          tabBarIcon: ({ focused }) => (
-            <MaterialIcons
-              name="bar-chart"
-              size={25}
-              color={focused ? colors.background : colors.inputTitle}
-            />
-          ),
-        }}
+      <Stack.Screen
+        name="Ajuda"
+        component={SettingsHelp}
+        options={{ headerShown: false }}
       />
-    </Tab.Navigator>
+      <Stack.Screen
+        name="ExportarDados"
+        component={SettingsExportData}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Perfil"
+        component={SettingsPerfil}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Configurações"
+        component={Settings}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Add Ganhos"
+        component={AddGanhos}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Add Ganhos Multiplos"
+        component={AddGanhosMultiplos}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Add Gastos"
+        component={AddGastos}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
   );
 }

@@ -37,7 +37,7 @@ export default function AddGanhos({ navigation, route }) {
     }
   }
 
-  async function addEarning() {
+  function addEarning() {
     setLoading(true);
     try {
       console.log(name, doneAt, amount, extraAmount, distance, duration);
@@ -56,7 +56,7 @@ export default function AddGanhos({ navigation, route }) {
       <Container>
         <Header
           name="Adicionar ganho"
-          onPressNavigate={() => navigation.navigate("First")}
+          onPressNavigate={() => navigation.navigate("Inicio")}
         />
         <Dropdown
           label="Plataforma"
@@ -81,7 +81,11 @@ export default function AddGanhos({ navigation, route }) {
             marginLeft={0}
           >
             <TouchableOpacity onPress={() => setClick(true)}>
-              <AddText marginLeft={screenWidth * 0.001} color={colors.background} font={fonts.Ubuntu}>
+              <AddText
+                marginLeft={screenWidth * 0.001}
+                color={colors.background}
+                font={fonts.Ubuntu}
+              >
                 + Adicionar gorjeta
               </AddText>
             </TouchableOpacity>

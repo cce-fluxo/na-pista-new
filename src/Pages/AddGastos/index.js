@@ -68,7 +68,7 @@ export default function AddGastos({ navigation }) {
   return (
     <SafeArea>
       <Container>
-        <Header name="Adicionar gasto" onPressNavigate={null} />
+        <Header name="Adicionar gasto" onPressNavigate={() => navigation.navigate("Inicio")} />
         <Date marginTop={screenHeight * 0.02} marginLeft={0} label="Data" />
         <Dropdown
           label="Tipo"

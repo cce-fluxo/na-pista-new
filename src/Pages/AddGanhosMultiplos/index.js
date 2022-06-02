@@ -16,7 +16,7 @@ import {
 } from "../../Constants/constants";
 import api from "../../Services/api";
 
-export default function AddGanhos({ navigation, route }) {
+export default function AddGanhosMultiplos({ navigation }) {
   const [name, setName] = useState("");
   const [period, setPeriod] = useState("");
   const [races, setRaces] = useState(0);
@@ -83,7 +83,7 @@ export default function AddGanhos({ navigation, route }) {
       <Container>
         <Header
           name="Adicionar ganhos múltiplos"
-          onPressNavigate={() => navigation.navigate("First")}
+          onPressNavigate={() => navigation.navigate("Inicio")}
         />
         <ScrollView>
         <Dropdown
