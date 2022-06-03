@@ -45,7 +45,7 @@ const AddEarningModal = ({navigation}) => {
           <TextContainer>
             <AddText>Adicionar Ganho</AddText>
             <AddContainer
-              onPress={toggleModal}
+              onPress={() => navigation.navigate("Add Ganhos")}
               width={screenWidth * 0.09}
               height={screenHeight * 0.05}
               backgroundColor={"white"}
@@ -60,7 +60,7 @@ const AddEarningModal = ({navigation}) => {
           <TextContainer>
             <AddText>Adicionar Ganhos Múltiplos</AddText>
             <AddContainer
-              onPress={toggleModal}
+              onPress={() => navigation.navigate("Add Ganhos Multiplos")}
               width={screenWidth * 0.09}
               height={screenHeight * 0.05}
               backgroundColor={"white"}
@@ -75,7 +75,7 @@ const AddEarningModal = ({navigation}) => {
           <TextContainer>
             <AddText>Adicionar Gasto</AddText>
             <AddContainer
-              onPress={toggleModal}
+              onPress={() => navigation.navigate("Add Gastos")}
               width={screenWidth * 0.09}
               height={screenHeight * 0.05}
               backgroundColor={"white"}
