@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { View } from "react-native";
 import { Ionicons, AntDesign } from "react-native-vector-icons";
 
 import SafeArea from "../../Utils/SafeArea";
@@ -9,6 +10,15 @@ import {
   TextContainer,
   IconContainer,
   MainContainer,
+  PeriodView,
+  PeriodOpacity,
+  PeriodText,
+  TimeView,
+  GGView,
+  GGSubView,
+  ResultText,
+  LineView,
+  ResultView,
 } from "./styles";
 import {
   fonts,
@@ -84,7 +94,7 @@ export default function Results({ navigation }) {
         <Subcontainer
           backgroundColor={colors.background}
           width={screenWidth}
-          height={screenHeight * 0.32}
+          height={screenHeight * 0.09}
         >
           <TextContainer
             padding={screenWidth * 0.027}
@@ -123,51 +133,173 @@ export default function Results({ navigation }) {
             </IconContainer>
           </TextContainer>
         </Subcontainer>
-        <PeriodView>
-          <PeriodOpacity></PeriodOpacity>
-          <PeriodOpacity></PeriodOpacity>
-          <PeriodOpacity></PeriodOpacity>
+        <PeriodView
+          width={screenWidth}
+          height={screenHeight * 0.07}
+          backgroundColor="#f8f8f8"
+        >
+          <PeriodOpacity
+            width={screenWidth / 3}
+            height={screenHeight * 0.07}
+            onPress={() => changePeriod("Dia")}
+          >
+            <PeriodText fontFamily={fonts.Ubuntu} color={colors.inputTitle}>
+              Dia
+            </PeriodText>
+          </PeriodOpacity>
+          <PeriodOpacity
+            width={screenWidth / 3}
+            height={screenHeight * 0.07}
+            onPress={() => changePeriod("Semana")}
+          >
+            <PeriodText fontFamily={fonts.Ubuntu} color={colors.inputTitle}>
+              Semana
+            </PeriodText>
+          </PeriodOpacity>
+          <PeriodOpacity
+            width={screenWidth / 3}
+            height={screenHeight * 0.07}
+            onPress={() => changePeriod("Mês")}
+          >
+            <PeriodText fontFamily={fonts.Ubuntu} color={colors.inputTitle}>
+              Mês
+            </PeriodText>
+          </PeriodOpacity>
         </PeriodView>
-        <TimeView>
+        <TimeView width={screenWidth} height={screenHeight * 0.06}>
           <AntDesign
             name="left"
             size={screenWidth * 0.04}
             color={colors.icon}
           />
-          <TimeText>{periodObject.data}</TimeText>
+          <PeriodText fontFamily={fonts.Ubuntu} color={colors.icon}>
+            {periodObject.data}
+          </PeriodText>
           <AntDesign
             name="right"
             size={screenWidth * 0.04}
             color={colors.icon}
           />
         </TimeView>
-        <ScrollView></ScrollView>
-        <GGView>
-          <GGSubView></GGSubView>
-          <LineView></LineView>
-          <GGSubView></GGSubView>
+        <GGView
+          marginTop={10}
+          marginLeft={screenWidth * 0.035}
+          width={screenWidth * 0.93}
+          height={screenHeight * 0.125}
+        >
+          <GGSubView width={screenWidth * 0.3} height={screenHeight * 0.125}>
+            <PeriodText fontFamily={fonts.Ubuntu} color={colors.inputTitle}>
+              GANHOS
+            </PeriodText>
+            <ResultText fontFamily={fonts.Ubuntu} color="green">
+              R$ {periodObject.ganhos}
+            </ResultText>
+          </GGSubView>
+          <LineView
+            height={screenHeight * 0.08}
+            backgroundColor={colors.icon}
+          ></LineView>
+          <GGSubView width={screenWidth * 0.3} height={screenHeight * 0.125}>
+            <PeriodText fontFamily={fonts.Ubuntu} color={colors.inputTitle}>
+              GASTOS
+            </PeriodText>
+            <ResultText fontFamily={fonts.Ubuntu} color="red">
+              R$ {periodObject.gastos}
+            </ResultText>
+          </GGSubView>
         </GGView>
-        <ResultView>
-          <ResultText>{periodObject.corridas}</ResultText>
+        <ResultView
+          marginTop={10}
+          marginLeft={screenWidth * 0.035}
+          width={screenWidth * 0.93}
+          height={screenHeight * 0.125}
+        >
+          <PeriodText fontFamily={fonts.Ubuntu} color={colors.inputTitle}>
+            CORRIDAS
+          </PeriodText>
+          <ResultText fontFamily={fonts.Ubuntu} color="black">
+            {periodObject.corridas}
+          </ResultText>
         </ResultView>
-        <ResultView>
-          <ResultText>{periodObject.tempoTotal}</ResultText>
+        <ResultView
+          marginTop={10}
+          marginLeft={screenWidth * 0.035}
+          width={screenWidth * 0.93}
+          height={screenHeight * 0.125}
+        >
+          <PeriodText fontFamily={fonts.Ubuntu} color={colors.inputTitle}>
+            TEMPO TOTAL
+          </PeriodText>
+          <ResultText fontFamily={fonts.Ubuntu} color="black">
+            {periodObject.tempoTotal}
+          </ResultText>
         </ResultView>
-        <ResultView>
-          <ResultText>{periodObject.tempoParado}</ResultText>
+        <ResultView
+          marginTop={10}
+          marginLeft={screenWidth * 0.035}
+          width={screenWidth * 0.93}
+          height={screenHeight * 0.125}
+        >
+          <PeriodText fontFamily={fonts.Ubuntu} color={colors.inputTitle}>
+            TEMPO PARADO
+          </PeriodText>
+          <ResultText fontFamily={fonts.Ubuntu} color="black">
+            {periodObject.tempoParado}
+          </ResultText>
         </ResultView>
-        <ResultView>
-          <ResultText>{periodObject.distanciaTotal} km</ResultText>
+        <ResultView
+          marginTop={10}
+          marginLeft={screenWidth * 0.035}
+          width={screenWidth * 0.93}
+          height={screenHeight * 0.125}
+        >
+          <PeriodText fontFamily={fonts.Ubuntu} color={colors.inputTitle}>
+            DISTÂNCIA TOTAL
+          </PeriodText>
+          <ResultText fontFamily={fonts.Ubuntu} color="black">
+            {periodObject.distanciaTotal} km
+          </ResultText>
         </ResultView>
-        <ResultView>
-          <ResultText>{periodObject.distanciaCorrida} km</ResultText>
+        <ResultView
+          marginTop={10}
+          marginLeft={screenWidth * 0.035}
+          width={screenWidth * 0.93}
+          height={screenHeight * 0.125}
+        >
+          <PeriodText fontFamily={fonts.Ubuntu} color={colors.inputTitle}>
+            DISTÂNCIA / CORRIDA
+          </PeriodText>
+          <ResultText fontFamily={fonts.Ubuntu} color="black">
+            {periodObject.distanciaCorrida} km
+          </ResultText>
         </ResultView>
-        <ResultView>
-          <ResultText>R$ {periodObject.ganhoHora}</ResultText>
+        <ResultView
+          marginTop={10}
+          marginLeft={screenWidth * 0.035}
+          width={screenWidth * 0.93}
+          height={screenHeight * 0.125}
+        >
+          <PeriodText fontFamily={fonts.Ubuntu} color={colors.inputTitle}>
+            GANHO / HORA
+          </PeriodText>
+          <ResultText fontFamily={fonts.Ubuntu} color="black">
+            R$ {periodObject.ganhoHora}
+          </ResultText>
         </ResultView>
-        <ResultView>
-          <ResultText>R$ {periodObject.ganhoKM}</ResultText>
+        <ResultView
+          marginTop={10}
+          marginLeft={screenWidth * 0.035}
+          width={screenWidth * 0.93}
+          height={screenHeight * 0.125}
+        >
+          <PeriodText fontFamily={fonts.Ubuntu} color={colors.inputTitle}>
+            GANHO / KM
+          </PeriodText>
+          <ResultText fontFamily={fonts.Ubuntu} color="black">
+            R$ {periodObject.ganhoKM}
+          </ResultText>
         </ResultView>
+        <View style={{ height: screenHeight * 0.1 }}></View>
       </MainContainer>
       <AddEarningModal />
     </SafeArea>

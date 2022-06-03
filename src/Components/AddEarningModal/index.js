@@ -14,7 +14,7 @@ import {
 import Button from "../Button";
 import { colors, screenHeight, screenWidth } from "../../Constants/constants";
 
-const AddEarningModal = () => {
+const AddEarningModal = ({navigation}) => {
   const [isModalVisible, setModalVisible] = useState(false);
 
   const toggleModal = () => {
