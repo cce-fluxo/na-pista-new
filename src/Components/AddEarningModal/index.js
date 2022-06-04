@@ -14,7 +14,7 @@ import {
 import Button from "../Button";
 import { colors, screenHeight, screenWidth } from "../../Constants/constants";
 
-const AddEarningModal = () => {
+export default function AddEarningModal({ navigation }) {
   const [isModalVisible, setModalVisible] = useState(false);
 
   const toggleModal = () => {
@@ -45,7 +45,7 @@ const AddEarningModal = () => {
           <TextContainer>
             <AddText>Adicionar Ganho</AddText>
             <AddContainer
-              onPress={toggleModal}
+              onPress={() => navigation.navigate("Add Ganhos")}
               width={screenWidth * 0.09}
               height={screenWidth * 0.09}
               backgroundColor={"white"}
@@ -60,7 +60,7 @@ const AddEarningModal = () => {
           <TextContainer>
             <AddText>Adicionar Ganhos Múltiplos</AddText>
             <AddContainer
-              onPress={toggleModal}
+              onPress={() => navigation.navigate("Add Ganhos Multiplos")}
               width={screenWidth * 0.09}
               height={screenWidth * 0.09}
               backgroundColor={"white"}
@@ -75,7 +75,7 @@ const AddEarningModal = () => {
           <TextContainer>
             <AddText>Adicionar Gasto</AddText>
             <AddContainer
-              onPress={toggleModal}
+              onPress={() => navigation.navigate("Add Gastos")}
               width={screenWidth * 0.09}
               height={screenWidth * 0.09}
               backgroundColor={"white"}
@@ -100,5 +100,3 @@ const AddEarningModal = () => {
     </Container>
   );
 };
-
-export default AddEarningModal;

@@ -4,6 +4,7 @@ import { Entypo, MaterialIcons } from "@expo/vector-icons";
 
 import { colors, screenHeight, screenWidth } from "../Constants/constants";
 import Home from "../Pages/Home";
+import Results from "../Pages/Results";
 import Activities from "../Pages/Activities";
 
 const Tab = createBottomTabNavigator();
@@ -54,7 +55,7 @@ export default function TabNavigatorRoutes() {
       />
       <Tab.Screen
         name="Resultados"
-        component={Home}
+        component={Results}
         options={{
           tabBarLabel: "Resultados",
           tabBarIcon: ({ focused }) => (
