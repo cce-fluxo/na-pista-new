@@ -112,7 +112,7 @@ export default function AddGastos({ navigation }) {
         <Button
           width={screenWidth * 0.9}
           marginLeft={0}
-          marginTop={0}
+          marginTop={screenHeight * 0.15}
           disabled={loading}
           loading={loading}
           text="Salvar"

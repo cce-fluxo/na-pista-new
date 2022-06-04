@@ -10,7 +10,6 @@ export const Container = styled.View`
 
 export const MaxContainer = styled.View`
   width: ${(props) => props.width}px;
-  flex: 1;
   align-self: center;
   align-items: flex-start;
   margin-top: ${(props) => props.marginTop}px;
