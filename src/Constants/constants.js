@@ -8,6 +8,7 @@ export const colors = {
   inputTitle: "rgba(0, 0, 0, 0.6)",
   icon: "#323232",
   time: "rgba(0, 0, 0, 0.38)",
+  platforms: "rgba(0, 0, 0, 0.87)",
   line: "rgba(33, 33, 33, 0.08);",
   modal: "#3E46B0",
   modalIcons: "#CC9900",

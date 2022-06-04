@@ -18,6 +18,7 @@ import {
 import SafeArea from "../../Utils/SafeArea";
 import Button from "../../Components/Button";
 import Progress from "../../Components/Progress";
+import HomeHeader from "../../Components/HomeHeader";
 import AddEarningModal from "../../Components/AddEarningModal";
 import {
   Ionicons,
@@ -59,42 +60,11 @@ export default function Home({ navigation }) {
   return (
     <SafeArea>
       <MainContainer showsVerticalScrollIndicator={false}>
-        <Subcontainer>
-          <TextContainer
-            justifyContent={"space-between"}
-            marginTop={10}
-            maxWidth={screenWidth}
-            marginLeft={0}
-          >
-            <Text
-              fontSize={screenWidth * 0.055}
-              lineHeight={screenWidth * 0.083}
-              color="black"
-              marginLeft={screenWidth * 0.03}
-              marginTop={0}
-            >
-              Bom dia, Daniel
-            </Text>
-            <IconContainer marginRight={-screenWidth * 0.25}>
-              <AntDesign
-                name="plus"
-                size={screenWidth * 0.066}
-                color={colors.icon}
-              />
-            </IconContainer>
-            <IconContainer
-              marginRight={screenWidth * 0.067}
-              onPress={() => navigation.navigate("Menu Configurações")}
-            >
-              <Ionicons
-                name="settings-sharp"
-                size={screenWidth * 0.066}
-                color={colors.icon}
-              />
-            </IconContainer>
-          </TextContainer>
-        </Subcontainer>
-
+        <HomeHeader
+          text={"Bom dia, Daniel"}
+          height={screenHeight * 0.32}
+          onPressNavigate={() => navigation.navigate("Menu Configurações")}
+        />
         <Container>
           <View
             marginTop={screenHeight * 0.15}
@@ -133,7 +103,7 @@ export default function Home({ navigation }) {
               />
             </ActivityButton>
             <View
-              marginTop={-screenHeight * 0.1}
+              marginTop={-screenHeight * 0.085}
               width={screenWidth * 0.28}
               height={screenHeight * 0.1}
               elevation={0}

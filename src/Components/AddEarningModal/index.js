@@ -26,8 +26,8 @@ export default function AddEarningModal({ navigation }) {
     <Container>
       <AddContainer
         onPress={toggleModal}
-        width={screenWidth * 0.14}
-        height={screenHeight * 0.085}
+        width={screenWidth * 0.16}
+        height={screenWidth * 0.16}
         backgroundColor={colors.modal}
       >
         <AntDesign name="plus" size={screenWidth * 0.072} color="white" />
@@ -47,7 +47,7 @@ export default function AddEarningModal({ navigation }) {
             <AddContainer
               onPress={() => navigation.navigate("Add Ganhos")}
               width={screenWidth * 0.09}
-              height={screenHeight * 0.05}
+              height={screenWidth * 0.09}
               backgroundColor={"white"}
             >
               <MaterialIcons
@@ -62,7 +62,7 @@ export default function AddEarningModal({ navigation }) {
             <AddContainer
               onPress={() => navigation.navigate("Add Ganhos Multiplos")}
               width={screenWidth * 0.09}
-              height={screenHeight * 0.05}
+              height={screenWidth * 0.09}
               backgroundColor={"white"}
             >
               <MaterialIcons
@@ -77,7 +77,7 @@ export default function AddEarningModal({ navigation }) {
             <AddContainer
               onPress={() => navigation.navigate("Add Gastos")}
               width={screenWidth * 0.09}
-              height={screenHeight * 0.05}
+              height={screenWidth * 0.09}
               backgroundColor={"white"}
             >
               <MaterialIcons
@@ -91,8 +91,8 @@ export default function AddEarningModal({ navigation }) {
 
         <CloseContainer
           onPress={() => setModalVisible(false)}
-          width={screenWidth * 0.14}
-          height={screenHeight * 0.08}
+          width={screenWidth * 0.16}
+          height={screenWidth * 0.16}
         >
           <AntDesign name="close" size={screenWidth * 0.072} color="white" />
         </CloseContainer>

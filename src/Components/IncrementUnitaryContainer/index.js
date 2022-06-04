@@ -1,5 +1,5 @@
 import React from "react";
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign } from "@expo/vector-icons";
 
 import {
   Container,
@@ -10,7 +10,14 @@ import {
 } from "./styles";
 import { colors } from "../../Constants/constants";
 
-export default IncrementUnitaryContainer = ({ title, value, setValue, marginTop, marginLeft, color }) => {
+export default IncrementUnitaryContainer = ({
+  title,
+  value,
+  setValue,
+  marginTop,
+  marginLeft,
+  color,
+}) => {
   function Increment() {
     setValue(value + 1);
   }
@@ -24,11 +31,7 @@ export default IncrementUnitaryContainer = ({ title, value, setValue, marginTop,
   }
 
   return (
-    <Container
-      marginTop={marginTop}
-      marginLeft={marginLeft}
-      color={color}
-    >
+    <Container marginTop={marginTop} marginLeft={marginLeft} color={color}>
       <Title>{title}</Title>
       <ItemContainer>
         <ButtonIncrementContainer onPress={() => Decrement()}>
