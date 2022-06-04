@@ -4,10 +4,11 @@ import { Entypo, MaterialIcons } from "@expo/vector-icons";
 
 import { colors, screenHeight, screenWidth } from "../Constants/constants";
 import Home from "../Pages/Home";
+import Activities from "../Pages/Activities";
 
 const Tab = createBottomTabNavigator();
 
- export default function TabNavigatorRoutes() {
+export default function TabNavigatorRoutes() {
   return (
     <Tab.Navigator
       initialRouteName="Inicio"
@@ -39,7 +40,7 @@ const Tab = createBottomTabNavigator();
       />
       <Tab.Screen
         name="Atividades"
-        component={Home}
+        component={Activities}
         options={{
           tabBarLabel: "Atividades",
           tabBarIcon: ({ focused }) => (

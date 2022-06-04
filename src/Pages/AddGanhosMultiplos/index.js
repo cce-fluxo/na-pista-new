@@ -86,91 +86,91 @@ export default function AddGanhosMultiplos({ navigation }) {
           onPressNavigate={() => navigation.navigate("Inicio")}
         />
         <ScrollView>
-        <Dropdown
-          label="Plataforma"
-          data={vendors}
-          marginTop={screenHeight * 0.025}
-          setOption={setName}
-        />
-        <Dropdown
-          label="Período"
-          data={periods}
-          marginTop={screenHeight * 0.025}
-          option="Selecione..."
-          setOption={setPeriod}
-        />
-        <IncrementUnitaryContainer
-          title="Número de corridas"
-          value={races}
-          setValue={setRaces}
-          marginLeft={0}
-          marginTop={screenHeight * 0.025}
-          color="#F8F8F8"
-        />
-        <Input
-          title="Valor total"
-          marginLeft={0}
-          marginTop={screenHeight * 0.025}
-          value={amount}
-          onChangeText={(text) => setAmount(text)}
-          placeholder="R$"
-        />
-        {!click ? (
-          <AddView
-            width={screenWidth * 0.9}
+          <Dropdown
+            label="Plataforma"
+            data={vendors}
             marginTop={screenHeight * 0.025}
+            setOption={setName}
+          />
+          <Dropdown
+            label="Período"
+            data={periods}
+            marginTop={screenHeight * 0.025}
+            option="Selecione..."
+            setOption={setPeriod}
+          />
+          <IncrementUnitaryContainer
+            title="Número de corridas"
+            value={races}
+            setValue={setRaces}
             marginLeft={0}
-          >
-            <TouchableOpacity onPress={() => setClick(true)}>
-              <AddText
-                marginLeft={screenWidth * 0.001}
-                color={colors.modalIcons}
-                font={fonts.Ubuntu}
-              >
-                + Adicionar gorjeta
-              </AddText>
-            </TouchableOpacity>
-          </AddView>
-        ) : (
+            marginTop={screenHeight * 0.025}
+            color="#F8F8F8"
+          />
           <Input
-            title="Total de gorjeta"
+            title="Valor total"
             marginLeft={0}
             marginTop={screenHeight * 0.025}
-            value={extraAmount}
-            onChangeText={(text) => setExtraAmount(text)}
+            value={amount}
+            onChangeText={(text) => setAmount(text)}
             placeholder="R$"
           />
-        )}
-        <Input
-          title="Distância percorrida"
-          marginLeft={0}
-          marginTop={screenHeight * 0.025}
-          value={distance}
-          onChangeText={(text) => setDistance(text)}
-          placeholder="km"
-        />
-        <Input
-          title="Duração total"
-          marginLeft={0}
-          marginTop={screenHeight * 0.025}
-          value={duration}
-          onChangeText={(text) => setDuration(text)}
-          placeholder="min"
-        />
-        <Button
-          width={screenWidth * 0.91}
-          marginLeft={0}
-          marginTop={screenHeight * 0.05}
-          disabled={loading}
-          loading={loading}
-          text="Adicionar"
-          onPress={addEarning}
-          color="black"
-          background={colors.modalIcons}
-          border={4}
-          size={16}
-        />
-        <View style={{ height: screenHeight * 0.025}}></View>
+          {!click ? (
+            <AddView
+              width={screenWidth * 0.9}
+              marginTop={screenHeight * 0.025}
+              marginLeft={0}
+            >
+              <TouchableOpacity onPress={() => setClick(true)}>
+                <AddText
+                  marginLeft={screenWidth * 0.001}
+                  color={colors.modalIcons}
+                  font={fonts.Ubuntu}
+                >
+                  + Adicionar gorjeta
+                </AddText>
+              </TouchableOpacity>
+            </AddView>
+          ) : (
+            <Input
+              title="Total de gorjeta"
+              marginLeft={0}
+              marginTop={screenHeight * 0.025}
+              value={extraAmount}
+              onChangeText={(text) => setExtraAmount(text)}
+              placeholder="R$"
+            />
+          )}
+          <Input
+            title="Distância percorrida"
+            marginLeft={0}
+            marginTop={screenHeight * 0.025}
+            value={distance}
+            onChangeText={(text) => setDistance(text)}
+            placeholder="km"
+          />
+          <Input
+            title="Duração total"
+            marginLeft={0}
+            marginTop={screenHeight * 0.025}
+            value={duration}
+            onChangeText={(text) => setDuration(text)}
+            placeholder="min"
+          />
+          <Button
+            width={screenWidth * 0.91}
+            marginLeft={0}
+            marginTop={screenHeight * 0.05}
+            disabled={loading}
+            loading={loading}
+            text="Adicionar"
+            onPress={addEarning}
+            color="black"
+            background={colors.modalIcons}
+            border={4}
+            size={16}
+          />
+          <View style={{ height: screenHeight * 0.025 }}></View>
         </ScrollView>
       </Container>
     </SafeArea>

@@ -88,8 +88,8 @@ export const ProgressBarContainer = styled.View`
 `;
 
 export const ActivityButton = styled.TouchableOpacity`
-  width: ${screenWidth * 0.14}px;
-  height: ${screenHeight * 0.085}px;
+  width: ${screenWidth * 0.16}px;
+  height: ${screenWidth * 0.16}px;
   background-color: ${colors.background};
   border-radius: 50px;
   margin-left: ${screenWidth * 0.044}px;
