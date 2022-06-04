@@ -1,5 +1,5 @@
 import { Container, ImageContainer, Text, ViewContainer } from "./styles";
-import { colors, screenWidth, fonts} from "../../Constants/constants";
+import { colors, screenWidth, fonts } from "../../Constants/constants";
 
 const ActivityOptions = ({ source, text }) => {
   return (

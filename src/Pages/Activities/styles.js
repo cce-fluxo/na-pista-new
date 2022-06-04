@@ -1,5 +1,10 @@
 import styled from "styled-components/native";
-import { screenHeight, screenWidth, colors, fonts} from "../../Constants/constants";
+import {
+  screenHeight,
+  screenWidth,
+  colors,
+  fonts,
+} from "../../Constants/constants";
 
 export const Container = styled.ScrollView`
   flex: 1;

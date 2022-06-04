@@ -9,7 +9,7 @@ import {
 export const Subcontainer = styled.View`
   background-color: ${colors.background};
   width: ${screenWidth}px;
-  height: ${(props)=> props.height}px;
+  height: ${(props) => props.height}px;
 `;
 
 export const TextContainer = styled.View`

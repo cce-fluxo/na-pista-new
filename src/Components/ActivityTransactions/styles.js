@@ -22,8 +22,8 @@ export const ViewContainer = styled.TouchableOpacity`
 
 export const TextContainer = styled.View`
   flex-direction: row;
-  margin-bottom: ${screenWidth *  0.02}px;
-  width: ${screenWidth*0.8}px;
+  margin-bottom: ${screenWidth * 0.02}px;
+  width: ${screenWidth * 0.8}px;
 `;
 
 export const ImageView = styled.View`
@@ -52,5 +52,3 @@ export const Text = styled.Text`
   align-self: center;
   text-align: center;
 `;
-
-

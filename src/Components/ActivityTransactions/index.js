@@ -13,7 +13,7 @@ import {
   fonts,
 } from "../../Constants/constants";
 import iFood from "../../Assets/ifood.png";
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const ActivityTransactions = ({
   source,
@@ -36,7 +36,7 @@ const ActivityTransactions = ({
         <ImageContainer source={source}></ImageContainer>
       </ImageView>
       <ViewContainer>
-        <TextContainer style={{justifyContent:'space-between'}}>
+        <TextContainer style={{ justifyContent: "space-between" }}>
           <Text
             fontSize={screenWidth * 0.044}
             color={colors.platforms}
@@ -51,10 +51,10 @@ const ActivityTransactions = ({
             marginLeft={screenWidth * 0.044}
             marginTop={0}
           >
-           {preco}
-         </Text>
+            {preco}
+          </Text>
         </TextContainer>
-        <TextContainer style={{justifyContent:'space-between'}}>
+        <TextContainer style={{ justifyContent: "space-between" }}>
           <Text
             fontSize={screenWidth * 0.038}
             color={colors.inputTitle}

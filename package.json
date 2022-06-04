@@ -44,8 +44,8 @@
   "devDependencies": {
     "@babel/core": "^7.12.9"
   },
-  "android":{
-    "package":"com.fluxo.napista"
+  "android": {
+    "package": "com.fluxo.napista"
   },
   "private": true
 }

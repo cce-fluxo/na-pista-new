@@ -13,10 +13,8 @@ import iFood from "../../Assets/ifood.png";
 import uber from "../../Assets/uber.png";
 import rappi from "../../Assets/rappi.png";
 import loggi from "../../Assets/loggi.png";
-import alimentacao from "../../Assets/alimentacao.png"
-import manutencao from "../../Assets/manutencao.png"
-
-
+import alimentacao from "../../Assets/alimentacao.png";
+import manutencao from "../../Assets/manutencao.png";
 
 import SafeArea from "../../Utils/SafeArea";
 import HomeHeader from "../../Components/HomeHeader";

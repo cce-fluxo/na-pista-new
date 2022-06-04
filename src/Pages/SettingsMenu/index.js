@@ -5,7 +5,7 @@ import {
   IconContainer,
   ButtonContainer,
   View,
-  IconClose
+  IconClose,
 } from "./styles";
 import SafeArea from "../../Utils/SafeArea";
 import { AntDesign } from "react-native-vector-icons";

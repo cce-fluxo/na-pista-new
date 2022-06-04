@@ -9,7 +9,6 @@ import { Subcontainer, TextContainer, Text, IconContainer } from "./styles";
 import { useNavigation } from "@react-navigation/native";
 
 const HomeHeader = ({ text, height, onPressNavigate }) => {
-
   return (
     <Subcontainer text={text} height={height}>
       <TextContainer

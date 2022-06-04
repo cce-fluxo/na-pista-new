@@ -8,7 +8,7 @@ import Activities from "../Pages/Activities";
 
 const Tab = createBottomTabNavigator();
 
- export default function TabNavigatorRoutes() {
+export default function TabNavigatorRoutes() {
   return (
     <Tab.Navigator
       initialRouteName="Inicio"
