@@ -301,7 +301,7 @@ export default function Results({ navigation }) {
         </ResultView>
         <View style={{ height: screenHeight * 0.1 }}></View>
       </MainContainer>
-      <AddEarningModal />
+      <AddEarningModal navigation={navigation} />
     </SafeArea>
   );
 }

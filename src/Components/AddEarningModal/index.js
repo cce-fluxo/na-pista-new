@@ -14,7 +14,7 @@ import {
 import Button from "../Button";
 import { colors, screenHeight, screenWidth } from "../../Constants/constants";
 
-const AddEarningModal = ({navigation}) => {
+export default function AddEarningModal({ navigation }) {
   const [isModalVisible, setModalVisible] = useState(false);
 
   const toggleModal = () => {
@@ -100,5 +100,3 @@ const AddEarningModal = ({navigation}) => {
     </Container>
   );
 };
-
-export default AddEarningModal;

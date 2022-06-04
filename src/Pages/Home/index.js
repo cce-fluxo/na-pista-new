@@ -710,7 +710,7 @@ export default function Home({ navigation }) {
           </EarningContainer>
         </ScrollView>
       </MainContainer>
-      <AddEarningModal />
+      <AddEarningModal navigation={navigation} />
     </SafeArea>
   );
 }
