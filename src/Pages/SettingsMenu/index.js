@@ -5,6 +5,7 @@ import {
   IconContainer,
   ButtonContainer,
   View,
+  IconClose
 } from "./styles";
 import SafeArea from "../../Utils/SafeArea";
 import { AntDesign } from "react-native-vector-icons";
@@ -20,15 +21,18 @@ export default function SettingsMenu({
 }) {
   return (
     <Container>
-      <IconContainer
+      <IconClose
         marginRight={10}
         marginLeft={20}
         marginTop={20}
         onPress={() => navigation.goBack()}
       >
         <AntDesign name="close" size={28} color={colors.icon} />
-      </IconContainer>
-      <TextContainer justifyContent={"space-between"}>
+      </IconClose>
+      <TextContainer
+        onPress={() => navigation.navigate("Perfil")}
+        justifyContent={"space-between"}
+      >
         <Text fontSize={25} color={colors.icon} marginLeft={20} marginTop={15}>
           Perfil
         </Text>
@@ -36,13 +40,16 @@ export default function SettingsMenu({
           marginRight={10}
           marginLeft={50}
           marginTop={0}
-          onPress={() => navigation.navigate("Perfil")}
+          // onPress={() => navigation.navigate("Perfil")}
         >
           <AntDesign name="right" size={22} color={colors.icon} />
         </IconContainer>
       </TextContainer>
       <View />
-      <TextContainer justifyContent={"space-between"}>
+      <TextContainer
+        onPress={() => navigation.navigate("Configurações")}
+        justifyContent={"space-between"}
+      >
         <Text fontSize={25} color={colors.icon} marginLeft={20} marginTop={15}>
           Configurações
         </Text>
@@ -50,13 +57,16 @@ export default function SettingsMenu({
           marginRight={10}
           marginLeft={50}
           marginTop={0}
-          onPress={() => navigation.navigate("Configurações")}
+          // onPress={() => navigation.navigate("Configurações")}
         >
           <AntDesign name="right" size={22} color={colors.icon} />
         </IconContainer>
       </TextContainer>
       <View />
-      <TextContainer justifyContent={"space-between"}>
+      <TextContainer
+        onPress={() => navigation.navigate("Home")}
+        justifyContent={"space-between"}
+      >
         <Text fontSize={25} color={colors.icon} marginLeft={20} marginTop={15}>
           Sobre
         </Text>
@@ -64,7 +74,7 @@ export default function SettingsMenu({
           marginRight={10}
           marginLeft={50}
           marginTop={0}
-          onPress={() => navigation.navigate("Home")}
+          // onPress={() => navigation.navigate("Home")}
         >
           <AntDesign name="right" size={22} color={colors.icon} />
         </IconContainer>
