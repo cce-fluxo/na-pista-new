@@ -144,7 +144,7 @@ export default function Activities({ navigation }) {
         />
         <LineView />
       </Container>
-      <AddEarningModal />
+      <AddEarningModal navigation={navigation} />
     </SafeArea>
   );
 }
