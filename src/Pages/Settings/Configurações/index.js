@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, ScrollView, TouchableOpacity } from "react-native";
 import { AntDesign } from "react-native-vector-icons";
 
@@ -21,108 +21,92 @@ import {
   screenWidth,
   fonts,
 } from "../../../Constants/constants";
+import api from "../../../Services/api";
 
 export default function Settings({ navigation }) {
   const [click, setClick] = useState(false);
-
-  const [dataCategorias, setDataCategorias] = useState([
+  const [dataCategories, setDataCategories] = useState([
     {
       id: "1",
-      label: "Aluguel do veículo",
+      name: "Aluguel do veículo",
     },
     {
       id: "2",
-      label: "Alimentação",
+      name: "Alimentação",
     },
     {
       id: "3",
-      label: "Manutenção",
+      name: "Manutenção",
     },
     {
       id: "4",
-      label: "Multa",
+      name: "Multa",
     },
     {
       id: "5",
-      label: "Contribuição mensal do MEI (DAS)",
+      name: "Contribuição mensal do MEI (DAS)",
     },
     {
       id: "6",
-      label: "Troca de óleo",
+      name: "Troca de óleo",
     },
     {
       id: "7",
-      label: "Combustível",
+      name: "Combustível",
     },
   ]);
-
-  const [dataPlataformas, setDataPlataformas] = useState([
-    {
-      id: "1",
-      label: "Ifood",
-    },
-    {
-      id: "2",
-      label: "Rappi",
-    },
-    {
-      id: "3",
-      label: "Uber eats",
-    },
-    {
-      id: "4",
-      label: "Loggi",
-    },
-    {
-      id: "5",
-      label: "Zé Delivery",
-    },
-    {
-      id: "6",
-      label: "99 Food",
-    },
-    {
-      id: "7",
-      label: "James",
-    },
-  ]);
-
-  const [dataVeiculos, setDataVeiculos] = useState([
-    {
-      id: "1",
-      label: "A pé",
-    },
-    {
-      id: "2",
-      label: "Bicicleta",
-    },
-    {
-      id: "3",
-      label: "Bicicleta Elétrica",
-    },
-    {
-      id: "4",
-      label: "Bicicleta Motorizada",
-    },
-    {
-      id: "5",
-      label: "Moto",
-    },
-    {
-      id: "6",
-      label: "Carro",
-    },
-    {
-      id: "7",
-      label: "Patinete",
-    },
-  ]);
+  const [dataVendors, setDataVendors] = useState([]);
+  const [dataVehicles, setDataVehicles] = useState([]);
+  const [userCategories, setUserCategories] = useState([]);
+  const [userVendors, setUserVendors] = useState([]);
+  const [userVehicles, setUserVehicles] = useState([]);
 
   const [checkboxesCategorias, setCheckboxesCategorias] =
-    useState(dataCategorias);
+    useState(dataCategories);
   const [checkboxesPlataformas, setCheckboxesPlataformas] =
-    useState(dataPlataformas);
-  const [checkboxesVeiculos, setCheckboxesVeiculos] = useState(dataVeiculos);
+    useState(dataVendors);
+  const [checkboxesVeiculos, setCheckboxesVeiculos] = useState(dataVehicles);
+
+  async function vendorsGet() {
+    try {
+      response = await api.get("/vendors");
+      console.log(response.data);
+      setDataVendors(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function vendorsPost(vendor) {
+    try {
+      response = await api.post("/vendors", { name: vendor });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function vehiclesGet() {
+    try {
+      response = await api.get("/vehicles");
+      console.log(response.data);
+      setDataVehicles(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function vehiclesPost(vehicle) {
+    try {
+      response = await api.post("/vehicles", { name: vehicle });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    vendorsGet();
+    vehiclesGet();
+  }, []);
 
   return (
     <SafeArea>
@@ -290,20 +274,16 @@ export default function Settings({ navigation }) {
               >
                 Selecione quais tipos de gastos você costuma ter ou crie novos.
               </NormalText>
-              {checkboxesCategorias.map((item, index) => (
+              {dataCategories.map((item, index) => (
                 <Checkbox
                   key={index}
                   marginTop={screenHeight * 0.025}
-                  label={item.label}
+                  label={item.name}
                 />
               ))}
               <View style={{ height: screenHeight * 0.025 }}></View>
               <AddItemModal
                 label="Categoria de gasto"
-                initialList={dataCategorias}
-                setInitialList={setDataCategorias}
-                checkboxes={checkboxesCategorias}
-                setCheckboxes={setCheckboxesCategorias}
               />
               <View style={{ height: screenHeight * 0.025 }}></View>
             </MaxView>
@@ -338,20 +318,17 @@ export default function Settings({ navigation }) {
                 Identificando pra quais apps você trabalha poderemos filtrar as
                 informações e mostrar, por exemplo, qual está te pagando melhor.
               </NormalText>
-              {checkboxesPlataformas.map((item, index) => (
+              {dataVendors.map((item, index) => (
                 <Checkbox
                   key={index}
                   marginTop={screenHeight * 0.025}
-                  label={item.label}
+                  label={item.name}
                 />
               ))}
               <View style={{ height: screenHeight * 0.025 }}></View>
               <AddItemModal
                 label="Plataforma"
-                initialList={dataPlataformas}
-                setInitialList={setDataPlataformas}
-                checkboxes={checkboxesPlataformas}
-                setCheckboxes={setCheckboxesPlataformas}
+                postRequest={vendorsPost}
               />
               <View style={{ height: screenHeight * 0.025 }}></View>
             </MaxView>
@@ -379,20 +356,17 @@ export default function Settings({ navigation }) {
               </MiniView>
               <LineView width={screenWidth * 0.82}></LineView>
               <View style={{ height: screenHeight * 0.025 }}></View>
-              {checkboxesVeiculos.map((item, index) => (
+              {dataVehicles.map((item, index) => (
                 <Checkbox
                   key={index}
                   marginTop={screenHeight * 0.025}
-                  label={item.label}
+                  label={item.name}
                 />
               ))}
               <View style={{ height: screenHeight * 0.025 }}></View>
               <AddItemModal
-                label="Veículo	"
-                initialList={dataVeiculos}
-                setInitialList={setDataVeiculos}
-                checkboxes={checkboxesVeiculos}
-                setCheckboxes={setCheckboxesVeiculos}
+                label="Veículo"
+                postRequest={vehiclesPost}
               />
               <View style={{ height: screenHeight * 0.025 }}></View>
             </MaxView>
