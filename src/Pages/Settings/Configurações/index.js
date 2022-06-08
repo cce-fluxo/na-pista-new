@@ -58,14 +58,25 @@ export default function Settings({ navigation }) {
   const [dataVendors, setDataVendors] = useState([]);
   const [dataVehicles, setDataVehicles] = useState([]);
   const [userCategories, setUserCategories] = useState([]);
-  const [userVendors, setUserVendors] = useState([]);
-  const [userVehicles, setUserVehicles] = useState([]);
+  const [userVendors, setUserVendors] = useState(userGet("vendors"));
+  const [userVehicles, setUserVehicles] = useState(userGet("vehicles"));
 
-  const [checkboxesCategorias, setCheckboxesCategorias] =
-    useState(dataCategories);
-  const [checkboxesPlataformas, setCheckboxesPlataformas] =
-    useState(dataVendors);
-  const [checkboxesVeiculos, setCheckboxesVeiculos] = useState(dataVehicles);
+  async function userGet(type) {
+    try {
+      response = await api.get("/me");
+      console.log(response.data);
+      if (type === "vendors") {
+        return response.data.vendors;
+      } else if (type === "vehicles") {
+        return response.data.vendors;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      console.log(error);
+      return [];
+    }
+  }
 
   async function vendorsGet() {
     try {
@@ -282,9 +293,7 @@ export default function Settings({ navigation }) {
                 />
               ))}
               <View style={{ height: screenHeight * 0.025 }}></View>
-              <AddItemModal
-                label="Categoria de gasto"
-              />
+              <AddItemModal label="Categoria de gasto" />
               <View style={{ height: screenHeight * 0.025 }}></View>
             </MaxView>
             <MaxView
@@ -326,10 +335,7 @@ export default function Settings({ navigation }) {
                 />
               ))}
               <View style={{ height: screenHeight * 0.025 }}></View>
-              <AddItemModal
-                label="Plataforma"
-                postRequest={vendorsPost}
-              />
+              <AddItemModal label="Plataforma" postRequest={vendorsPost} />
               <View style={{ height: screenHeight * 0.025 }}></View>
             </MaxView>
             <MaxView
@@ -364,10 +370,7 @@ export default function Settings({ navigation }) {
                 />
               ))}
               <View style={{ height: screenHeight * 0.025 }}></View>
-              <AddItemModal
-                label="Veículo"
-                postRequest={vehiclesPost}
-              />
+              <AddItemModal label="Veículo" postRequest={vehiclesPost} />
               <View style={{ height: screenHeight * 0.025 }}></View>
             </MaxView>
             <View style={{ height: screenHeight * 0.025 }}></View>
