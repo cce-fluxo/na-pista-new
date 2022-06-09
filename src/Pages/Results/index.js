@@ -35,10 +35,6 @@ import {
   screenWidth,
 } from "../../Constants/constants";
 
-// <MaterialIcons name="pedal-bike" size={24} color="black" />
-// <AntDesign name="clockcircleo" size={24} color="black" />
-// <AntDesign name="enviroment" size={24} color="black" />
-
 export default function Results({ navigation }) {
   const dia = {
     data: "Hoje",
