@@ -60,6 +60,19 @@ export default function Settings({ navigation }) {
   const [userCategories, setUserCategories] = useState([]);
   const [userVendors, setUserVendors] = useState(userGet("vendors"));
   const [userVehicles, setUserVehicles] = useState(userGet("vehicles"));
+  
+  async function updateInfo() {
+    try {
+      response = await api.post("/me", {
+        vendors: userVendors,
+        vehicles: userVehicles,
+      });
+      console.log(response);
+      navigation.navigate("Menu Configurações");
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   async function userGet(type) {
     try {
@@ -68,7 +81,7 @@ export default function Settings({ navigation }) {
       if (type === "vendors") {
         return response.data.vendors;
       } else if (type === "vehicles") {
-        return response.data.vendors;
+        return response.data.vehicles;
       } else {
         return [];
       }
@@ -124,7 +137,7 @@ export default function Settings({ navigation }) {
       <Container>
         <Header
           name="Configurações"
-          onPressNavigate={() => navigation.navigate("Menu Configurações")}
+          onPressNavigate={updateInfo}
         />
 
         {!click ? (
@@ -289,7 +302,9 @@ export default function Settings({ navigation }) {
                 <Checkbox
                   key={index}
                   marginTop={screenHeight * 0.025}
-                  label={item.name}
+                  object={item}
+                  newList={userCategories}
+                  setNewList={setUserCategories}
                 />
               ))}
               <View style={{ height: screenHeight * 0.025 }}></View>
@@ -331,7 +346,9 @@ export default function Settings({ navigation }) {
                 <Checkbox
                   key={index}
                   marginTop={screenHeight * 0.025}
-                  label={item.name}
+                  object={item}
+                  newList={userVendors}
+                  setNewList={setUserVendors}
                 />
               ))}
               <View style={{ height: screenHeight * 0.025 }}></View>
@@ -366,7 +383,9 @@ export default function Settings({ navigation }) {
                 <Checkbox
                   key={index}
                   marginTop={screenHeight * 0.025}
-                  label={item.name}
+                  object={item}
+                  newList={userVehicles}
+                  setNewList={setUserVehicles}
                 />
               ))}
               <View style={{ height: screenHeight * 0.025 }}></View>
