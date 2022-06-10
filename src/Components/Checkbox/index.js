@@ -4,10 +4,14 @@ import { colors, fonts } from "../../Constants/constants";
 import { Container } from "./styles";
 
 const Checkbox = ({ marginTop, object, newList, setNewList }) => {
+  function checkArray(array) {
+    return array === object
+  }
+
   return (
     <Container marginTop={marginTop}>
       <BouncyCheckbox
-        isChecked={newList.find(object => object.id)}
+        isChecked={newList.find(checkArray)}
         fillColor="black"
         unfillColor={colors.background}
         text={object.name}

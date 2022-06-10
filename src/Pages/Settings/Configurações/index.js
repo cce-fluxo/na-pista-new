@@ -58,12 +58,23 @@ export default function Settings({ navigation }) {
   const [dataVendors, setDataVendors] = useState([]);
   const [dataVehicles, setDataVehicles] = useState([]);
   const [userCategories, setUserCategories] = useState([]);
-  const [userVendors, setUserVendors] = useState(userGet("vendors"));
-  const [userVehicles, setUserVehicles] = useState(userGet("vehicles"));
+  const [userVendors, setUserVendors] = useState([]);
+  const [userVehicles, setUserVehicles] = useState([]);
+
+  async function getInfo() {
+    try{
+      const response = await api.get("/me");
+      console.log(response.data);
+      setUserVendors(response.data.vendors);
+      setUserVehicles(response.data.vehicles);
+    } catch(error) {
+      console.log(error);
+    }
+  }
   
   async function updateInfo() {
     try {
-      response = await api.post("/me", {
+      const response = await api.patch("/me", {
         vendors: userVendors,
         vehicles: userVehicles,
       });
@@ -74,26 +85,9 @@ export default function Settings({ navigation }) {
     }
   }
 
-  async function userGet(type) {
-    try {
-      response = await api.get("/me");
-      console.log(response.data);
-      if (type === "vendors") {
-        return response.data.vendors;
-      } else if (type === "vehicles") {
-        return response.data.vehicles;
-      } else {
-        return [];
-      }
-    } catch (error) {
-      console.log(error);
-      return [];
-    }
-  }
-
   async function vendorsGet() {
     try {
-      response = await api.get("/vendors");
+      const response = await api.get("/vendors");
       console.log(response.data);
       setDataVendors(response.data);
     } catch (error) {
@@ -101,17 +95,9 @@ export default function Settings({ navigation }) {
     }
   }
 
-  async function vendorsPost(vendor) {
-    try {
-      response = await api.post("/vendors", { name: vendor });
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   async function vehiclesGet() {
     try {
-      response = await api.get("/vehicles");
+      const response = await api.get("/vehicles");
       console.log(response.data);
       setDataVehicles(response.data);
     } catch (error) {
@@ -119,17 +105,29 @@ export default function Settings({ navigation }) {
     }
   }
 
+  async function vendorsPost(vendor) {
+    try {
+      const response = await api.post("/vendors", { name: vendor });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   async function vehiclesPost(vehicle) {
     try {
-      response = await api.post("/vehicles", { name: vehicle });
+       const response = await api.post("/vehicles", { name: vehicle });
+       console.log(response);
     } catch (error) {
       console.log(error);
     }
   }
 
   useEffect(() => {
+    getInfo();
     vendorsGet();
     vehiclesGet();
+    console.log(userVehicles);
   }, []);
 
   return (
