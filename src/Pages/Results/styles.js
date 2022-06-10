@@ -52,10 +52,16 @@ export const PeriodView = styled.View`
 `;
 
 export const PeriodOpacity = styled.TouchableOpacity`
+`;
+
+export const PeriodSubView = styled.View`
   width: ${(props) => props.width}px;
   height: ${(props) => props.height}px;
   justify-content: center;
   align-items: center;
+  border-bottom-width: 2px;
+  border-style: solid;
+  border-bottom-color: ${(props) => props.borderBottom};
 `;
 
 export const PeriodText = styled.Text`
@@ -114,4 +120,14 @@ export const ResultView = styled.View`
   color: white;
   justify-content: center;
   align-items: center;
+`;
+
+export const ResultSubView = styled.View`
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const Scroll = styled.ScrollView`
+  align-self: center;
 `;

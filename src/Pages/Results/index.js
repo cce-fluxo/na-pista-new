@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import { View } from "react-native";
-import { Ionicons, AntDesign } from "react-native-vector-icons";
+import { Ionicons, AntDesign, MaterialIcons } from "react-native-vector-icons";
 
 import SafeArea from "../../Utils/SafeArea";
 import AddEarningModal from "../../Components/AddEarningModal";
+import ActivityOptions from "../../Components/ActivityOptions";
+import iFood from "../../Assets/ifood.png";
+import uber from "../../Assets/uber.png";
+import rappi from "../../Assets/rappi.png";
+import loggi from "../../Assets/loggi.png";
 import {
   Subcontainer,
   TitleText,
@@ -12,13 +17,16 @@ import {
   MainContainer,
   PeriodView,
   PeriodOpacity,
+  PeriodSubView,
   PeriodText,
   TimeView,
+  Scroll,
   GGView,
   GGSubView,
   ResultText,
   LineView,
   ResultView,
+  ResultSubView
 } from "./styles";
 import {
   fonts,
@@ -138,32 +146,44 @@ export default function Results({ navigation }) {
           height={screenHeight * 0.07}
           backgroundColor="#f8f8f8"
         >
-          <PeriodOpacity
-            width={screenWidth / 3}
-            height={screenHeight * 0.07}
-            onPress={() => changePeriod("Dia")}
-          >
-            <PeriodText fontFamily={fonts.Ubuntu} color={colors.inputTitle}>
-              Dia
-            </PeriodText>
+          <PeriodOpacity onPress={() => changePeriod("Dia")}>
+            <PeriodSubView
+              width={screenWidth / 3}
+              height={screenHeight * 0.07}
+              borderBottom={
+                period == "Dia" ? `${colors.background}` : "#f8f8f8"
+              }
+            >
+              <PeriodText fontFamily={fonts.Ubuntu} color={colors.inputTitle}>
+                Dia
+              </PeriodText>
+            </PeriodSubView>
           </PeriodOpacity>
-          <PeriodOpacity
-            width={screenWidth / 3}
-            height={screenHeight * 0.07}
-            onPress={() => changePeriod("Semana")}
-          >
-            <PeriodText fontFamily={fonts.Ubuntu} color={colors.inputTitle}>
-              Semana
-            </PeriodText>
+          <PeriodOpacity onPress={() => changePeriod("Semana")}>
+            <PeriodSubView
+              width={screenWidth / 3}
+              height={screenHeight * 0.07}
+              borderBottom={
+                period == "Semana" ? `${colors.background}` : "#f8f8f8"
+              }
+            >
+              <PeriodText fontFamily={fonts.Ubuntu} color={colors.inputTitle}>
+                Semana
+              </PeriodText>
+            </PeriodSubView>
           </PeriodOpacity>
-          <PeriodOpacity
-            width={screenWidth / 3}
-            height={screenHeight * 0.07}
-            onPress={() => changePeriod("Mês")}
-          >
-            <PeriodText fontFamily={fonts.Ubuntu} color={colors.inputTitle}>
-              Mês
-            </PeriodText>
+          <PeriodOpacity onPress={() => changePeriod("Mês")}>
+            <PeriodSubView
+              width={screenWidth / 3}
+              height={screenHeight * 0.07}
+              borderBottom={
+                period == "Mês" ? `${colors.background}` : "#f8f8f8"
+              }
+            >
+              <PeriodText fontFamily={fonts.Ubuntu} color={colors.inputTitle}>
+                Mês
+              </PeriodText>
+            </PeriodSubView>
           </PeriodOpacity>
         </PeriodView>
         <TimeView width={screenWidth} height={screenHeight * 0.06}>
@@ -181,6 +201,13 @@ export default function Results({ navigation }) {
             color={colors.icon}
           />
         </TimeView>
+        <Scroll horizontal={true} showsHorizontalScrollIndicator={false}>
+          <ActivityOptions text={"Todas"} />
+          <ActivityOptions text={"iFood"} source={iFood} />
+          <ActivityOptions text={"Rappi"} source={rappi} />
+          <ActivityOptions text={"Uber"} source={uber} />
+          <ActivityOptions text={"Loggi"} source={loggi} />
+        </Scroll>
         <GGView
           marginTop={10}
           marginLeft={screenWidth * 0.035}
@@ -191,6 +218,7 @@ export default function Results({ navigation }) {
             <PeriodText fontFamily={fonts.Ubuntu} color={colors.inputTitle}>
               GANHOS
             </PeriodText>
+            
             <ResultText fontFamily={fonts.Ubuntu} color="green">
               R$ {periodObject.ganhos}
             </ResultText>
@@ -214,9 +242,13 @@ export default function Results({ navigation }) {
           width={screenWidth * 0.93}
           height={screenHeight * 0.125}
         >
-          <PeriodText fontFamily={fonts.Ubuntu} color={colors.inputTitle}>
-            CORRIDAS
-          </PeriodText>
+          <ResultSubView>
+            <MaterialIcons name="pedal-bike" size={14} color={colors.inputTitle} />
+            <View style={{ marginLeft: 5}}></View>
+            <PeriodText fontFamily={fonts.Ubuntu} color={colors.inputTitle}>
+              CORRIDAS
+            </PeriodText>
+          </ResultSubView>
           <ResultText fontFamily={fonts.Ubuntu} color="black">
             {periodObject.corridas}
           </ResultText>
@@ -227,9 +259,13 @@ export default function Results({ navigation }) {
           width={screenWidth * 0.93}
           height={screenHeight * 0.125}
         >
-          <PeriodText fontFamily={fonts.Ubuntu} color={colors.inputTitle}>
-            TEMPO TOTAL
-          </PeriodText>
+          <ResultSubView>
+            <AntDesign name="clockcircleo" size={14} color={colors.inputTitle} />
+            <View style={{ marginLeft: 5}}></View>
+            <PeriodText fontFamily={fonts.Ubuntu} color={colors.inputTitle}>
+              TEMPO TOTAL
+            </PeriodText>
+          </ResultSubView>
           <ResultText fontFamily={fonts.Ubuntu} color="black">
             {periodObject.tempoTotal}
           </ResultText>
@@ -240,9 +276,13 @@ export default function Results({ navigation }) {
           width={screenWidth * 0.93}
           height={screenHeight * 0.125}
         >
-          <PeriodText fontFamily={fonts.Ubuntu} color={colors.inputTitle}>
-            TEMPO PARADO
-          </PeriodText>
+          <ResultSubView>
+            <AntDesign name="clockcircleo" size={14} color={colors.inputTitle} />
+            <View style={{ marginLeft: 5}}></View>
+            <PeriodText fontFamily={fonts.Ubuntu} color={colors.inputTitle}>
+              TEMPO PARADO
+            </PeriodText>
+          </ResultSubView>
           <ResultText fontFamily={fonts.Ubuntu} color="black">
             {periodObject.tempoParado}
           </ResultText>
@@ -253,9 +293,13 @@ export default function Results({ navigation }) {
           width={screenWidth * 0.93}
           height={screenHeight * 0.125}
         >
-          <PeriodText fontFamily={fonts.Ubuntu} color={colors.inputTitle}>
-            DISTÂNCIA TOTAL
-          </PeriodText>
+          <ResultSubView>
+            <AntDesign name="enviroment" size={14} color={colors.inputTitle} />
+            <View style={{ marginLeft: 5}}></View>
+            <PeriodText fontFamily={fonts.Ubuntu} color={colors.inputTitle}>
+              DISTÂNCIA TOTAL
+            </PeriodText>
+          </ResultSubView>
           <ResultText fontFamily={fonts.Ubuntu} color="black">
             {periodObject.distanciaTotal} km
           </ResultText>
@@ -266,9 +310,13 @@ export default function Results({ navigation }) {
           width={screenWidth * 0.93}
           height={screenHeight * 0.125}
         >
-          <PeriodText fontFamily={fonts.Ubuntu} color={colors.inputTitle}>
-            DISTÂNCIA / CORRIDA
-          </PeriodText>
+          <ResultSubView>
+            <AntDesign name="enviroment" size={14} color={colors.inputTitle} />
+            <View style={{ marginLeft: 5}}></View>
+            <PeriodText fontFamily={fonts.Ubuntu} color={colors.inputTitle}>
+              DISTÂNCIA / CORRIDA
+            </PeriodText>
+          </ResultSubView>
           <ResultText fontFamily={fonts.Ubuntu} color="black">
             {periodObject.distanciaCorrida} km
           </ResultText>
@@ -279,9 +327,13 @@ export default function Results({ navigation }) {
           width={screenWidth * 0.93}
           height={screenHeight * 0.125}
         >
-          <PeriodText fontFamily={fonts.Ubuntu} color={colors.inputTitle}>
-            GANHO / HORA
-          </PeriodText>
+          <ResultSubView>
+            <AntDesign name="clockcircleo" size={14} color={colors.inputTitle} />
+            <View style={{ marginLeft: 5}}></View>
+            <PeriodText fontFamily={fonts.Ubuntu} color={colors.inputTitle}>
+              GANHO / HORA
+            </PeriodText>
+          </ResultSubView>
           <ResultText fontFamily={fonts.Ubuntu} color="black">
             R$ {periodObject.ganhoHora}
           </ResultText>
@@ -292,9 +344,13 @@ export default function Results({ navigation }) {
           width={screenWidth * 0.93}
           height={screenHeight * 0.125}
         >
-          <PeriodText fontFamily={fonts.Ubuntu} color={colors.inputTitle}>
-            GANHO / KM
-          </PeriodText>
+          <ResultSubView>
+            <AntDesign name="clockcircleo" size={14} color={colors.inputTitle} />
+            <View style={{ marginLeft: 5}}></View>
+            <PeriodText fontFamily={fonts.Ubuntu} color={colors.inputTitle}>
+              GANHO / KM
+            </PeriodText>
+          </ResultSubView>
           <ResultText fontFamily={fonts.Ubuntu} color="black">
             R$ {periodObject.ganhoKM}
           </ResultText>
