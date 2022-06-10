@@ -24,8 +24,8 @@ const Checkbox = ({ marginTop, object, newList, setNewList }) => {
         }}
         onPress={(isChecked) => {
           isChecked ? 
-            setNewList(newList.splice(object.id, 0, object)) :
-            setNewList(newList.splice(object.id, 1))
+            setNewList(newList.concat([object])) :
+            setNewList(newList.splice(newList.indexOf(object), 1))
         }}
       />
     </Container>

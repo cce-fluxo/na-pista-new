@@ -69,7 +69,7 @@ export default function Platform({ navigation, route }) {
     vendorsGet();
   }, []);
 
-  const Item = ({ item }) => <Checkbox marginTop={30} label={item.name} />;
+  const Item = ({ item }) => <Checkbox marginTop={30} object={item} newList={vendors} setNewList={setVendors} />;
 
   const renderItem = ({ item }) => <Item item={item} />;
 

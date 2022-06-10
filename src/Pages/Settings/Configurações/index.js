@@ -127,7 +127,6 @@ export default function Settings({ navigation }) {
     getInfo();
     vendorsGet();
     vehiclesGet();
-    console.log(userVehicles);
   }, []);
 
   return (

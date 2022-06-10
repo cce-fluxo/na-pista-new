@@ -67,7 +67,7 @@ export default function Vehicles({ navigation, route }) {
     vehiclesGet();
   }, []);
 
-  const Item = ({ item }) => <Checkbox marginTop={30} label={item.name} />;
+  const Item = ({ item }) => <Checkbox marginTop={30} object={item} newList={vehicles} setNewList={setVehicles} />;
 
   const renderItem = ({ item }) => <Item item={item} />;
 
