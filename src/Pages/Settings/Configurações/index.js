@@ -24,7 +24,11 @@ import {
 import api from "../../../Services/api";
 
 export default function Settings({ navigation }) {
-  const [click, setClick] = useState(false);
+  const [clickMetas, setClickMetas] = useState(false);
+  const [clickCategorias, setClickCategorias] = useState(false);
+  const [clickPlataformas, setClickPlataformas] = useState(false);
+  const [clickVeiculos, setClickVeiculos] = useState(false);
+
   const [dataCategories, setDataCategories] = useState([
     {
       id: "1",
@@ -57,21 +61,22 @@ export default function Settings({ navigation }) {
   ]);
   const [dataVendors, setDataVendors] = useState([]);
   const [dataVehicles, setDataVehicles] = useState([]);
+
   const [userCategories, setUserCategories] = useState([]);
   const [userVendors, setUserVendors] = useState([]);
   const [userVehicles, setUserVehicles] = useState([]);
 
   async function getInfo() {
-    try{
+    try {
       const response = await api.get("/me");
       console.log(response.data);
       setUserVendors(response.data.vendors);
       setUserVehicles(response.data.vehicles);
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     }
   }
-  
+
   async function updateInfo() {
     try {
       const response = await api.patch("/me", {
@@ -116,8 +121,8 @@ export default function Settings({ navigation }) {
 
   async function vehiclesPost(vehicle) {
     try {
-       const response = await api.post("/vehicles", { name: vehicle });
-       console.log(response);
+      const response = await api.post("/vehicles", { name: vehicle });
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -132,13 +137,9 @@ export default function Settings({ navigation }) {
   return (
     <SafeArea>
       <Container>
-        <Header
-          name="Configurações"
-          onPressNavigate={updateInfo}
-        />
-
-        {!click ? (
-          <ScrollView>
+        <Header name="Configurações" onPressNavigate={updateInfo} />
+        <ScrollView>
+          {!clickMetas ? (
             <MiniView
               height={screenHeight * 0.0875}
               width={screenWidth * 0.91}
@@ -152,68 +153,12 @@ export default function Settings({ navigation }) {
               </TitleText>
               <TouchableOpacity
                 style={{ marginRight: screenWidth * 0.1 }}
-                onPress={() => setClick(true)}
+                onPress={() => setClickMetas(true)}
               >
                 <AntDesign name="down" size={22} color={colors.background} />
               </TouchableOpacity>
             </MiniView>
-            <MiniView
-              height={screenHeight * 0.0875}
-              width={screenWidth * 0.91}
-              marginTop={screenHeight * 0.025}
-            >
-              <TitleText
-                marginLeft={screenWidth * 0.05}
-                fontFamily={fonts.Ubuntu}
-              >
-                Categorias de gastos
-              </TitleText>
-              <TouchableOpacity
-                style={{ marginRight: screenWidth * 0.1 }}
-                onPress={() => setClick(true)}
-              >
-                <AntDesign name="down" size={22} color={colors.background} />
-              </TouchableOpacity>
-            </MiniView>
-            <MiniView
-              height={screenHeight * 0.0875}
-              width={screenWidth * 0.91}
-              marginTop={screenHeight * 0.025}
-            >
-              <TitleText
-                marginLeft={screenWidth * 0.05}
-                fontFamily={fonts.Ubuntu}
-              >
-                Plataformas
-              </TitleText>
-              <TouchableOpacity
-                style={{ marginRight: screenWidth * 0.1 }}
-                onPress={() => setClick(true)}
-              >
-                <AntDesign name="down" size={22} color={colors.background} />
-              </TouchableOpacity>
-            </MiniView>
-            <MiniView
-              height={screenHeight * 0.0875}
-              width={screenWidth * 0.91}
-              marginTop={screenHeight * 0.025}
-            >
-              <TitleText
-                marginLeft={screenWidth * 0.05}
-                fontFamily={fonts.Ubuntu}
-              >
-                Veículos de trabalho
-              </TitleText>
-              <TouchableOpacity
-                style={{ marginRight: screenWidth * 0.1 }}
-                onPress={() => setClick(true)}
-              >
-                <AntDesign name="down" size={22} color={colors.background} />
-              </TouchableOpacity>
-            </MiniView>
-          </ScrollView>
-        ) : (
-          <ScrollView>
+          ) : (
             <MaxView
               width={screenWidth * 0.91}
               marginTop={screenHeight * 0.025}
@@ -231,7 +176,7 @@ export default function Settings({ navigation }) {
                 </TitleText>
                 <TouchableOpacity
                   style={{ marginRight: screenWidth * 0.1 }}
-                  onPress={() => setClick(false)}
+                  onPress={() => setClickMetas(false)}
                 >
                   <AntDesign name="up" size={22} color={colors.background} />
                 </TouchableOpacity>
@@ -265,6 +210,27 @@ export default function Settings({ navigation }) {
               />
               <View style={{ height: screenHeight * 0.025 }}></View>
             </MaxView>
+          )}
+          {!clickCategorias ? (
+            <MiniView
+              height={screenHeight * 0.0875}
+              width={screenWidth * 0.91}
+              marginTop={screenHeight * 0.025}
+            >
+              <TitleText
+                marginLeft={screenWidth * 0.05}
+                fontFamily={fonts.Ubuntu}
+              >
+                Categorias de gastos
+              </TitleText>
+              <TouchableOpacity
+                style={{ marginRight: screenWidth * 0.1 }}
+                onPress={() => setClickCategorias(true)}
+              >
+                <AntDesign name="down" size={22} color={colors.background} />
+              </TouchableOpacity>
+            </MiniView>
+          ) : (
             <MaxView
               width={screenWidth * 0.91}
               marginTop={screenHeight * 0.025}
@@ -282,7 +248,7 @@ export default function Settings({ navigation }) {
                 </TitleText>
                 <TouchableOpacity
                   style={{ marginRight: screenWidth * 0.1 }}
-                  onPress={() => setClick(false)}
+                  onPress={() => setClickCategorias(false)}
                 >
                   <AntDesign name="up" size={22} color={colors.background} />
                 </TouchableOpacity>
@@ -308,6 +274,27 @@ export default function Settings({ navigation }) {
               <AddItemModal label="Categoria de gasto" />
               <View style={{ height: screenHeight * 0.025 }}></View>
             </MaxView>
+          )}
+          {!clickPlataformas ? (
+            <MiniView
+              height={screenHeight * 0.0875}
+              width={screenWidth * 0.91}
+              marginTop={screenHeight * 0.025}
+            >
+              <TitleText
+                marginLeft={screenWidth * 0.05}
+                fontFamily={fonts.Ubuntu}
+              >
+                Plataformas
+              </TitleText>
+              <TouchableOpacity
+                style={{ marginRight: screenWidth * 0.1 }}
+                onPress={() => setClickPlataformas(true)}
+              >
+                <AntDesign name="down" size={22} color={colors.background} />
+              </TouchableOpacity>
+            </MiniView>
+          ) : (
             <MaxView
               width={screenWidth * 0.91}
               marginTop={screenHeight * 0.025}
@@ -325,7 +312,7 @@ export default function Settings({ navigation }) {
                 </TitleText>
                 <TouchableOpacity
                   style={{ marginRight: screenWidth * 0.1 }}
-                  onPress={() => setClick(false)}
+                  onPress={() => setClickPlataformas(false)}
                 >
                   <AntDesign name="up" size={22} color={colors.background} />
                 </TouchableOpacity>
@@ -352,6 +339,27 @@ export default function Settings({ navigation }) {
               <AddItemModal label="Plataforma" postRequest={vendorsPost} />
               <View style={{ height: screenHeight * 0.025 }}></View>
             </MaxView>
+          )}
+          {!clickVeiculos ? (
+            <MiniView
+              height={screenHeight * 0.0875}
+              width={screenWidth * 0.91}
+              marginTop={screenHeight * 0.025}
+            >
+              <TitleText
+                marginLeft={screenWidth * 0.05}
+                fontFamily={fonts.Ubuntu}
+              >
+                Veículos de trabalho
+              </TitleText>
+              <TouchableOpacity
+                style={{ marginRight: screenWidth * 0.1 }}
+                onPress={() => setClickVeiculos(true)}
+              >
+                <AntDesign name="down" size={22} color={colors.background} />
+              </TouchableOpacity>
+            </MiniView>
+          ) : (
             <MaxView
               width={screenWidth * 0.91}
               marginTop={screenHeight * 0.025}
@@ -369,7 +377,7 @@ export default function Settings({ navigation }) {
                 </TitleText>
                 <TouchableOpacity
                   style={{ marginRight: screenWidth * 0.1 }}
-                  onPress={() => setClick(false)}
+                  onPress={() => setClickVeiculos(false)}
                 >
                   <AntDesign name="up" size={22} color={colors.background} />
                 </TouchableOpacity>
@@ -389,9 +397,9 @@ export default function Settings({ navigation }) {
               <AddItemModal label="Veículo" postRequest={vehiclesPost} />
               <View style={{ height: screenHeight * 0.025 }}></View>
             </MaxView>
-            <View style={{ height: screenHeight * 0.025 }}></View>
-          </ScrollView>
-        )}
+          )}
+          <View style={{ height: screenHeight * 0.025 }}></View>
+        </ScrollView>
       </Container>
     </SafeArea>
   );

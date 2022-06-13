@@ -37,49 +37,41 @@ const WhereYouLive = ({ navigation, route }) => {
   const dataState = [
     {
       id: "1",
-      value: "rj",
-      label: "RJ",
+      name: "RJ",
     },
     {
       id: "2",
-      value: "sp",
-      label: "SP",
+      name: "SP",
     },
   ];
 
   const dataCity = [
     {
       id: "1",
-      value: "rio",
-      label: "Rio de Janeiro",
+      name: "Rio de Janeiro",
     },
     {
       id: "2",
-      value: "saoPaulo",
-      label: "São Paulo",
+      name: "São Paulo",
     },
   ];
 
   const dataNeighborhood = [
     {
       id: "1",
-      value: "botafogo",
-      label: "Botafogo",
+      name: "Botafogo",
     },
     {
       id: "2",
-      value: "morumbi",
-      label: "Morumbi",
+      name: "Morumbi",
     },
     {
       id: "3",
-      value: "copa",
-      label: "Copacabana",
+      name: "Copacabana",
     },
     {
       id: "4",
-      value: "fla",
-      label: "Flamengo",
+      name: "Flamengo",
     },
   ];
 
