@@ -1,17 +1,19 @@
-import React from "react";
+import React, { useState} from "react";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { colors, fonts } from "../../Constants/constants";
 import { Container } from "./styles";
 
 const Checkbox = ({ marginTop, object, newList, setNewList }) => {
+  const [auxiliar, setAuxiliar] = useState(newList);
+  
   function checkArray(array) {
-    return array === object
+    return array === object;
   }
 
   return (
     <Container marginTop={marginTop}>
       <BouncyCheckbox
-        isChecked={newList.find(checkArray)}
+        isChecked={auxiliar.find(checkArray)}
         fillColor="black"
         unfillColor={colors.background}
         text={object.name}
@@ -24,8 +26,8 @@ const Checkbox = ({ marginTop, object, newList, setNewList }) => {
         }}
         onPress={(isChecked) => {
           isChecked ? 
-            setNewList(newList.concat([object])) :
-            setNewList(newList.splice(newList.indexOf(object), 1))
+            setNewList(auxiliar.push(object)) :
+            setNewList(auxiliar.filter(object => object.id !== id))
         }}
       />
     </Container>
