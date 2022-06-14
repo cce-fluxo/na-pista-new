@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 
-import { Container, TitleContainer, Text, ButtonContainer, SignUpButton, TextButton } from "./styles";
+import {
+  Container,
+  TitleContainer,
+  Text,
+  ButtonContainer,
+  SignUpButton,
+  TextButton,
+} from "./styles";
 import SafeArea from "../../Utils/SafeArea";
 import Button from "../../Components/Button";
 import Input from "../../Components/Input";
@@ -44,7 +51,9 @@ export default function Login({ navigation }) {
           placeholder=""
         />
         <SignUpButton marginleft={0} margintop={screenWidth * 0.02}>
-          <TextButton fontstyle={'italic'} textdecoration={'underline'}>Esqueci minha senha</TextButton>
+          <TextButton fontstyle={"italic"} textdecoration={"underline"}>
+            Esqueci minha senha
+          </TextButton>
         </SignUpButton>
         <ButtonContainer>
           <Button
@@ -59,9 +68,6 @@ export default function Login({ navigation }) {
             onPress={() => signIn(email, password, setLoading, navigation)}
           />
         </ButtonContainer>
-
-        
-
       </Container>
     </SafeArea>
   );

@@ -1,5 +1,10 @@
 import styled from "styled-components/native";
-import { fonts, colors, screenHeight, screenWidth } from "../../Constants/constants";
+import {
+  fonts,
+  colors,
+  screenHeight,
+  screenWidth,
+} from "../../Constants/constants";
 
 export const Container = styled.View`
   background-color: ${colors.background};
@@ -36,17 +41,16 @@ export const ButtonContainer = styled.View`
 
 export const SignUpButton = styled.TouchableOpacity`
   flex-direction: row;
-  margin-left: ${props=>props.marginleft}px;
-  margin-top: ${props=>props.margintop}px;
+  margin-left: ${(props) => props.marginleft}px;
+  margin-top: ${(props) => props.margintop}px;
 `;
 
 export const TextButton = styled.Text`
   /* font-family: ${fonts.Ubuntu}; */
-  font-style: ${props=>props.fontstyle};
+  font-style: ${(props) => props.fontstyle};
   font-size: ${screenWidth * 0.038}px;
-  margin-top:${screenWidth * 0.05}px;
-  margin-left:${screenWidth * 0.058}px;
-  text-decoration: ${props=>props.textdecoration};
+  margin-top: ${screenWidth * 0.05}px;
+  margin-left: ${screenWidth * 0.058}px;
+  text-decoration: ${(props) => props.textdecoration};
   color: ${colors.inputTitle};
-  
 `;
