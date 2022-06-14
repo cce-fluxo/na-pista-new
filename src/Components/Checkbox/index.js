@@ -12,12 +12,12 @@ const Checkbox = ({ marginTop, object, newList, setNewList }) => {
   }
 
   function handleUncheck() {
-    setNewList(newList.filter(SeiLa => SeiLa.id !== object.id));
+    setNewList(newList.filter(reference => reference.id !== object.id));
     setIsChecked(false);
   }
 
   useEffect(() => {
-    setIsChecked(() => newList.findIndex(SeiLa => SeiLa.id === object.id)!==-1);
+    setIsChecked(() => newList.findIndex(reference => reference.id === object.id)!==-1);
   }, [newList])
 
   return (
