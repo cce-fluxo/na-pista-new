@@ -69,7 +69,6 @@ export default function Settings({ navigation }) {
   async function getInfo() {
     try {
       const response = await api.get("/me");
-      console.log(response.data);
       setUserVendors(response.data.vendors);
       setUserVehicles(response.data.vehicles);
     } catch (error) {
@@ -93,7 +92,6 @@ export default function Settings({ navigation }) {
   async function vendorsGet() {
     try {
       const response = await api.get("/vendors");
-      console.log(response.data);
       setDataVendors(response.data);
     } catch (error) {
       console.log(error);
@@ -103,7 +101,6 @@ export default function Settings({ navigation }) {
   async function vehiclesGet() {
     try {
       const response = await api.get("/vehicles");
-      console.log(response.data);
       setDataVehicles(response.data);
     } catch (error) {
       console.log(error);
