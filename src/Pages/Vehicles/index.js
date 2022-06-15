@@ -40,6 +40,15 @@ export default function Vehicles({ navigation, route }) {
     }
   }
 
+  async function vehiclesPost(vehicle) {
+    try {
+      const response = await api.post("/vehicles", { name: vehicle });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   function nextScreen() {
     if (!vehicles) {
       showMessage({
@@ -87,11 +96,8 @@ export default function Vehicles({ navigation, route }) {
           keyExtractor={(item) => item.id}
         />
         <AddItemModal
-          label="Adicionar novo veículo"
-          initialList={vehicles}
-          setInitialList={setVehicles}
-          checkboxes={dataVehicles}
-          setCheckboxes={setDataVehicles}
+          text="Adicionar novo veículo"
+          postRequest={vehiclesPost}
         />
         <ButtonContainer>
           <Button

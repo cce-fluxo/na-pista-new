@@ -33,7 +33,16 @@ export default function Platform({ navigation, route }) {
     try {
       response = await api.get("/vendors");
       console.log(response.data);
-      setCheckboxes(response.data);
+      setDataVendors(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function vendorsPost(vendor) {
+    try {
+      const response = await api.post("/vendors", { name: vendor });
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -88,11 +97,8 @@ export default function Platform({ navigation, route }) {
           keyExtractor={(item) => item.id}
         />
         <AddItemModal
-          label="Adicionar nova plataforma"
-          initialList={vendors}
-          setInitialList={setVendors}
-          checkboxes={dataVendors}
-          setCheckboxes={setDataVendors}
+          text="Adicionar nova plataforma"
+          postRequest={vendorsPost}
         />
         <ButtonContainer>
           <Button
