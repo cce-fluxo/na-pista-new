@@ -27,14 +27,14 @@ export default function Vehicles({ navigation, route }) {
     city,
     neighborhood,
   } = route.params;
-  const [checkboxes, setCheckboxes] = useState([]);
+  const [dataVehicles, setDataVehicles] = useState([]);
   const [vehicles, setVehicles] = useState([]);
 
   async function vehiclesGet() {
     try {
       response = await api.get("/vehicles");
       console.log(response.data);
-      setCheckboxes(response.data);
+      setDataVehicles(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -67,7 +67,7 @@ export default function Vehicles({ navigation, route }) {
     vehiclesGet();
   }, []);
 
-  const Item = ({ item }) => <Checkbox marginTop={30} label={item.name} />;
+  const Item = ({ item }) => <Checkbox marginTop={30} object={item} newList={vehicles} setNewList={setVehicles} />;
 
   const renderItem = ({ item }) => <Item item={item} />;
 
@@ -82,7 +82,7 @@ export default function Vehicles({ navigation, route }) {
         </TitleContainer>
 
         <FlatList
-          data={checkboxes}
+          data={dataVehicles}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
         />
@@ -90,8 +90,8 @@ export default function Vehicles({ navigation, route }) {
           label="Adicionar novo veículo"
           initialList={vehicles}
           setInitialList={setVehicles}
-          checkboxes={checkboxes}
-          setCheckboxes={setCheckboxes}
+          checkboxes={dataVehicles}
+          setCheckboxes={setDataVehicles}
         />
         <ButtonContainer>
           <Button

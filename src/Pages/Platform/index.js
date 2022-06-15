@@ -5,8 +5,6 @@ import {
   TitleContainer,
   Text,
   ButtonContainer,
-  AddContainer,
-  AddText,
   FlatList,
 } from "./styles";
 import SafeArea from "../../Utils/SafeArea";
@@ -28,7 +26,7 @@ export default function Platform({ navigation, route }) {
     neighborhood,
     vehicles,
   } = route.params;
-  const [checkboxes, setCheckboxes] = useState([]);
+  const [dataVendors, setDataVendors] = useState([]);
   const [vendors, setVendors] = useState([]);
 
   async function vendorsGet() {
@@ -69,7 +67,7 @@ export default function Platform({ navigation, route }) {
     vendorsGet();
   }, []);
 
-  const Item = ({ item }) => <Checkbox marginTop={30} label={item.name} />;
+  const Item = ({ item }) => <Checkbox marginTop={30} object={item} newList={vendors} setNewList={setVendors} />;
 
   const renderItem = ({ item }) => <Item item={item} />;
 
@@ -85,7 +83,7 @@ export default function Platform({ navigation, route }) {
           </Text>
         </TitleContainer>
         <FlatList
-          data={checkboxes}
+          data={dataVendors}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
         />
@@ -93,8 +91,8 @@ export default function Platform({ navigation, route }) {
           label="Adicionar nova plataforma"
           initialList={vendors}
           setInitialList={setVendors}
-          checkboxes={checkboxes}
-          setCheckboxes={setCheckboxes}
+          checkboxes={dataVendors}
+          setCheckboxes={setDataVendors}
         />
         <ButtonContainer>
           <Button

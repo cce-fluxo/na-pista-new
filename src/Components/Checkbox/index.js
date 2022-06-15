@@ -1,22 +1,45 @@
+import React, { useState, useEffect } from "react";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { colors, fonts } from "../../Constants/constants";
 import { Container } from "./styles";
 
-const Checkbox = ({ marginTop, label }) => {
+const Checkbox = ({ marginTop, object, newList, setNewList }) => {
+  const [isChecked, setIsChecked] = useState(false);
+
+  function handleCheck() {
+    setNewList((prev) => [...prev, object])
+    setIsChecked(true);
+  }
+
+  function handleUncheck() {
+    setNewList(newList.filter(reference => reference.id !== object.id));
+    setIsChecked(false);
+  }
+
+  useEffect(() => {
+    setIsChecked(() => newList.findIndex(reference => reference.id === object.id)!==-1);
+  }, [newList])
+
   return (
     <Container marginTop={marginTop}>
       <BouncyCheckbox
+        isChecked={isChecked}
         fillColor="black"
         unfillColor={colors.background}
-        text={label}
+        text={object.name}
         iconStyle={{ borderColor: "black", borderRadius: 0 }}
+        disableBuiltInState
         textStyle={{
           fontFamily: fonts.Ubuntu,
           fontSize: 14,
           color: "black",
           textDecorationLine: "none",
         }}
-        onPress={(isChecked) => {}}
+        onPress={() => {
+          isChecked ? 
+            handleUncheck() :
+            handleCheck();
+        }}
       />
     </Container>
   );

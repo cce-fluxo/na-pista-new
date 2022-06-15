@@ -1,19 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, ScrollView, TouchableOpacity } from "react-native";
 import { AntDesign } from "react-native-vector-icons";
 
+import GoalsView from "./Components/goals";
+import CategoriesView from "./Components/categories";
+import VendorsView from "./Components/vendors";
+import VehiclesView from "./Components/vehicles";
 import SafeArea from "../../../Utils/SafeArea/index";
 import Header from "../../../Components/SettingsHeader/index";
-import Checkbox from "../../../Components/Checkbox/index";
-import AddItemModal from "../../../Components/AddItemModal/index";
-import IncrementContainer from "../../../Components/IncrementContainer";
 import {
   Container,
   MiniView,
-  MaxView,
   TitleText,
-  LineView,
-  NormalText,
 } from "./styles";
 import {
   colors,
@@ -21,119 +19,122 @@ import {
   screenWidth,
   fonts,
 } from "../../../Constants/constants";
+import api from "../../../Services/api";
 
 export default function Settings({ navigation }) {
-  const [click, setClick] = useState(false);
+  const [clickMetas, setClickMetas] = useState(false);
+  const [clickCategorias, setClickCategorias] = useState(false);
+  const [clickPlataformas, setClickPlataformas] = useState(false);
+  const [clickVeiculos, setClickVeiculos] = useState(false);
 
-  const [dataCategorias, setDataCategorias] = useState([
+  const [dataCategories, setDataCategories] = useState([
     {
       id: "1",
-      label: "Aluguel do veículo",
+      name: "Aluguel do veículo",
     },
     {
       id: "2",
-      label: "Alimentação",
+      name: "Alimentação",
     },
     {
       id: "3",
-      label: "Manutenção",
+      name: "Manutenção",
     },
     {
       id: "4",
-      label: "Multa",
+      name: "Multa",
     },
     {
       id: "5",
-      label: "Contribuição mensal do MEI (DAS)",
+      name: "Contribuição mensal do MEI (DAS)",
     },
     {
       id: "6",
-      label: "Troca de óleo",
+      name: "Troca de óleo",
     },
     {
       id: "7",
-      label: "Combustível",
+      name: "Combustível",
     },
   ]);
+  const [dataVendors, setDataVendors] = useState([]);
+  const [dataVehicles, setDataVehicles] = useState([]);
 
-  const [dataPlataformas, setDataPlataformas] = useState([
-    {
-      id: "1",
-      label: "Ifood",
-    },
-    {
-      id: "2",
-      label: "Rappi",
-    },
-    {
-      id: "3",
-      label: "Uber eats",
-    },
-    {
-      id: "4",
-      label: "Loggi",
-    },
-    {
-      id: "5",
-      label: "Zé Delivery",
-    },
-    {
-      id: "6",
-      label: "99 Food",
-    },
-    {
-      id: "7",
-      label: "James",
-    },
-  ]);
+  const [userCategories, setUserCategories] = useState([]);
+  const [userVendors, setUserVendors] = useState([]);
+  const [userVehicles, setUserVehicles] = useState([]);
 
-  const [dataVeiculos, setDataVeiculos] = useState([
-    {
-      id: "1",
-      label: "A pé",
-    },
-    {
-      id: "2",
-      label: "Bicicleta",
-    },
-    {
-      id: "3",
-      label: "Bicicleta Elétrica",
-    },
-    {
-      id: "4",
-      label: "Bicicleta Motorizada",
-    },
-    {
-      id: "5",
-      label: "Moto",
-    },
-    {
-      id: "6",
-      label: "Carro",
-    },
-    {
-      id: "7",
-      label: "Patinete",
-    },
-  ]);
+  async function getInfo() {
+    try {
+      const response = await api.get("/me");
+      setUserVendors(response.data.vendors);
+      setUserVehicles(response.data.vehicles);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
-  const [checkboxesCategorias, setCheckboxesCategorias] =
-    useState(dataCategorias);
-  const [checkboxesPlataformas, setCheckboxesPlataformas] =
-    useState(dataPlataformas);
-  const [checkboxesVeiculos, setCheckboxesVeiculos] = useState(dataVeiculos);
+  async function updateInfo() {
+    try {
+      const response = await api.patch("/me", {
+        vendors: userVendors,
+        vehicles: userVehicles,
+      });
+      console.log(response);
+      navigation.navigate("Menu Configurações");
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function vendorsGet() {
+    try {
+      const response = await api.get("/vendors");
+      setDataVendors(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function vehiclesGet() {
+    try {
+      const response = await api.get("/vehicles");
+      setDataVehicles(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function vendorsPost(vendor) {
+    try {
+      const response = await api.post("/vendors", { name: vendor });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function vehiclesPost(vehicle) {
+    try {
+      const response = await api.post("/vehicles", { name: vehicle });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getInfo();
+    vendorsGet();
+    vehiclesGet();
+  }, []);
 
   return (
     <SafeArea>
       <Container>
-        <Header
-          name="Configurações"
-          onPressNavigate={() => navigation.navigate("Menu Configurações")}
-        />
-
-        {!click ? (
-          <ScrollView>
+        <Header name="Configurações" onPressNavigate={updateInfo} />
+        <ScrollView>
+          {!clickMetas ? (
             <MiniView
               height={screenHeight * 0.0875}
               width={screenWidth * 0.91}
@@ -147,11 +148,15 @@ export default function Settings({ navigation }) {
               </TitleText>
               <TouchableOpacity
                 style={{ marginRight: screenWidth * 0.1 }}
-                onPress={() => setClick(true)}
+                onPress={() => setClickMetas(true)}
               >
                 <AntDesign name="down" size={22} color={colors.background} />
               </TouchableOpacity>
             </MiniView>
+          ) : (
+            <GoalsView setClickMetas={setClickMetas} />
+          )}
+          {!clickCategorias ? (
             <MiniView
               height={screenHeight * 0.0875}
               width={screenWidth * 0.91}
@@ -165,11 +170,20 @@ export default function Settings({ navigation }) {
               </TitleText>
               <TouchableOpacity
                 style={{ marginRight: screenWidth * 0.1 }}
-                onPress={() => setClick(true)}
+                onPress={() => setClickCategorias(true)}
               >
                 <AntDesign name="down" size={22} color={colors.background} />
               </TouchableOpacity>
             </MiniView>
+          ) : (
+            <CategoriesView
+              setClickCategorias={setClickCategorias}
+              dataCategories={dataCategories}
+              userCategories={userCategories}
+              setUserCategories={setUserCategories}
+            />
+          )}
+          {!clickPlataformas ? (
             <MiniView
               height={screenHeight * 0.0875}
               width={screenWidth * 0.91}
@@ -183,11 +197,21 @@ export default function Settings({ navigation }) {
               </TitleText>
               <TouchableOpacity
                 style={{ marginRight: screenWidth * 0.1 }}
-                onPress={() => setClick(true)}
+                onPress={() => setClickPlataformas(true)}
               >
                 <AntDesign name="down" size={22} color={colors.background} />
               </TouchableOpacity>
             </MiniView>
+          ) : (
+            <VendorsView
+              setClickPlataformas={setClickPlataformas}
+              dataVendors={dataVendors}
+              userVendors={userVendors}
+              setUserVendors={setUserVendors}
+              vendorsPost={vendorsPost}
+            />
+          )}
+          {!clickVeiculos ? (
             <MiniView
               height={screenHeight * 0.0875}
               width={screenWidth * 0.91}
@@ -201,204 +225,22 @@ export default function Settings({ navigation }) {
               </TitleText>
               <TouchableOpacity
                 style={{ marginRight: screenWidth * 0.1 }}
-                onPress={() => setClick(true)}
+                onPress={() => setClickVeiculos(true)}
               >
                 <AntDesign name="down" size={22} color={colors.background} />
               </TouchableOpacity>
             </MiniView>
-          </ScrollView>
-        ) : (
-          <ScrollView>
-            <MaxView
-              width={screenWidth * 0.91}
-              marginTop={screenHeight * 0.025}
-            >
-              <MiniView
-                height={screenHeight * 0.0875}
-                width={screenWidth * 0.91}
-                marginTop={0}
-              >
-                <TitleText
-                  marginLeft={screenWidth * 0.05}
-                  fontFamily={fonts.Ubuntu}
-                >
-                  Metas
-                </TitleText>
-                <TouchableOpacity
-                  style={{ marginRight: screenWidth * 0.1 }}
-                  onPress={() => setClick(false)}
-                >
-                  <AntDesign name="up" size={22} color={colors.background} />
-                </TouchableOpacity>
-              </MiniView>
-              <LineView width={screenWidth * 0.82}></LineView>
-              <NormalText
-                width={screenWidth * 0.82}
-                fontFamily={fonts.Ubuntu}
-                marginTop={screenHeight * 0.025}
-              >
-                Definindo suas metas de ganhos te ajudaremos a acompanhar se
-                está alcançando elas.
-              </NormalText>
-              <IncrementContainer
-                title="Diária"
-                marginLeft={0}
-                marginTop={screenHeight * 0.025}
-                color="white"
-              />
-              <IncrementContainer
-                title="Semanal"
-                marginLeft={0}
-                marginTop={screenHeight * 0.025}
-                color="white"
-              />
-              <IncrementContainer
-                title="Mensal"
-                marginLeft={0}
-                marginTop={screenHeight * 0.025}
-                color="white"
-              />
-              <View style={{ height: screenHeight * 0.025 }}></View>
-            </MaxView>
-            <MaxView
-              width={screenWidth * 0.91}
-              marginTop={screenHeight * 0.025}
-            >
-              <MiniView
-                height={screenHeight * 0.0875}
-                width={screenWidth * 0.91}
-                marginTop={0}
-              >
-                <TitleText
-                  marginLeft={screenWidth * 0.05}
-                  fontFamily={fonts.Ubuntu}
-                >
-                  Categorias de gastos
-                </TitleText>
-                <TouchableOpacity
-                  style={{ marginRight: screenWidth * 0.1 }}
-                  onPress={() => setClick(false)}
-                >
-                  <AntDesign name="up" size={22} color={colors.background} />
-                </TouchableOpacity>
-              </MiniView>
-              <LineView width={screenWidth * 0.82}></LineView>
-              <NormalText
-                width={screenWidth * 0.82}
-                fontFamily={fonts.Ubuntu}
-                marginTop={screenHeight * 0.025}
-              >
-                Selecione quais tipos de gastos você costuma ter ou crie novos.
-              </NormalText>
-              {checkboxesCategorias.map((item, index) => (
-                <Checkbox
-                  key={index}
-                  marginTop={screenHeight * 0.025}
-                  label={item.label}
-                />
-              ))}
-              <View style={{ height: screenHeight * 0.025 }}></View>
-              <AddItemModal
-                label="Categoria de gasto"
-                initialList={dataCategorias}
-                setInitialList={setDataCategorias}
-                checkboxes={checkboxesCategorias}
-                setCheckboxes={setCheckboxesCategorias}
-              />
-              <View style={{ height: screenHeight * 0.025 }}></View>
-            </MaxView>
-            <MaxView
-              width={screenWidth * 0.91}
-              marginTop={screenHeight * 0.025}
-            >
-              <MiniView
-                height={screenHeight * 0.0875}
-                width={screenWidth * 0.91}
-                marginTop={0}
-              >
-                <TitleText
-                  marginLeft={screenWidth * 0.05}
-                  fontFamily={fonts.Ubuntu}
-                >
-                  Plataformas
-                </TitleText>
-                <TouchableOpacity
-                  style={{ marginRight: screenWidth * 0.1 }}
-                  onPress={() => setClick(false)}
-                >
-                  <AntDesign name="up" size={22} color={colors.background} />
-                </TouchableOpacity>
-              </MiniView>
-              <LineView width={screenWidth * 0.82}></LineView>
-              <NormalText
-                width={screenWidth * 0.82}
-                fontFamily={fonts.Ubuntu}
-                marginTop={screenHeight * 0.025}
-              >
-                Identificando pra quais apps você trabalha poderemos filtrar as
-                informações e mostrar, por exemplo, qual está te pagando melhor.
-              </NormalText>
-              {checkboxesPlataformas.map((item, index) => (
-                <Checkbox
-                  key={index}
-                  marginTop={screenHeight * 0.025}
-                  label={item.label}
-                />
-              ))}
-              <View style={{ height: screenHeight * 0.025 }}></View>
-              <AddItemModal
-                label="Plataforma"
-                initialList={dataPlataformas}
-                setInitialList={setDataPlataformas}
-                checkboxes={checkboxesPlataformas}
-                setCheckboxes={setCheckboxesPlataformas}
-              />
-              <View style={{ height: screenHeight * 0.025 }}></View>
-            </MaxView>
-            <MaxView
-              width={screenWidth * 0.91}
-              marginTop={screenHeight * 0.025}
-            >
-              <MiniView
-                height={screenHeight * 0.0875}
-                width={screenWidth * 0.91}
-                marginTop={0}
-              >
-                <TitleText
-                  marginLeft={screenWidth * 0.05}
-                  fontFamily={fonts.Ubuntu}
-                >
-                  Veículos de trabalho
-                </TitleText>
-                <TouchableOpacity
-                  style={{ marginRight: screenWidth * 0.1 }}
-                  onPress={() => setClick(false)}
-                >
-                  <AntDesign name="up" size={22} color={colors.background} />
-                </TouchableOpacity>
-              </MiniView>
-              <LineView width={screenWidth * 0.82}></LineView>
-              <View style={{ height: screenHeight * 0.025 }}></View>
-              {checkboxesVeiculos.map((item, index) => (
-                <Checkbox
-                  key={index}
-                  marginTop={screenHeight * 0.025}
-                  label={item.label}
-                />
-              ))}
-              <View style={{ height: screenHeight * 0.025 }}></View>
-              <AddItemModal
-                label="Veículo	"
-                initialList={dataVeiculos}
-                setInitialList={setDataVeiculos}
-                checkboxes={checkboxesVeiculos}
-                setCheckboxes={setCheckboxesVeiculos}
-              />
-              <View style={{ height: screenHeight * 0.025 }}></View>
-            </MaxView>
-            <View style={{ height: screenHeight * 0.025 }}></View>
-          </ScrollView>
-        )}
+          ) : (
+            <VehiclesView
+              setClickVeiculos={setClickVeiculos}
+              dataVehicles={dataVehicles}
+              userVehicles={userVehicles}
+              setUserVehicles={setUserVehicles}
+              vehiclesPost={vehiclesPost}
+            />
+          )}
+          <View style={{ height: screenHeight * 0.025 }}></View>
+        </ScrollView>
       </Container>
     </SafeArea>
   );
