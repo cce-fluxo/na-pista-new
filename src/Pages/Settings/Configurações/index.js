@@ -2,18 +2,16 @@ import React, { useState, useEffect } from "react";
 import { View, ScrollView, TouchableOpacity } from "react-native";
 import { AntDesign } from "react-native-vector-icons";
 
+import GoalsView from "./Components/goals";
+import CategoriesView from "./Components/categories";
+import VendorsView from "./Components/vendors";
+import VehiclesView from "./Components/vehicles";
 import SafeArea from "../../../Utils/SafeArea/index";
 import Header from "../../../Components/SettingsHeader/index";
-import Checkbox from "../../../Components/Checkbox/index";
-import AddItemModal from "../../../Components/AddItemModal/index";
-import IncrementContainer from "../../../Components/IncrementContainer";
 import {
   Container,
   MiniView,
-  MaxView,
   TitleText,
-  LineView,
-  NormalText,
 } from "./styles";
 import {
   colors,
@@ -156,57 +154,7 @@ export default function Settings({ navigation }) {
               </TouchableOpacity>
             </MiniView>
           ) : (
-            <MaxView
-              width={screenWidth * 0.91}
-              marginTop={screenHeight * 0.025}
-            >
-              <MiniView
-                height={screenHeight * 0.0875}
-                width={screenWidth * 0.91}
-                marginTop={0}
-              >
-                <TitleText
-                  marginLeft={screenWidth * 0.05}
-                  fontFamily={fonts.Ubuntu}
-                >
-                  Metas
-                </TitleText>
-                <TouchableOpacity
-                  style={{ marginRight: screenWidth * 0.1 }}
-                  onPress={() => setClickMetas(false)}
-                >
-                  <AntDesign name="up" size={22} color={colors.background} />
-                </TouchableOpacity>
-              </MiniView>
-              <LineView width={screenWidth * 0.82}></LineView>
-              <NormalText
-                width={screenWidth * 0.82}
-                fontFamily={fonts.Ubuntu}
-                marginTop={screenHeight * 0.025}
-              >
-                Definindo suas metas de ganhos te ajudaremos a acompanhar se
-                está alcançando elas.
-              </NormalText>
-              <IncrementContainer
-                title="Diária"
-                marginLeft={0}
-                marginTop={screenHeight * 0.025}
-                color="white"
-              />
-              <IncrementContainer
-                title="Semanal"
-                marginLeft={0}
-                marginTop={screenHeight * 0.025}
-                color="white"
-              />
-              <IncrementContainer
-                title="Mensal"
-                marginLeft={0}
-                marginTop={screenHeight * 0.025}
-                color="white"
-              />
-              <View style={{ height: screenHeight * 0.025 }}></View>
-            </MaxView>
+            <GoalsView setClickMetas={setClickMetas} />
           )}
           {!clickCategorias ? (
             <MiniView
@@ -228,49 +176,12 @@ export default function Settings({ navigation }) {
               </TouchableOpacity>
             </MiniView>
           ) : (
-            <MaxView
-              width={screenWidth * 0.91}
-              marginTop={screenHeight * 0.025}
-            >
-              <MiniView
-                height={screenHeight * 0.0875}
-                width={screenWidth * 0.91}
-                marginTop={0}
-              >
-                <TitleText
-                  marginLeft={screenWidth * 0.05}
-                  fontFamily={fonts.Ubuntu}
-                >
-                  Categorias de gastos
-                </TitleText>
-                <TouchableOpacity
-                  style={{ marginRight: screenWidth * 0.1 }}
-                  onPress={() => setClickCategorias(false)}
-                >
-                  <AntDesign name="up" size={22} color={colors.background} />
-                </TouchableOpacity>
-              </MiniView>
-              <LineView width={screenWidth * 0.82}></LineView>
-              <NormalText
-                width={screenWidth * 0.82}
-                fontFamily={fonts.Ubuntu}
-                marginTop={screenHeight * 0.025}
-              >
-                Selecione quais tipos de gastos você costuma ter ou crie novos.
-              </NormalText>
-              {dataCategories.map((item, index) => (
-                <Checkbox
-                  key={index}
-                  marginTop={screenHeight * 0.025}
-                  object={item}
-                  newList={userCategories}
-                  setNewList={setUserCategories}
-                />
-              ))}
-              <View style={{ height: screenHeight * 0.025 }}></View>
-              <AddItemModal label="Categoria de gasto" />
-              <View style={{ height: screenHeight * 0.025 }}></View>
-            </MaxView>
+            <CategoriesView
+              setClickCategorias={setClickCategorias}
+              dataCategories={dataCategories}
+              userCategories={userCategories}
+              setUserCategories={setUserCategories}
+            />
           )}
           {!clickPlataformas ? (
             <MiniView
@@ -292,50 +203,13 @@ export default function Settings({ navigation }) {
               </TouchableOpacity>
             </MiniView>
           ) : (
-            <MaxView
-              width={screenWidth * 0.91}
-              marginTop={screenHeight * 0.025}
-            >
-              <MiniView
-                height={screenHeight * 0.0875}
-                width={screenWidth * 0.91}
-                marginTop={0}
-              >
-                <TitleText
-                  marginLeft={screenWidth * 0.05}
-                  fontFamily={fonts.Ubuntu}
-                >
-                  Plataformas
-                </TitleText>
-                <TouchableOpacity
-                  style={{ marginRight: screenWidth * 0.1 }}
-                  onPress={() => setClickPlataformas(false)}
-                >
-                  <AntDesign name="up" size={22} color={colors.background} />
-                </TouchableOpacity>
-              </MiniView>
-              <LineView width={screenWidth * 0.82}></LineView>
-              <NormalText
-                width={screenWidth * 0.82}
-                fontFamily={fonts.Ubuntu}
-                marginTop={screenHeight * 0.025}
-              >
-                Identificando pra quais apps você trabalha poderemos filtrar as
-                informações e mostrar, por exemplo, qual está te pagando melhor.
-              </NormalText>
-              {dataVendors.map((item, index) => (
-                <Checkbox
-                  key={index}
-                  marginTop={screenHeight * 0.025}
-                  object={item}
-                  newList={userVendors}
-                  setNewList={setUserVendors}
-                />
-              ))}
-              <View style={{ height: screenHeight * 0.025 }}></View>
-              <AddItemModal label="Plataforma" postRequest={vendorsPost} />
-              <View style={{ height: screenHeight * 0.025 }}></View>
-            </MaxView>
+            <VendorsView
+              setClickPlataformas={setClickPlataformas}
+              dataVendors={dataVendors}
+              userVendors={userVendors}
+              setUserVendors={setUserVendors}
+              vendorsPost={vendorsPost}
+            />
           )}
           {!clickVeiculos ? (
             <MiniView
@@ -357,43 +231,13 @@ export default function Settings({ navigation }) {
               </TouchableOpacity>
             </MiniView>
           ) : (
-            <MaxView
-              width={screenWidth * 0.91}
-              marginTop={screenHeight * 0.025}
-            >
-              <MiniView
-                height={screenHeight * 0.0875}
-                width={screenWidth * 0.91}
-                marginTop={0}
-              >
-                <TitleText
-                  marginLeft={screenWidth * 0.05}
-                  fontFamily={fonts.Ubuntu}
-                >
-                  Veículos de trabalho
-                </TitleText>
-                <TouchableOpacity
-                  style={{ marginRight: screenWidth * 0.1 }}
-                  onPress={() => setClickVeiculos(false)}
-                >
-                  <AntDesign name="up" size={22} color={colors.background} />
-                </TouchableOpacity>
-              </MiniView>
-              <LineView width={screenWidth * 0.82}></LineView>
-              <View style={{ height: screenHeight * 0.025 }}></View>
-              {dataVehicles.map((item, index) => (
-                <Checkbox
-                  key={index}
-                  marginTop={screenHeight * 0.025}
-                  object={item}
-                  newList={userVehicles}
-                  setNewList={setUserVehicles}
-                />
-              ))}
-              <View style={{ height: screenHeight * 0.025 }}></View>
-              <AddItemModal label="Veículo" postRequest={vehiclesPost} />
-              <View style={{ height: screenHeight * 0.025 }}></View>
-            </MaxView>
+            <VehiclesView
+              setClickVeiculos={setClickVeiculos}
+              dataVehicles={dataVehicles}
+              userVehicles={userVehicles}
+              setUserVehicles={setUserVehicles}
+              vehiclesPost={vehiclesPost}
+            />
           )}
           <View style={{ height: screenHeight * 0.025 }}></View>
         </ScrollView>
