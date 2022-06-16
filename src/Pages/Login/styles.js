@@ -26,10 +26,14 @@ export const TitleContainer = styled.View`
 
 export const Text = styled.Text`
   font-family: ${fonts.Ubuntu};
-  font-size: 24px;
-  line-height: 30px;
-  margin-left: 8px;
-  margin-top: 20px;
+  font-size: ${(props) => props.fontSize}px;
+  margin-left: ${(props) => props.marginLeft}px;
+  margin-top: ${(props) => props.marginTop}px;
+  margin-bottom: ${(props) => props.marginBottom}px;
+  line-height: ${(props) => props.lineHeight}px;
+  font-weight: ${(props) => props.fontWeight};
+  color: ${(props) => props.color};
+  align-self: flex-start;
 `;
 
 export const ButtonContainer = styled.View`
@@ -46,11 +50,41 @@ export const SignUpButton = styled.TouchableOpacity`
 `;
 
 export const TextButton = styled.Text`
-  /* font-family: ${fonts.Ubuntu}; */
   font-style: ${(props) => props.fontstyle};
   font-size: ${screenWidth * 0.038}px;
   margin-top: ${screenWidth * 0.05}px;
   margin-left: ${screenWidth * 0.058}px;
   text-decoration: ${(props) => props.textdecoration};
   color: ${colors.inputTitle};
+`;
+
+export const InputView = styled.View`
+  align-items: center;
+  align-self: center;
+  justify-content: center;
+  flex-direction: row;
+  width: ${screenWidth * 0.9}px;
+  height: 54px;
+  background-color: white;
+  border-radius: 5px;
+`;
+
+export const InputPass = styled.TextInput.attrs({
+  placeholderTextColor: "rgba(0, 0, 0, 0.5)",
+  selectionColor: "blue",
+})`
+  width: ${screenWidth * 0.75}px;
+  height: 54px;
+  background-color: white;
+  padding-left: 20px;
+  align-self: center;
+  border-radius: 5px;
+`;
+
+export const IconButton = styled.TouchableOpacity`
+  width: ${screenWidth * 0.15}px;
+  height: 54px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
 `;
