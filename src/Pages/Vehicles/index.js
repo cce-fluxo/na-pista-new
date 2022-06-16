@@ -27,14 +27,23 @@ export default function Vehicles({ navigation, route }) {
     city,
     neighborhood,
   } = route.params;
-  const [checkboxes, setCheckboxes] = useState([]);
+  const [dataVehicles, setDataVehicles] = useState([]);
   const [vehicles, setVehicles] = useState([]);
 
   async function vehiclesGet() {
     try {
       response = await api.get("/vehicles");
       console.log(response.data);
-      setCheckboxes(response.data);
+      setDataVehicles(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function vehiclesPost(vehicle) {
+    try {
+      const response = await api.post("/vehicles", { name: vehicle });
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -67,7 +76,7 @@ export default function Vehicles({ navigation, route }) {
     vehiclesGet();
   }, []);
 
-  const Item = ({ item }) => <Checkbox marginTop={30} label={item.name} />;
+  const Item = ({ item }) => <Checkbox marginTop={30} object={item} newList={vehicles} setNewList={setVehicles} />;
 
   const renderItem = ({ item }) => <Item item={item} />;
 
@@ -82,16 +91,13 @@ export default function Vehicles({ navigation, route }) {
         </TitleContainer>
 
         <FlatList
-          data={checkboxes}
+          data={dataVehicles}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
         />
         <AddItemModal
-          label="Adicionar novo veículo"
-          initialList={vehicles}
-          setInitialList={setVehicles}
-          checkboxes={checkboxes}
-          setCheckboxes={setCheckboxes}
+          text="Adicionar novo veículo"
+          postRequest={vehiclesPost}
         />
         <ButtonContainer>
           <Button

@@ -37,13 +37,11 @@ export default function BasicInfo({ navigation, route }) {
   const data = [
     {
       id: "1",
-      value: "f",
-      label: "Feminino",
+      name: "Feminino",
     },
     {
       id: "2",
-      value: "m",
-      label: "Masculino",
+      name: "Masculino",
     },
   ];
 

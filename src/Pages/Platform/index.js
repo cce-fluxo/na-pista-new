@@ -5,8 +5,6 @@ import {
   TitleContainer,
   Text,
   ButtonContainer,
-  AddContainer,
-  AddText,
   FlatList,
 } from "./styles";
 import SafeArea from "../../Utils/SafeArea";
@@ -28,14 +26,23 @@ export default function Platform({ navigation, route }) {
     neighborhood,
     vehicles,
   } = route.params;
-  const [checkboxes, setCheckboxes] = useState([]);
+  const [dataVendors, setDataVendors] = useState([]);
   const [vendors, setVendors] = useState([]);
 
   async function vendorsGet() {
     try {
       response = await api.get("/vendors");
       console.log(response.data);
-      setCheckboxes(response.data);
+      setDataVendors(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function vendorsPost(vendor) {
+    try {
+      const response = await api.post("/vendors", { name: vendor });
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -69,7 +76,7 @@ export default function Platform({ navigation, route }) {
     vendorsGet();
   }, []);
 
-  const Item = ({ item }) => <Checkbox marginTop={30} label={item.name} />;
+  const Item = ({ item }) => <Checkbox marginTop={30} object={item} newList={vendors} setNewList={setVendors} />;
 
   const renderItem = ({ item }) => <Item item={item} />;
 
@@ -85,16 +92,13 @@ export default function Platform({ navigation, route }) {
           </Text>
         </TitleContainer>
         <FlatList
-          data={checkboxes}
+          data={dataVendors}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
         />
         <AddItemModal
-          label="Adicionar nova plataforma"
-          initialList={vendors}
-          setInitialList={setVendors}
-          checkboxes={checkboxes}
-          setCheckboxes={setCheckboxes}
+          text="Adicionar nova plataforma"
+          postRequest={vendorsPost}
         />
         <ButtonContainer>
           <Button

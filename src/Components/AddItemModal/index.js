@@ -15,35 +15,22 @@ import Button from "../Button";
 import { colors } from "../../Constants/constants";
 
 const AddItemModal = ({
-  marginTop,
-  marginLeft,
-  value,
-  label,
-  initialList,
-  setInitialList,
-  checkboxes,
-  setCheckboxes,
   text,
+  postRequest
 }) => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [newItem, setNewItem] = useState("");
-  const [idx, incr] = useState(8);
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
     console.log(isModalVisible);
   };
 
-  var key = checkboxes.length;
-
-  const addItemToList = useCallback(() => {
-    setCheckboxes((prevState) => [
-      { id: checkboxes.length + 1, title: newItem },
-      ...prevState,
-    ]);
+  function addItemToList() {
+    postRequest(newItem);
     setNewItem("");
     setModalVisible(false);
-  }, [checkboxes.length]);
+  }
 
   return (
     <Container>
