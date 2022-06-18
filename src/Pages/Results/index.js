@@ -5,6 +5,7 @@ import { Ionicons, AntDesign, MaterialIcons } from "react-native-vector-icons";
 import SafeArea from "../../Utils/SafeArea";
 import AddEarningModal from "../../Components/AddEarningModal";
 import ActivityOptions from "../../Components/ActivityOptions";
+import HomeHeader from "../../Components/HomeHeader";
 import iFood from "../../Assets/ifood.png";
 import uber from "../../Assets/uber.png";
 import rappi from "../../Assets/rappi.png";
@@ -99,48 +100,12 @@ export default function Results({ navigation }) {
   return (
     <SafeArea>
       <MainContainer showsVerticalScrollIndicator={false}>
-        <Subcontainer
-          backgroundColor={colors.background}
-          width={screenWidth}
-          height={screenHeight * 0.09}
-        >
-          <TextContainer
-            padding={screenWidth * 0.027}
-            justifyContent={"space-between"}
-            marginTop={10}
-            maxHeight={screenHeight * 0.1}
-            maxWidth={screenWidth}
-            marginLeft={0}
-          >
-            <TitleText
-              fontFamily={fonts.Ubuntu}
-              fontSize={screenWidth * 0.055}
-              lineHeight={screenWidth * 0.083}
-              color="black"
-              marginLeft={screenWidth * 0.03}
-              marginTop={0}
-            >
-              Resultados
-            </TitleText>
-            <IconContainer marginRight={-screenWidth * 0.25}>
-              <AntDesign
-                name="plus"
-                size={screenWidth * 0.066}
-                color={colors.icon}
-              />
-            </IconContainer>
-            <IconContainer
-              marginRight={screenWidth * 0.067}
-              onPress={() => navigation.navigate("Menu Configurações")}
-            >
-              <Ionicons
-                name="settings-sharp"
-                size={screenWidth * 0.066}
-                color={colors.icon}
-              />
-            </IconContainer>
-          </TextContainer>
-        </Subcontainer>
+      <HomeHeader
+          onPressNavigate={() => navigation.navigate("Menu Configurações")}
+          text={"Resultados"}
+          height={screenHeight * 0.0811}
+        />
+
         <PeriodView
           width={screenWidth}
           height={screenHeight * 0.07}
