@@ -22,23 +22,23 @@ export default function SettingsMenu({
   return (
     <Container>
       <IconClose
-        marginRight={10}
-        marginLeft={20}
-        marginTop={20}
+        marginRight={screenWidth * 0.027}
+        marginLeft={screenWidth * 0.055}
+        marginTop={screenWidth * 0.055}
         onPress={() => navigation.goBack()}
       >
-        <AntDesign name="close" size={28} color={colors.icon} />
+        <AntDesign name="close" size={screenWidth * 0.07} color={colors.icon} />
       </IconClose>
       <TextContainer
         onPress={() => navigation.navigate("Perfil")}
         justifyContent={"space-between"}
       >
-        <Text fontSize={25} color={colors.icon} marginLeft={20} marginTop={15}>
+        <Text fontSize={screenWidth * 0.07} color={colors.icon} marginLeft={screenWidth * 0.055} marginTop={0}>
           Perfil
         </Text>
         <IconContainer
           marginRight={10}
-          marginLeft={50}
+          marginLeft={screenWidth * 0.138}
           marginTop={0}
           // onPress={() => navigation.navigate("Perfil")}
         >
@@ -50,12 +50,12 @@ export default function SettingsMenu({
         onPress={() => navigation.navigate("Configurações")}
         justifyContent={"space-between"}
       >
-        <Text fontSize={25} color={colors.icon} marginLeft={20} marginTop={15}>
+        <Text fontSize={screenWidth * 0.07} color={colors.icon} marginLeft={screenWidth * 0.055} marginTop={0}>
           Configurações
         </Text>
         <IconContainer
           marginRight={10}
-          marginLeft={50}
+          marginLeft={screenWidth * 0.138}
           marginTop={0}
           // onPress={() => navigation.navigate("Configurações")}
         >
@@ -67,12 +67,12 @@ export default function SettingsMenu({
         onPress={() => navigation.navigate("Home")}
         justifyContent={"space-between"}
       >
-        <Text fontSize={25} color={colors.icon} marginLeft={20} marginTop={15}>
+        <Text fontSize={screenWidth * 0.07} color={colors.icon} marginLeft={screenWidth * 0.055} marginTop={0}>
           Sobre
         </Text>
         <IconContainer
           marginRight={10}
-          marginLeft={50}
+          marginLeft={screenWidth * 0.138}
           marginTop={0}
           // onPress={() => navigation.navigate("Home")}
         >
@@ -85,13 +85,13 @@ export default function SettingsMenu({
         height={screenHeight * 0.04}
         marginLeft={0}
         marginRight={0}
-        marginTop={50}
+        marginTop={screenWidth * 0.138}
         onPress={() => navigation.navigate("ExportarDados")}
       >
         <Text
-          fontSize={20}
+          fontSize={screenWidth * 0.055}
           color={colors.inputTitle}
-          marginLeft={10}
+          marginLeft={screenWidth * 0.027}
           marginTop={0}
         >
           Exportar dados
@@ -102,13 +102,13 @@ export default function SettingsMenu({
         height={screenHeight * 0.04}
         marginLeft={0}
         marginRight={0}
-        marginTop={50}
+        marginTop={screenWidth * 0.138}
         onPress={() => navigation.navigate("Ajuda")}
       >
         <Text
-          fontSize={20}
+          fontSize={screenWidth * 0.055}
           color={colors.inputTitle}
-          marginLeft={10}
+          marginLeft={screenWidth * 0.027}
           marginTop={0}
         >
           Ajuda
@@ -119,13 +119,13 @@ export default function SettingsMenu({
         height={screenHeight * 0.04}
         marginLeft={0}
         marginRight={0}
-        marginTop={50}
+        marginTop={screenWidth * 0.138}
         onPress={() => navigation.navigate("Home")}
       >
         <Text
-          fontSize={20}
+          fontSize={screenWidth * 0.055}
           color={colors.inputTitle}
-          marginLeft={10}
+          marginLeft={screenWidth * 0.027}
           marginTop={0}
           onPress={() => navigation.navigate("First")}
         >
