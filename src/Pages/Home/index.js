@@ -57,6 +57,31 @@ export default function Home({ navigation }) {
     return () => clearInterval(interval);
   }, [isActive, remainingSecs]);
 
+  const today = {
+    min: 12,
+    max: 80,
+    ganhos: 12,
+    gastos: 8,
+  };
+
+  const week = {
+    min: 140,
+    max: 500,
+    ganhos: 140,
+    gastos: 43,
+  };
+
+  const month = {
+    min: 1130,
+    max: 2000,
+    ganhos: 1110,
+    gastos: 729,
+  };
+
+  const [todayObject, setTodayObject] = useState(today);
+  const [weekObject, setWeekObject] = useState(week);
+  const [monthObject, setMonthObject] = useState(month);
+
   return (
     <SafeArea>
       <MainContainer showsVerticalScrollIndicator={false}>
@@ -77,22 +102,20 @@ export default function Home({ navigation }) {
           >
             <Text
               fontSize={screenWidth * 0.046}
-              lineHeight={screenHeight * 0.06}
               color={colors.icon}
               marginLeft={screenWidth * 0.044}
-              marginTop={screenWidth * 0.01}
+              marginTop={screenWidth * 0.044}
             >
               Jornada do dia
             </Text>
             <Text
               fontSize={screenWidth * 0.04}
-              lineHeight={screenWidth * 0.05}
               color={colors.inputTitle}
               marginLeft={screenWidth * 0.044}
               marginTop={0}
             >
               {isActive
-                ? "Estamos gravando automaticamente o seu\ntempo de trabalho e distância percorrida.\nClique no botão abaixo se quiser pausar."
+                ? "Estamos gravando automaticamente o seu tempo de trabalho e distância percorrida. Clique no botão abaixo se quiser pausar."
                 : "Clique no botão abaixo para começar e vamos gravar automaticamente o seu tempo de trabalho e a distância percorrida."}
             </Text>
             <ActivityButton onPress={toggle}>
@@ -103,7 +126,7 @@ export default function Home({ navigation }) {
               />
             </ActivityButton>
             <View
-              marginTop={-screenHeight * 0.085}
+              marginTop={-screenHeight * 0.12}
               width={screenWidth * 0.28}
               height={screenHeight * 0.1}
               elevation={0}
@@ -124,7 +147,6 @@ export default function Home({ navigation }) {
                 />
                 <Text
                   fontSize={screenWidth * 0.03}
-                  lineHeight={screenWidth * 0.04}
                   color={colors.inputTitle}
                   marginLeft={screenWidth * 0.027}
                   marginTop={0}
@@ -134,7 +156,6 @@ export default function Home({ navigation }) {
               </TextContainer>
               <Text
                 fontSize={screenWidth * 0.1}
-                lineHeight={screenWidth * 0.1}
                 color={colors.time}
                 marginLeft={0}
                 marginTop={-screenWidth * 0.01}
@@ -165,7 +186,6 @@ export default function Home({ navigation }) {
                 />
                 <Text
                   fontSize={screenWidth * 0.03}
-                  lineHeight={screenWidth * 0.04}
                   color={colors.inputTitle}
                   marginLeft={0}
                   marginTop={0}
@@ -175,7 +195,6 @@ export default function Home({ navigation }) {
               </TextContainer>
               <Text
                 fontSize={screenWidth * 0.1}
-                lineHeight={screenWidth * 0.1}
                 color={colors.time}
                 marginLeft={screenWidth * 0.057}
                 marginTop={-screenWidth * 0.01}
@@ -195,16 +214,15 @@ export default function Home({ navigation }) {
           >
             <TextContainer
               justifyContent={"space-between"}
-              marginTop={screenWidth * 0.01}
+              marginTop={screenWidth * 0.02}
               maxWidth={screenWidth}
               marginLeft={0}
             >
               <Text
                 fontSize={screenWidth * 0.046}
-                lineHeight={screenHeight * 0.04}
                 color={colors.icon}
                 marginLeft={screenWidth * 0.017}
-                marginTop={-screenWidth * 0.003}
+                marginTop={0}
               >
                 Metas desta semana
               </Text>
@@ -297,8 +315,7 @@ export default function Home({ navigation }) {
               marginLeft={0}
             >
               <Text
-                fontSize={screenWidth * 0.036}
-                lineHeight={screenWidth * 0.05}
+                fontSize={screenWidth * 0.032}
                 color={colors.inputTitle}
                 marginLeft={screenWidth * 0.017}
                 marginTop={0}
@@ -318,103 +335,96 @@ export default function Home({ navigation }) {
             </TextContainer>
             <Text
               fontSize={screenWidth * 0.038}
-              lineHeight={screenWidth * 0.04}
               color={colors.inputTitle}
               marginLeft={screenWidth * 0.044}
-              marginTop={screenWidth * 0.01}
+              marginTop={screenWidth * 0.007}
             >
-              Meta Diária
+              Meta diária
             </Text>
             <ProgressBarContainer
               rotate={true}
               height={0}
               width={0}
               flexDirection={"column"}
-              marginTop={screenWidth * 0.041}
+              marginTop={screenWidth * 0.025}
             >
               <Progress
                 color={colors.earningGoalDayOff}
                 progress={0.5}
                 height={screenWidth * 0.022}
                 borderRadius={screenWidth * 0.055}
-                width={screenWidth * 0.77}
+                width={screenWidth * 0.78}
               />
             </ProgressBarContainer>
             <TextContainer
               justifyContent={"space-between"}
-              marginTop={screenWidth * 0.015}
+              marginTop={screenWidth * 0}
               maxWidth={screenWidth * 0.85}
               marginLeft={0}
             >
               <Text
                 fontSize={screenWidth * 0.038}
-                lineHeight={screenWidth * 0.055}
                 color={colors.modalIcons}
                 marginLeft={screenWidth * 0.017}
-                marginTop={-screenHeight * 0.015}
+                marginTop={0}
               >
-                R$12
+                R${todayObject.min}
               </Text>
               <Text
                 fontSize={screenWidth * 0.038}
-                lineHeight={screenWidth * 0.055}
                 color={colors.inputTitle}
                 marginLeft={0}
-                marginTop={-screenHeight * 0.015}
+                marginTop={0}
               >
-                R$80
+                R${todayObject.max}
               </Text>
             </TextContainer>
             <LineView />
             <TextContainer
               justifyContent={"space-between"}
-              marginTop={screenHeight * 0.01}
+              marginTop={0}
               maxWidth={screenWidth * 0.85}
               marginLeft={0}
             >
               <Text
                 fontSize={screenWidth * 0.042}
-                lineHeight={screenWidth * 0.04}
                 color={colors.inputTitle}
                 marginLeft={screenWidth * 0.017}
-                marginTop={-screenHeight * 0.01}
+                marginTop={0}
               >
                 Ganhos
               </Text>
               <Text
                 fontSize={screenWidth * 0.042}
-                lineHeight={screenWidth * 0.04}
                 color={colors.positive}
                 marginLeft={0}
-                marginTop={-screenHeight * 0.01}
+                marginTop={0}
               >
-                + R$12,00
+                + R${todayObject.ganhos}
               </Text>
             </TextContainer>
             <LineView />
             <TextContainer
               justifyContent={"space-between"}
-              marginTop={screenHeight * 0.01}
+              marginTop={screenHeight * 0}
               maxWidth={screenWidth * 0.85}
               marginLeft={0}
             >
               <Text
                 fontSize={screenWidth * 0.042}
-                lineHeight={screenWidth * 0.04}
                 color={colors.inputTitle}
                 marginLeft={screenWidth * 0.017}
-                marginTop={-screenHeight * 0.01}
+                marginTop={0}
               >
                 Gastos
               </Text>
               <Text
                 fontSize={screenWidth * 0.042}
-                lineHeight={screenWidth * 0.04}
                 color={colors.negative}
                 marginLeft={0}
-                marginTop={-screenHeight * 0.01}
+                marginTop={0}
               >
-                - R$8,00
+                - R${todayObject.gastos}
               </Text>
             </TextContainer>
           </EarningContainer>
@@ -427,8 +437,7 @@ export default function Home({ navigation }) {
               marginLeft={0}
             >
               <Text
-                fontSize={screenWidth * 0.036}
-                lineHeight={screenWidth * 0.05}
+                fontSize={screenWidth * 0.032}
                 color={colors.inputTitle}
                 marginLeft={screenWidth * 0.017}
                 marginTop={0}
@@ -448,103 +457,96 @@ export default function Home({ navigation }) {
             </TextContainer>
             <Text
               fontSize={screenWidth * 0.038}
-              lineHeight={screenWidth * 0.04}
               color={colors.inputTitle}
               marginLeft={screenWidth * 0.044}
-              marginTop={screenWidth * 0.01}
+              marginTop={screenWidth * 0.007}
             >
-              Meta Semanal
+              Meta mensal
             </Text>
             <ProgressBarContainer
               rotate={true}
               height={0}
               width={0}
               flexDirection={"column"}
-              marginTop={screenWidth * 0.041}
+              marginTop={screenWidth * 0.025}
             >
               <Progress
                 color={colors.earningGoalDayOff}
-                progress={0.2}
+                progress={0.5}
                 height={screenWidth * 0.022}
                 borderRadius={screenWidth * 0.055}
-                width={screenWidth * 0.77}
+                width={screenWidth * 0.78}
               />
             </ProgressBarContainer>
             <TextContainer
               justifyContent={"space-between"}
-              marginTop={screenWidth * 0.015}
+              marginTop={0}
               maxWidth={screenWidth * 0.85}
               marginLeft={0}
             >
               <Text
                 fontSize={screenWidth * 0.038}
-                lineHeight={screenWidth * 0.055}
                 color={colors.modalIcons}
                 marginLeft={screenWidth * 0.017}
-                marginTop={-screenHeight * 0.015}
+                marginTop={0}
               >
-                R$140
+                R${weekObject.min}
               </Text>
               <Text
                 fontSize={screenWidth * 0.038}
-                lineHeight={screenWidth * 0.055}
                 color={colors.inputTitle}
                 marginLeft={0}
-                marginTop={-screenHeight * 0.015}
+                marginTop={0}
               >
-                R$500
+                R${weekObject.max}
               </Text>
             </TextContainer>
             <LineView />
             <TextContainer
               justifyContent={"space-between"}
-              marginTop={screenHeight * 0.01}
+              marginTop={0}
               maxWidth={screenWidth * 0.85}
               marginLeft={0}
             >
               <Text
                 fontSize={screenWidth * 0.042}
-                lineHeight={screenWidth * 0.04}
                 color={colors.inputTitle}
                 marginLeft={screenWidth * 0.017}
-                marginTop={-screenHeight * 0.01}
+                marginTop={0}
               >
                 Ganhos
               </Text>
               <Text
                 fontSize={screenWidth * 0.042}
-                lineHeight={screenWidth * 0.04}
                 color={colors.positive}
                 marginLeft={0}
-                marginTop={-screenHeight * 0.01}
+                marginTop={0}
               >
-                + R$140,00
+                + R${weekObject.ganhos}
               </Text>
             </TextContainer>
             <LineView />
             <TextContainer
               justifyContent={"space-between"}
-              marginTop={screenHeight * 0.01}
+              marginTop={screenHeight * 0}
               maxWidth={screenWidth * 0.85}
               marginLeft={0}
             >
               <Text
                 fontSize={screenWidth * 0.042}
-                lineHeight={screenWidth * 0.04}
                 color={colors.inputTitle}
                 marginLeft={screenWidth * 0.017}
-                marginTop={-screenHeight * 0.01}
+                marginTop={0}
               >
                 Gastos
               </Text>
               <Text
                 fontSize={screenWidth * 0.042}
-                lineHeight={screenWidth * 0.04}
                 color={colors.negative}
                 marginLeft={0}
-                marginTop={-screenHeight * 0.01}
+                marginTop={0}
               >
-                - R$43,00
+                - R${weekObject.gastos}
               </Text>
             </TextContainer>
           </EarningContainer>
@@ -557,8 +559,7 @@ export default function Home({ navigation }) {
               marginLeft={0}
             >
               <Text
-                fontSize={screenWidth * 0.036}
-                lineHeight={screenWidth * 0.05}
+                fontSize={screenWidth * 0.032}
                 color={colors.inputTitle}
                 marginLeft={screenWidth * 0.017}
                 marginTop={0}
@@ -578,103 +579,96 @@ export default function Home({ navigation }) {
             </TextContainer>
             <Text
               fontSize={screenWidth * 0.038}
-              lineHeight={screenWidth * 0.04}
               color={colors.inputTitle}
               marginLeft={screenWidth * 0.044}
-              marginTop={screenWidth * 0.01}
+              marginTop={screenWidth * 0.007}
             >
-              Meta Mensal
+              Meta mensal
             </Text>
             <ProgressBarContainer
               rotate={true}
               height={0}
               width={0}
               flexDirection={"column"}
-              marginTop={screenWidth * 0.041}
+              marginTop={screenWidth * 0.025}
             >
               <Progress
                 color={colors.earningGoalDayOff}
                 progress={0.5}
                 height={screenWidth * 0.022}
                 borderRadius={screenWidth * 0.055}
-                width={screenWidth * 0.77}
+                width={screenWidth * 0.78}
               />
             </ProgressBarContainer>
             <TextContainer
               justifyContent={"space-between"}
-              marginTop={screenWidth * 0.015}
+              marginTop={0}
               maxWidth={screenWidth * 0.85}
               marginLeft={0}
             >
               <Text
                 fontSize={screenWidth * 0.038}
-                lineHeight={screenWidth * 0.055}
                 color={colors.modalIcons}
                 marginLeft={screenWidth * 0.017}
-                marginTop={-screenHeight * 0.015}
+                marginTop={0}
               >
-                R$1130
+                R${monthObject.min}
               </Text>
               <Text
                 fontSize={screenWidth * 0.038}
-                lineHeight={screenWidth * 0.055}
                 color={colors.inputTitle}
                 marginLeft={0}
-                marginTop={-screenHeight * 0.015}
+                marginTop={0}
               >
-                R$2000
+                R${monthObject.max}
               </Text>
             </TextContainer>
             <LineView />
             <TextContainer
               justifyContent={"space-between"}
-              marginTop={screenHeight * 0.01}
+              marginTop={0}
               maxWidth={screenWidth * 0.85}
               marginLeft={0}
             >
               <Text
                 fontSize={screenWidth * 0.042}
-                lineHeight={screenWidth * 0.04}
                 color={colors.inputTitle}
                 marginLeft={screenWidth * 0.017}
-                marginTop={-screenHeight * 0.01}
+                marginTop={0}
               >
                 Ganhos
               </Text>
               <Text
                 fontSize={screenWidth * 0.042}
-                lineHeight={screenWidth * 0.04}
                 color={colors.positive}
                 marginLeft={0}
-                marginTop={-screenHeight * 0.01}
+                marginTop={0}
               >
-                + R$1130,00
+                + R${monthObject.ganhos}
               </Text>
             </TextContainer>
             <LineView />
             <TextContainer
               justifyContent={"space-between"}
-              marginTop={screenHeight * 0.01}
+              marginTop={screenHeight * 0}
               maxWidth={screenWidth * 0.85}
               marginLeft={0}
             >
               <Text
                 fontSize={screenWidth * 0.042}
-                lineHeight={screenWidth * 0.04}
                 color={colors.inputTitle}
                 marginLeft={screenWidth * 0.017}
-                marginTop={-screenHeight * 0.01}
+                marginTop={0}
               >
                 Gastos
               </Text>
               <Text
                 fontSize={screenWidth * 0.042}
-                lineHeight={screenWidth * 0.04}
                 color={colors.negative}
                 marginLeft={0}
-                marginTop={-screenHeight * 0.01}
+                marginTop={0}
               >
-                - R$729,00
+                - R${monthObject.gastos}
               </Text>
             </TextContainer>
           </EarningContainer>

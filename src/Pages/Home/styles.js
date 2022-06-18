@@ -64,7 +64,6 @@ export const TextContainer = styled.View`
 export const Text = styled.Text`
   font-family: ${fonts.Ubuntu};
   font-size: ${(props) => props.fontSize}px;
-  line-height: ${(props) => props.lineHeight}px;
   margin-left: ${(props) => props.marginLeft}px;
   color: ${(props) => props.color};
   font-weight: normal;
