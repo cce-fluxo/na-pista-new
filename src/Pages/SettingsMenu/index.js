@@ -33,7 +33,12 @@ export default function SettingsMenu({
         onPress={() => navigation.navigate("Perfil")}
         justifyContent={"space-between"}
       >
-        <Text fontSize={screenWidth * 0.07} color={colors.icon} marginLeft={screenWidth * 0.055} marginTop={0}>
+        <Text
+          fontSize={screenWidth * 0.07}
+          color={colors.icon}
+          marginLeft={screenWidth * 0.055}
+          marginTop={0}
+        >
           Perfil
         </Text>
         <IconContainer
@@ -50,7 +55,12 @@ export default function SettingsMenu({
         onPress={() => navigation.navigate("Configurações")}
         justifyContent={"space-between"}
       >
-        <Text fontSize={screenWidth * 0.07} color={colors.icon} marginLeft={screenWidth * 0.055} marginTop={0}>
+        <Text
+          fontSize={screenWidth * 0.07}
+          color={colors.icon}
+          marginLeft={screenWidth * 0.055}
+          marginTop={0}
+        >
           Configurações
         </Text>
         <IconContainer
@@ -67,7 +77,12 @@ export default function SettingsMenu({
         onPress={() => navigation.navigate("Home")}
         justifyContent={"space-between"}
       >
-        <Text fontSize={screenWidth * 0.07} color={colors.icon} marginLeft={screenWidth * 0.055} marginTop={0}>
+        <Text
+          fontSize={screenWidth * 0.07}
+          color={colors.icon}
+          marginLeft={screenWidth * 0.055}
+          marginTop={0}
+        >
           Sobre
         </Text>
         <IconContainer
