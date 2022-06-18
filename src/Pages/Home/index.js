@@ -126,7 +126,7 @@ export default function Home({ navigation }) {
               />
             </ActivityButton>
             <View
-              marginTop={-screenHeight * 0.12}
+              marginTop={-screenHeight * 0.1}
               width={screenWidth * 0.28}
               height={screenHeight * 0.1}
               elevation={0}
