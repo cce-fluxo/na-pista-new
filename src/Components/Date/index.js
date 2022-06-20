@@ -1,29 +1,46 @@
-import { useState } from "react";
-// import DateTimePickerModal from "react-native-modal-datetime-picker";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import Modal from "react-native-modal";
+import React, { useEffect, useState } from "react";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 import Icon from "react-native-vector-icons/Entypo";
+
 import { colors } from "../../Constants/constants";
-import {
-  Container,
-  ModalContainer,
-  Title,
-  InputText,
-  InputContainer,
-} from "./styles";
+import { Container, Title, InputText, InputContainer } from "./styles";
 
-const DatePicker = ({ label, marginTop, marginLeft }) => {
-  const [isModalVisible, setModalVisible] = useState(false);
-  const [text, setText] = useState("Selecione...");
-  const [date, setDate] = useState(new Date());
-  const [show, setShow] = useState(false);
-  const [mode, setMode] = useState("date");
+const DatePicker = ({
+  label,
+  marginTop,
+  marginLeft,
+  initialText,
+  setSelectedDate,
+}) => {
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [text, setText] = useState("");
 
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setDate(currentDate);
+  const setInitialText = () => {
+    if (initialText === "Selecione...") {
+      setText(initialText);
+    } else {
+      let tempDate = new Date(initialText);
+      let fDate =
+        tempDate.getDate() +
+        "/" +
+        (tempDate.getMonth() + 1) +
+        "/" +
+        tempDate.getFullYear();
+      setText(fDate);
+    }
+  };
 
-    let tempDate = new Date(currentDate);
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
+
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  const onConfirm = (date) => {
+    setSelectedDate(date);
+    let tempDate = new Date(date);
     let fDate =
       tempDate.getDate() +
       "/" +
@@ -33,36 +50,24 @@ const DatePicker = ({ label, marginTop, marginLeft }) => {
     setText(fDate);
   };
 
-  const toggleModal = () => {
-    setModalVisible(!isModalVisible);
-  };
-
-  const showMode = (currentMode) => {
-    setShow(true);
-    setMode(currentMode);
-  };
-
-  const handleConfirm = (date) => {
-    console.warn("A date has been picked: ", date);
-    toggleModal();
-  };
+  useEffect(() => {
+    setInitialText();
+  }, [])
 
   return (
     <Container marginTop={marginTop} marginLeft={marginLeft} label={label}>
       <Title>{label}</Title>
-      <InputContainer onPress={() => showMode("date")}>
+      <InputContainer onPress={showDatePicker}>
         <InputText>{text}</InputText>
         <Icon name="calendar" size={30} color={colors.modalIcons} />
       </InputContainer>
-
-      {show && (
-        <DateTimePicker
-          value={date}
-          isVisible={isModalVisible}
-          mode="date"
-          onChange={onChange}
-        />
-      )}
+      <DateTimePickerModal
+        isVisible={isDatePickerVisible}
+        mode="date"
+        onConfirm={onConfirm}
+        onCancel={hideDatePicker}
+        onChange={onConfirm}
+      />
     </Container>
   );
 };

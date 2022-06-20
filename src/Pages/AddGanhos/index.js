@@ -19,7 +19,7 @@ import api from "../../Services/api";
 
 export default function AddGanhos({ navigation, route }) {
   const [name, setName] = useState("");
-  const [date, setDate] = useState("2022-06-20T16:09:19.222Z");
+  const [date, setDate] = useState("");
   const [amount, setAmount] = useState(0);
   const [extraAmount, setExtraAmount] = useState(0);
   const [distance, setDistance] = useState(0);
@@ -47,9 +47,9 @@ export default function AddGanhos({ navigation, route }) {
         distance: distance,
         duration: duration,
         vendor: {
-          name: name
+          name: name,
         },
-        date: date
+        date: date,
       });
       console.log(response);
       showMessage({
@@ -88,7 +88,13 @@ export default function AddGanhos({ navigation, route }) {
           option="Selecione..."
           setOption={setName}
         />
-        <Date label="Data" marginTop={screenHeight * 0.025} marginLeft={0} />
+        <Date
+          label="Data"
+          marginTop={screenHeight * 0.025}
+          marginLeft={0}
+          initialText="Selecione..."
+          setSelectedDate={setDate}
+        />
         <Input
           title="Valor total"
           marginLeft={0}

@@ -60,9 +60,9 @@ export default function AddGastos({ navigation }) {
     setLoading(true);
     try {
       const response = await api.post("/expenses", {
-        amount,
-        notes,
-        date,
+        amount: amount,
+        notes: notes,
+        date: date,
       });
       console.log(response);
       showMessage({
@@ -90,7 +90,13 @@ export default function AddGastos({ navigation }) {
           name="Adicionar gasto"
           onPressNavigate={() => navigation.navigate("Inicio")}
         />
-        <Date marginTop={screenHeight * 0.02} marginLeft={0} label="Data" />
+        <Date
+          marginTop={screenHeight * 0.02}
+          marginLeft={0}
+          label="Data"
+          initialText="Selecione..."
+          setSelectedDate={setDate}
+        />
         <Dropdown
           label="Tipo"
           data={data}
