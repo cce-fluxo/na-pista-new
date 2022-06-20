@@ -96,6 +96,7 @@ export default function AddGanhos({ navigation, route }) {
           value={amount}
           onChangeText={(text) => setAmount(text)}
           placeholder="R$"
+          keyboardType="numeric"
         />
         {!click ? (
           <AddView
@@ -121,6 +122,7 @@ export default function AddGanhos({ navigation, route }) {
             value={extraAmount}
             onChangeText={(text) => setExtraAmount(text)}
             placeholder="R$"
+            keyboardType="numeric"
           />
         )}
         <Input
@@ -130,6 +132,7 @@ export default function AddGanhos({ navigation, route }) {
           value={distance}
           onChangeText={(text) => setDistance(text)}
           placeholder=""
+          keyboardType="numeric"
         />
         <Input
           title="Duração total"
@@ -138,6 +141,7 @@ export default function AddGanhos({ navigation, route }) {
           value={duration}
           onChangeText={(text) => setDuration(text)}
           placeholder=""
+          keyboardType="numeric"
         />
         <Button
           width={screenWidth * 0.91}
