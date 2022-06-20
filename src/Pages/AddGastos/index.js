@@ -24,7 +24,8 @@ import api from "../../Services/api";
 
 export default function AddGastos({ navigation }) {
   const [date, setDate] = useState("");
-  const [type, setType] = useState("");
+  const [category, setCategory] = useState("");
+  const [auxCategory, setAuxCategory] = useState("");
   const [amount, setAmount] = useState(0);
   const [notes, setNotes] = useState("");
   const [loading, setLoading] = useState(false);
@@ -59,8 +60,31 @@ export default function AddGastos({ navigation }) {
   async function addExpense() {
     setLoading(true);
     try {
+      switch (category) {
+        case "Combustível":
+          setAuxCategory("FUEL");
+          break;
+        case "Aluguel":
+          setAuxCategory("RENT");
+          break;
+        case "Alimentação":
+          setAuxCategory("FOOD");
+          break;
+        case "Manutenção":
+          setAuxCategory("MAINTENANCE");
+          break;
+        case "Multa":
+          setAuxCategory("FINE");
+          break;
+        case "Outro":
+          setAuxCategory("OTHER");
+          break;
+        default:
+          setAuxCategory("");
+      }
       const response = await api.post("/expenses", {
         amount: amount,
+        category: auxCategory,
         notes: notes,
         date: date,
       });
@@ -102,7 +126,7 @@ export default function AddGastos({ navigation }) {
           data={data}
           marginTop={screenHeight * 0.02}
           option="Selecione..."
-          setOption={setType}
+          setOption={setCategory}
         />
         <Input
           title="Valor"
