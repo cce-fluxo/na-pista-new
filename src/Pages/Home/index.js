@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import * as Notifications from 'expo-notifications';
 import {
   AntDesign,
   FontAwesome,
@@ -25,7 +24,6 @@ import Progress from "../../Components/Progress";
 import HomeHeader from "../../Components/HomeHeader";
 import AddEarningModal from "../../Components/AddEarningModal";
 import { colors, screenHeight, screenWidth } from "../../Constants/constants";
-import registerForPushNotificationsAsync from "../../../registerForPushNotificationsAsync";
 
 const getRemaining = (time) => {
   const mins = Math.floor(time / 60);
@@ -48,26 +46,6 @@ export default function Home({ navigation }) {
 
   const toggle = () => {
     setIsActive(!isActive);
-  };
-
-  state = {
-    notification: {},
-  };
-
-  componentDidMount = () => {
-    registerForPushNotificationsAsync();
-
-    Notifications.addNotificationReceivedListener(this._handleNotification);
-    
-    Notifications.addNotificationResponseReceivedListener(this._handleNotificationResponse);
-  };
-
-  _handleNotification = notification => {
-    this.setState({ notification: notification });
-  };
-
-  _handleNotificationResponse = response => {
-    console.log(response);
   };
 
   useEffect(() => {

@@ -14,6 +14,7 @@ const AuthContext = createContext({});
 export default function AuthContextProvider({ children }) {
   const [signInLoading, setSignInLoading] = useState(true);
   const [accessToken, setAccessToken] = useState("");
+  const [deviceToken, setDeviceToken] = useState("");
   const [user, setUser] = useState({});
 
   const loadStoragedData = useCallback(async () => {
@@ -159,6 +160,7 @@ export default function AuthContextProvider({ children }) {
         signOut,
         signUp,
         accessToken,
+        deviceToken,
         user,
         setUser,
         signInLoading,

@@ -1,6 +1,7 @@
 import { Platform } from "react-native";
 import * as Notifications from "expo-notifications";
 import * as Device from 'expo-device';
+import api from "../Services/api";
 
 export default registerForPushNotificationsAsync = async () => {
   if (Device.isDevice) {
@@ -17,6 +18,8 @@ export default registerForPushNotificationsAsync = async () => {
     }
     const token = (await Notifications.getExpoPushTokenAsync()).data;
     console.log(token);
+    const response = await api.patch("/me", { deviceToken: token, platform: Platform.OS });
+    console.log(response);
     this.setState({ expoPushToken: token });
   } else {
     alert("Must use physical device for Push Notifications");
