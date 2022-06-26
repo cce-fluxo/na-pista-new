@@ -18,9 +18,12 @@ export default registerForPushNotificationsAsync = async () => {
     }
     const token = (await Notifications.getExpoPushTokenAsync()).data;
     console.log(token);
-    const response = await api.patch("/me", { deviceToken: token, platform: Platform.OS });
-    console.log(response);
-    this.setState({ expoPushToken: token });
+    try {
+      const response = await api.patch("/me", { deviceToken: token, platform: Platform.OS });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
   } else {
     alert("Must use physical device for Push Notifications");
   }

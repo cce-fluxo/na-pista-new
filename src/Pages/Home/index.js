@@ -24,6 +24,7 @@ import Progress from "../../Components/Progress";
 import HomeHeader from "../../Components/HomeHeader";
 import AddEarningModal from "../../Components/AddEarningModal";
 import { colors, screenHeight, screenWidth } from "../../Constants/constants";
+import registerForPushNotificationsAsync from "../../Notifications/registerForPushNotificationsAsync";
 
 const getRemaining = (time) => {
   const mins = Math.floor(time / 60);
@@ -60,6 +61,10 @@ export default function Home({ navigation }) {
 
     return () => clearInterval(interval);
   }, [isActive, remainingSecs]);
+
+  useEffect(() => {
+    registerForPushNotificationsAsync();
+  }, [])
 
   return (
     <SafeArea>
