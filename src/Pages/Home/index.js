@@ -1,9 +1,14 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import {
+  AntDesign,
+  FontAwesome,
+  Fontisto,
+  Entypo,
+} from "react-native-vector-icons";
+
 import {
   Container,
-  Subcontainer,
   Text,
-  ButtonContainer,
   TextContainer,
   IconContainer,
   EarningContainer,
@@ -12,22 +17,14 @@ import {
   MainContainer,
   ProgressBarContainer,
   ActivityButton,
-  TimeContainer,
   LineView,
 } from "./styles";
 import SafeArea from "../../Utils/SafeArea";
-import Button from "../../Components/Button";
 import Progress from "../../Components/Progress";
 import HomeHeader from "../../Components/HomeHeader";
 import AddEarningModal from "../../Components/AddEarningModal";
-import {
-  Ionicons,
-  AntDesign,
-  FontAwesome,
-  Fontisto,
-  Entypo,
-} from "react-native-vector-icons";
 import { colors, screenHeight, screenWidth } from "../../Constants/constants";
+import registerForPushNotificationsAsync from "../../Notifications/registerForPushNotificationsAsync";
 
 const getRemaining = (time) => {
   const mins = Math.floor(time / 60);
@@ -56,6 +53,10 @@ export default function Home({ navigation }) {
 
     return () => clearInterval(interval);
   }, [isActive, remainingSecs]);
+
+  useEffect(() => {
+    registerForPushNotificationsAsync();
+  }, [])
 
   return (
     <SafeArea>
