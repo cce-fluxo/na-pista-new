@@ -135,6 +135,8 @@ export default function SettingsPerfil({ navigation }) {
             label="Data de nascimento"
             marginTop={screenHeight * 0.025}
             marginLeft={0}
+            initialText={birthDate}
+            setSelectedDate={setBirthDate}
           />
           <Dropdown
             label="Estado"

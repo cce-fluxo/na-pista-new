@@ -81,7 +81,13 @@ export default function BasicInfo({ navigation, route }) {
           option="Selecione..."
           setOption={setGender}
         />
-        <Date marginTop={30} marginLeft={0} label="Data de Nascimento" />
+        <Date
+          marginTop={30}
+          marginLeft={0}
+          label="Data de Nascimento"
+          initialText="Selecione..."
+          setSelectedDate={setBirthDate}
+        />
         <ButtonContainer>
           <Button
             width={"90%"}

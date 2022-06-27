@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {KeyboardAvoidingView} from "react-native";
+import { showMessage } from "react-native-flash-message";
 
 import SafeArea from "../../Utils/SafeArea/index";
 import Header from "../../Components/SettingsHeader/index";
@@ -24,7 +25,8 @@ import api from "../../Services/api";
 
 export default function AddGastos({ navigation }) {
   const [date, setDate] = useState("");
-  const [type, setType] = useState("");
+  const [category, setCategory] = useState("");
+  const [auxCategory, setAuxCategory] = useState("");
   const [amount, setAmount] = useState(0);
   const [notes, setNotes] = useState("");
   const [loading, setLoading] = useState(false);
@@ -56,12 +58,52 @@ export default function AddGastos({ navigation }) {
     },
   ];
 
-  async function addGasto() {
+  async function addExpense() {
     setLoading(true);
     try {
-      console.log(date, type, amount, notes);
+      switch (category) {
+        case "Combustível":
+          setAuxCategory("FUEL");
+          break;
+        case "Aluguel":
+          setAuxCategory("RENT");
+          break;
+        case "Alimentação":
+          setAuxCategory("FOOD");
+          break;
+        case "Manutenção":
+          setAuxCategory("MAINTENANCE");
+          break;
+        case "Multa":
+          setAuxCategory("FINE");
+          break;
+        case "Outro":
+          setAuxCategory("OTHER");
+          break;
+        default:
+          setAuxCategory("");
+      }
+      const response = await api.post("/expenses", {
+        amount: amount,
+        category: auxCategory,
+        notes: notes,
+        date: date,
+      });
+      console.log(response);
+      showMessage({
+        message: "Cadastro do gasto efetuado com sucesso!",
+        type: "success",
+        icon: "success",
+        duration: 4000,
+      });
+      navigation.navigate("Inicio");
     } catch (error) {
-      console.error(error);
+      showMessage({
+        message: "Nao foi possível cadastrar o gasto!",
+        type: "danger",
+        icon: "danger",
+      });
+      console.log(error);
     }
     setLoading(false);
   }
@@ -73,13 +115,19 @@ export default function AddGastos({ navigation }) {
           name="Adicionar gasto"
           onPressNavigate={() => navigation.navigate("Inicio")}
         />
-        <Date marginTop={screenHeight * 0.02} marginLeft={0} label="Data" />
+        <Date
+          marginTop={screenHeight * 0.02}
+          marginLeft={0}
+          label="Data"
+          initialText="Selecione..."
+          setSelectedDate={setDate}
+        />
         <Dropdown
           label="Tipo"
           data={data}
           marginTop={screenHeight * 0.02}
           option="Selecione..."
-          setOption={setType}
+          setOption={setCategory}
         />
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -91,9 +139,10 @@ export default function AddGastos({ navigation }) {
             marginTop={screenHeight * 0.02}
             value={amount}
             onChangeText={(text) => setAmount(text)}
+            placeholder="R$"
+            keyboardType="numeric"
           />
         </KeyboardAvoidingView>
-
         <MaxContainer
           width={screenWidth * 0.9}
           marginTop={screenHeight * 0.04}
@@ -122,7 +171,7 @@ export default function AddGastos({ navigation }) {
           disabled={loading}
           loading={loading}
           text="Salvar"
-          onPress={addGasto}
+          onPress={addExpense}
           color="black"
           background={colors.background}
           border={0}
