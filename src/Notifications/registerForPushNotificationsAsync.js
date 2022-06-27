@@ -19,7 +19,7 @@ export default registerForPushNotificationsAsync = async () => {
     const token = (await Notifications.getExpoPushTokenAsync()).data;
     console.log(token);
     try {
-      const response = await api.patch("/me", { deviceToken: token, platform: Platform.OS });
+      const response = await api.patch("/me", { deviceToken: token, platform: Platform.OS.toUpperCase() });
       console.log(response);
     } catch (error) {
       console.log(error);
