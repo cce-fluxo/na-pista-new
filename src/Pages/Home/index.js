@@ -37,7 +37,7 @@ export default function Home({ navigation }) {
   const [remainingSecs, setRemainingSecs] = useState(0);
   const [isActive, setIsActive] = useState(false);
   const { mins, secs } = getRemaining(remainingSecs);
-  const { postTracker } = useAuth();
+  const { postTracker, patchTracker } = useAuth();
 
   const toggle = () => {
     setIsActive(!isActive);
@@ -51,7 +51,8 @@ export default function Home({ navigation }) {
         setRemainingSecs((remainingSecs) => remainingSecs + 1);
       }, 1000);
     } else if (!isActive && remainingSecs !== 0) {
-      clearInterval(interval);
+      patchTracker();
+      clearInterval(0);
     }
 
     return () => clearInterval(interval);
@@ -59,7 +60,7 @@ export default function Home({ navigation }) {
 
   useEffect(() => {
     registerForPushNotificationsAsync();
-  }, [])
+  }, []);
 
   return (
     <SafeArea>
