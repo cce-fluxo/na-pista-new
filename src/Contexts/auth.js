@@ -15,6 +15,7 @@ export default function AuthContextProvider({ children }) {
   const [signInLoading, setSignInLoading] = useState(true);
   const [accessToken, setAccessToken] = useState("");
   const [user, setUser] = useState({});
+  const [trackerId, setTrackerId] = useState(0);
 
   const loadStoragedData = useCallback(async () => {
     setSignInLoading(true);
@@ -136,9 +137,7 @@ export default function AuthContextProvider({ children }) {
     []
   );
 
-  const signOut = useCallback(async (
-    navigation
-  ) => {
+  const signOut = useCallback(async (navigation) => {
     await AsyncStorage.multiRemove([
       "@AppNaPista:accessToken",
       "@AppNaPista:user",
@@ -147,6 +146,23 @@ export default function AuthContextProvider({ children }) {
     setUser({});
     navigation.navigate("SignedOut");
   }, []);
+
+  const postTracker = useCallback(async () => {
+    const startedAt = new Date();
+    const { isLoading, error, data } = useQuery("trackers", () =>
+      post("https://na-pista.herokuapp.com/").then((res) => res.json())
+    );
+    setTrackerId(data.id);
+    console.log(error);
+  });
+
+  const patchTracker = useCallback(async () => {
+    const endedAt = new Date();
+    const { isLoading, error, data } = useQuery(`trackers/${trackerId}`, () =>
+      patch("https://na-pista.herokuapp.com/").then((res) => res.json())
+    );
+    console.log(error);
+  });
 
   useEffect(() => {
     loadStoragedData();
@@ -160,6 +176,9 @@ export default function AuthContextProvider({ children }) {
         signUp,
         accessToken,
         user,
+        trackerId,
+        postTracker,
+        patchTracker,
         setUser,
         signInLoading,
       }}

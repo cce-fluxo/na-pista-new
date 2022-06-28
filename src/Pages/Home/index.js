@@ -25,6 +25,7 @@ import HomeHeader from "../../Components/HomeHeader";
 import AddEarningModal from "../../Components/AddEarningModal";
 import { colors, screenHeight, screenWidth } from "../../Constants/constants";
 import registerForPushNotificationsAsync from "../../Notifications/registerForPushNotificationsAsync";
+import { useAuth } from "../../Contexts/auth";
 
 const getRemaining = (time) => {
   const mins = Math.floor(time / 60);
@@ -36,6 +37,7 @@ export default function Home({ navigation }) {
   const [remainingSecs, setRemainingSecs] = useState(0);
   const [isActive, setIsActive] = useState(false);
   const { mins, secs } = getRemaining(remainingSecs);
+  const { postTracker } = useAuth();
 
   const toggle = () => {
     setIsActive(!isActive);
@@ -44,6 +46,7 @@ export default function Home({ navigation }) {
   useEffect(() => {
     let interval = null;
     if (isActive) {
+      postTracker();
       interval = setInterval(() => {
         setRemainingSecs((remainingSecs) => remainingSecs + 1);
       }, 1000);

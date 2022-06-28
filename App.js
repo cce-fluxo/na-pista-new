@@ -5,6 +5,11 @@ import FlashMessage from "react-native-flash-message";
 import AppLoading from "expo-app-loading";
 import { useFonts, BebasNeue_400Regular } from "@expo-google-fonts/bebas-neue";
 import { Ubuntu_500Medium, Ubuntu_400Regular } from "@expo-google-fonts/ubuntu";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+import { useOnlineManager } from "./src/hooks/useOnlineManager";
+
+const queryClient = new QueryClient();
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -16,13 +21,18 @@ export default function App() {
   if (!fontsLoaded) {
     return <AppLoading />;
   }
+  
+  useOnlineManager();
+
   return (
     <>
-      <AuthProvider>
-        <StatusBar translucent backgroundColor={"black"} />
-        <MainRoutes />
-        <FlashMessage position="top" hideStatusBar={true} floating={true} />
-      </AuthProvider>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <StatusBar translucent backgroundColor={"black"} />
+          <MainRoutes />
+          <FlashMessage position="top" hideStatusBar={true} floating={true} />
+        </AuthProvider>
+      </QueryClientProvider>
     </>
   );
 }
