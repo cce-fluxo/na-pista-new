@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ScrollView } from "react-native";
 import Icon from "react-native-vector-icons/Entypo";
 import Modal from "react-native-modal";
 
@@ -49,9 +50,11 @@ const Dropdown = ({ label, data, marginTop, option, setOption }) => {
         onBackdropPress={() => setModalVisible(false)}
       >
         <ModalContainer>
-          {data.map((item, index) => (
-            <Item key={index} item={item} />
-          ))}
+          <ScrollView>
+            {data.map((item, index) => (
+              <Item key={index} item={item} />
+            ))}
+          </ScrollView>
         </ModalContainer>
       </Modal>
     </Container>
