@@ -22,7 +22,59 @@ import ActivityOptions from "../../Components/ActivityOptions";
 import AddEarningModal from "../../Components/AddEarningModal";
 import ActivityTransactions from "../../Components/ActivityTransactions";
 
+import api from "../../Services/api";
+
 export default function Activities({ navigation }) {
+  const [activities, setActivities] = useState([]);
+
+  useEffect(() => {
+    activitiesGet();
+  }, []);
+
+  async function activitiesGet() {
+    try {
+      response = await api.get("/activities");
+      console.log(response.data);
+      setActivities(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const getVendorIcon = (vendor) => {
+    switch (vendor) {
+      case "IFOOD":
+        return iFood;
+      case "RAPPI":
+        return rappi;
+      case "LOGGI":
+        return loggi;
+      case "UBER":
+        return uber;
+      default:
+        return "";
+    }
+  };
+
+  const switchCategory = (category) => {
+    switch (category) {
+      case "Combustível":
+        return "FUEL";
+      case "Aluguel":
+        return "RENT";
+      case "Alimentação":
+        return "FOOD";
+      case "Manutenção":
+        return "MAINTENANCE";
+      case "Multa":
+        return "FINE";
+      case "Outro":
+        return "OTHER";
+      default:
+        return "";
+    }
+  };
+
   return (
     <SafeArea>
       <Container>
@@ -40,109 +92,31 @@ export default function Activities({ navigation }) {
           <ActivityOptions text={"Loggi"} source={loggi} />
         </Scroll>
 
-        <Text
-          marginLeft={screenWidth * 0.033}
-          color={colors.inputTitle}
-          marginTop={screenWidth * 0.211}
-        >
-          Hoje, 11 de Agosto
-        </Text>
-        <ActivityTransactions
-          plataforma={"iFood"}
-          categoria={"Corrida"}
-          color={colors.positive}
-          preco={"+R$7,40"}
-          horario={"12:30"}
-          source={iFood}
-        />
-        <LineView />
-        <ActivityTransactions
-          plataforma={"iFood"}
-          categoria={"Corrida"}
-          color={colors.positive}
-          preco={"+R$6,00"}
-          horario={"11:22"}
-          source={iFood}
-        />
-        <LineView />
-        <ActivityTransactions
-          plataforma={"Uber"}
-          categoria={"Corrida"}
-          color={colors.positive}
-          preco={"+R$5,50"}
-          horario={"07:33"}
-          source={uber}
-        />
-        <LineView />
-        <ActivityTransactions
-          plataforma={"Troca do Óleo"}
-          categoria={"Manutenção"}
-          color={colors.negative}
-          preco={"-R$130,00"}
-          horario={"07:20"}
-          source={manutencao}
-        />
-        <LineView />
-        <ActivityTransactions
-          plataforma={"Café da manhã"}
-          categoria={"Alimentação"}
-          color={colors.negative}
-          preco={"-R$8,00"}
-          horario={"07:20"}
-          source={alimentacao}
-        />
-        <Text
-          marginLeft={screenWidth * 0.033}
-          color={colors.inputTitle}
-          marginTop={screenWidth * 0.088}
-        >
-          Domingo, 8 de Agosto
-        </Text>
-        <ActivityTransactions
-          plataforma={"Uber"}
-          categoria={"Corrida"}
-          color={colors.positive}
-          preco={"+R$4,50"}
-          horario={"22:33"}
-          source={uber}
-        />
-        <LineView />
-        <ActivityTransactions
-          plataforma={"iFood"}
-          categoria={"Corrida"}
-          color={colors.positive}
-          preco={"+R$6,20"}
-          horario={"21:10"}
-          source={iFood}
-        />
-        <LineView />
-        <ActivityTransactions
-          plataforma={"Rappi"}
-          categoria={"Corrida"}
-          color={colors.positive}
-          preco={"+R$3,50"}
-          horario={"20:50"}
-          source={rappi}
-        />
-        <LineView />
-        <ActivityTransactions
-          plataforma={"Janta"}
-          categoria={"Alimentação"}
-          color={colors.negative}
-          preco={"-R$15,50"}
-          horario={"20:20"}
-          source={alimentacao}
-        />
-        <LineView />
-        <ActivityTransactions
-          plataforma={"Rappi"}
-          categoria={"Corrida"}
-          color={colors.positive}
-          preco={"+R$3,60"}
-          horario={"18:13"}
-          source={rappi}
-        />
-        <LineView />
+        {Object.keys(activities).map((dates) => (
+          <>
+            <Text
+              marginLeft={screenWidth * 0.033}
+              color={colors.inputTitle}
+              marginTop={screenWidth * 0.211}
+            >
+              {dates}
+            </Text>
+            {activities[dates].map((activity) => (
+              <ActivityTransactions
+                plataforma={activity.vendor.name}
+                categoria={switchCategory(activity.category)}
+                color={`${
+                  type === "EXPENSE" ? colors.negative : colors.positive
+                }`}
+                preco={`${
+                  type === "EXPENSE" ? "-" : "+"
+                }${parseAmountToCurrency(amount / 100)}`}
+                horario={activity.date}
+                source={getVendorIcon(activity.vendor)}
+              />
+            ))}
+          </>
+        ))}
       </Container>
       <AddEarningModal navigation={navigation} />
     </SafeArea>
