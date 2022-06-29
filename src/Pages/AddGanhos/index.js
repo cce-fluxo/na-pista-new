@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { TouchableOpacity } from "react-native";
+import { showMessage } from "react-native-flash-message";
 
 import SafeArea from "../../Utils/SafeArea/index";
 import Header from "../../Components/SettingsHeader/index";
@@ -18,7 +19,7 @@ import api from "../../Services/api";
 
 export default function AddGanhos({ navigation, route }) {
   const [name, setName] = useState("");
-  const [doneAt, setDoneAt] = useState("");
+  const [date, setDate] = useState("");
   const [amount, setAmount] = useState(0);
   const [extraAmount, setExtraAmount] = useState(0);
   const [distance, setDistance] = useState(0);
@@ -30,18 +31,40 @@ export default function AddGanhos({ navigation, route }) {
 
   async function getPlataforms() {
     try {
-      response = await api.get("/vendors");
+      const response = await api.get("/vendors");
       setVendors(response.data);
     } catch (error) {
       console.log(error);
     }
   }
 
-  function addEarning() {
+  async function addEarning() {
     setLoading(true);
     try {
-      console.log(name, doneAt, amount, extraAmount, distance, duration);
+      const response = await api.post("/earnings", {
+        extraAmount: extraAmount,
+        amount: amount,
+        distance: distance,
+        duration: duration,
+        vendor: {
+          name: name,
+        },
+        date: date,
+      });
+      console.log(response);
+      showMessage({
+        message: "Cadastro do ganho efetuado com sucesso!",
+        type: "success",
+        icon: "success",
+        duration: 4000,
+      });
+      navigation.navigate("Inicio");
     } catch (error) {
+      showMessage({
+        message: "Nao foi possível cadastrar o ganho!",
+        type: "danger",
+        icon: "danger",
+      });
       console.log(error);
     }
     setLoading(false);
@@ -65,7 +88,13 @@ export default function AddGanhos({ navigation, route }) {
           option="Selecione..."
           setOption={setName}
         />
-        <Date label="Data" marginTop={screenHeight * 0.025} marginLeft={0} />
+        <Date
+          label="Data"
+          marginTop={screenHeight * 0.025}
+          marginLeft={0}
+          initialText="Selecione..."
+          setSelectedDate={setDate}
+        />
         <Input
           title="Valor total"
           marginLeft={0}
@@ -73,6 +102,7 @@ export default function AddGanhos({ navigation, route }) {
           value={amount}
           onChangeText={(text) => setAmount(text)}
           placeholder="R$"
+          keyboardType="numeric"
         />
         {!click ? (
           <AddView
@@ -98,6 +128,7 @@ export default function AddGanhos({ navigation, route }) {
             value={extraAmount}
             onChangeText={(text) => setExtraAmount(text)}
             placeholder="R$"
+            keyboardType="numeric"
           />
         )}
         <Input
@@ -107,6 +138,7 @@ export default function AddGanhos({ navigation, route }) {
           value={distance}
           onChangeText={(text) => setDistance(text)}
           placeholder=""
+          keyboardType="numeric"
         />
         <Input
           title="Duração total"
@@ -115,6 +147,7 @@ export default function AddGanhos({ navigation, route }) {
           value={duration}
           onChangeText={(text) => setDuration(text)}
           placeholder=""
+          keyboardType="numeric"
         />
         <Button
           width={screenWidth * 0.91}

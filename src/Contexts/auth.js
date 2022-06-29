@@ -136,13 +136,16 @@ export default function AuthContextProvider({ children }) {
     []
   );
 
-  const signOut = useCallback(async () => {
+  const signOut = useCallback(async (
+    navigation
+  ) => {
     await AsyncStorage.multiRemove([
       "@AppNaPista:accessToken",
       "@AppNaPista:user",
     ]);
     setAccessToken("");
     setUser({});
+    navigation.navigate("SignedOut");
   }, []);
 
   useEffect(() => {

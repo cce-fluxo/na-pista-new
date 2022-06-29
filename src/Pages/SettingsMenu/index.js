@@ -142,7 +142,7 @@ export default function SettingsMenu({
           color={colors.inputTitle}
           marginLeft={screenWidth * 0.027}
           marginTop={0}
-          onPress={() => navigation.navigate("First")}
+          onPress={() => navigation.navigate("SignedOut")}
         >
           Deslogar
         </Text>

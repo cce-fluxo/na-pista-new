@@ -5,8 +5,6 @@ import FlashMessage from "react-native-flash-message";
 import AppLoading from "expo-app-loading";
 import { useFonts, BebasNeue_400Regular } from "@expo-google-fonts/bebas-neue";
 import { Ubuntu_500Medium, Ubuntu_400Regular } from "@expo-google-fonts/ubuntu";
-import Activities from "./src/Pages/Activities";
-import Home from "./src/Pages/Home";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -23,7 +21,7 @@ export default function App() {
       <AuthProvider>
         <StatusBar translucent backgroundColor={"black"} />
         <MainRoutes />
-        <FlashMessage position="top" hideStatusBar={true} />
+        <FlashMessage position="top" hideStatusBar={true} floating={true} />
       </AuthProvider>
     </>
   );
