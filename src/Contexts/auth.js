@@ -147,12 +147,6 @@ export default function AuthContextProvider({ children }) {
     navigation.navigate("SignedOut");
   }, []);
 
-  const changeTrackerId = useCallback(async (
-    id
-  ) => {
-    setTrackerId(id);
-  });
-
   useEffect(() => {
     loadStoragedData();
   }, []);
@@ -166,7 +160,7 @@ export default function AuthContextProvider({ children }) {
         accessToken,
         user,
         trackerId,
-        changeTrackerId,
+        setTrackerId,
         setUser,
         signInLoading,
       }}

@@ -38,44 +38,57 @@ export default function Home({ navigation }) {
   const [remainingSecs, setRemainingSecs] = useState(0);
   const [isActive, setIsActive] = useState(false);
   const { mins, secs } = getRemaining(remainingSecs);
-  const { changeTrackerId } = useAuth();
+  const { trackerId, setTrackerId } = useAuth();
 
   const toggle = () => {
-    setIsActive(!isActive);
+    if (!isActive) {
+      postTracker();
+    } else {
+      patchTracker();
+    }
   };
+
+  const postTracker = () => {
+    const startedAt = new Date();
+    const { error, data } = useQuery("postTracker", () =>
+      post("https://na-pista.herokuapp.com/trackers", startedAt).then((res) =>
+        res.json()
+      )
+    );
+    if (error) {
+      console.log(error);
+    }
+    if (data) {
+      setIsActive(!isActive);
+      setTrackerId(data.id);
+    }
+  };
+
+  const patchTracker = () => {
+    const endedAt = new Date();
+    const { error, data } = useQuery("patchTracker", () =>
+      patch(
+        `https://na-pista.herokuapp.com/trackers/${trackerId}`,
+        endedAt
+      ).then((res) => res.json())
+    );
+    if (error) {
+      console.log(error);
+    }
+    if (data) {
+      setIsActive(!isActive);
+      setTrackerId(0);
+    }
+  }
 
   useEffect(() => {
     let interval = null;
     if (isActive) {
-      const startedAt = new Date();
-      const { error, data } = useQuery("postTracker", () =>
-        post("https://na-pista.herokuapp.com/trackers", startedAt).then((res) =>
-          res.json()
-        )
-      );
-      if (error !== "") {
-        changeTrackerId(data.id);
-        interval = setInterval(() => {
-          setRemainingSecs((remainingSecs) => remainingSecs + 1);
-        }, 1000);
-      } else {
-        console.log(error);
-      }
+      interval = setInterval(() => {
+        setRemainingSecs((remainingSecs) => remainingSecs + 1);
+      }, 1000);
     } else if (!isActive && remainingSecs !== 0) {
-      const endedAt = new Date();
-      const { error, data } = useQuery(`patchTracker`, () =>
-        patch(
-          `https://na-pista.herokuapp.com/trackers/${trackerId}`,
-          endedAt
-        ).then((res) => res.json())
-      );
-      if (error !== "") {
-        console.log(data)
-        changeTrackerId(0);
-        clearInterval(0);
-      } else {
-        console.log(error);
-      }
+      clearInterval(interval);
     }
 
     return () => clearInterval(interval);
