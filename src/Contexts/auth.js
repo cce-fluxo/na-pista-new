@@ -147,21 +147,10 @@ export default function AuthContextProvider({ children }) {
     navigation.navigate("SignedOut");
   }, []);
 
-  const postTracker = useCallback(async () => {
-    const startedAt = new Date();
-    const { isLoading, error, data } = useQuery("postTracker", () =>
-      post("https://na-pista.herokuapp.com/trackers", startedAt).then((res) => res.json())
-    );
-    setTrackerId(data.id);
-    console.log(error);
-  });
-
-  const patchTracker = useCallback(async () => {
-    const endedAt = new Date();
-    const { isLoading, error, data } = useQuery(`patchTracker`, () =>
-      patch(`https://na-pista.herokuapp.com/trackers/${trackerId}`, endedAt).then((res) => res.json())
-    );
-    console.log(error);
+  const changeTrackerId = useCallback(async (
+    id
+  ) => {
+    setTrackerId(id);
   });
 
   useEffect(() => {
@@ -177,8 +166,7 @@ export default function AuthContextProvider({ children }) {
         accessToken,
         user,
         trackerId,
-        postTracker,
-        patchTracker,
+        changeTrackerId,
         setUser,
         signInLoading,
       }}

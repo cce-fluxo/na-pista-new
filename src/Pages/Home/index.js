@@ -5,6 +5,7 @@ import {
   Fontisto,
   Entypo,
 } from "react-native-vector-icons";
+import { useQuery } from "react-query";
 
 import {
   Container,
@@ -37,7 +38,7 @@ export default function Home({ navigation }) {
   const [remainingSecs, setRemainingSecs] = useState(0);
   const [isActive, setIsActive] = useState(false);
   const { mins, secs } = getRemaining(remainingSecs);
-  const { postTracker, patchTracker } = useAuth();
+  const { changeTrackerId } = useAuth();
 
   const toggle = () => {
     setIsActive(!isActive);
@@ -46,13 +47,35 @@ export default function Home({ navigation }) {
   useEffect(() => {
     let interval = null;
     if (isActive) {
-      postTracker();
-      interval = setInterval(() => {
-        setRemainingSecs((remainingSecs) => remainingSecs + 1);
-      }, 1000);
+      const startedAt = new Date();
+      const { error, data } = useQuery("postTracker", () =>
+        post("https://na-pista.herokuapp.com/trackers", startedAt).then((res) =>
+          res.json()
+        )
+      );
+      if (error !== "") {
+        changeTrackerId(data.id);
+        interval = setInterval(() => {
+          setRemainingSecs((remainingSecs) => remainingSecs + 1);
+        }, 1000);
+      } else {
+        console.log(error);
+      }
     } else if (!isActive && remainingSecs !== 0) {
-      patchTracker();
-      clearInterval(0);
+      const endedAt = new Date();
+      const { error, data } = useQuery(`patchTracker`, () =>
+        patch(
+          `https://na-pista.herokuapp.com/trackers/${trackerId}`,
+          endedAt
+        ).then((res) => res.json())
+      );
+      if (error !== "") {
+        console.log(data)
+        changeTrackerId(0);
+        clearInterval(0);
+      } else {
+        console.log(error);
+      }
     }
 
     return () => clearInterval(interval);
