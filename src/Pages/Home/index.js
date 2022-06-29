@@ -24,7 +24,7 @@ import Progress from "../../Components/Progress";
 import HomeHeader from "../../Components/HomeHeader";
 import AddEarningModal from "../../Components/AddEarningModal";
 import { colors, screenHeight, screenWidth } from "../../Constants/constants";
-import registerForPushNotificationsAsync from "../../Notifications/registerForPushNotificationsAsync";
+import registerForPushNotificationsAsync from "../../Connection/registerForPushNotificationsAsync";
 import { useAuth } from "../../Contexts/auth";
 
 const getRemaining = (time) => {
