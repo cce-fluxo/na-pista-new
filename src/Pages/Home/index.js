@@ -51,8 +51,8 @@ export default function Home({ navigation }) {
   const postTracker = () => {
     const startedAt = new Date();
     const { error, data } = useQuery("postTracker", () =>
-      post("https://na-pista.herokuapp.com/trackers", startedAt).then((res) =>
-        res.json()
+      post("https://na-pista.herokuapp.com/trackers", { startedAt }).then(
+        (res) => res.json()
       )
     );
     if (error) {
@@ -67,10 +67,9 @@ export default function Home({ navigation }) {
   const patchTracker = () => {
     const endedAt = new Date();
     const { error, data } = useQuery("patchTracker", () =>
-      patch(
-        `https://na-pista.herokuapp.com/trackers/${trackerId}`,
-        endedAt
-      ).then((res) => res.json())
+      patch(`https://na-pista.herokuapp.com/trackers/${trackerId}`, {
+        endedAt,
+      }).then((res) => res.json())
     );
     if (error) {
       console.log(error);
@@ -79,7 +78,7 @@ export default function Home({ navigation }) {
       setIsActive(!isActive);
       setTrackerId(0);
     }
-  }
+  };
 
   useEffect(() => {
     let interval = null;
