@@ -15,7 +15,7 @@ export default function AuthContextProvider({ children }) {
   const [signInLoading, setSignInLoading] = useState(true);
   const [accessToken, setAccessToken] = useState("");
   const [user, setUser] = useState({});
-  const [trackerId, setTrackerId] = useState(0);
+  const [trackerId, setTrackerId] = useState(null);
 
   const loadStoragedData = useCallback(async () => {
     setSignInLoading(true);

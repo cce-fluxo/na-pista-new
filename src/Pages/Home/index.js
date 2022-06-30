@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { ActivityIndicator } from "react-native-paper";
 import {
   AntDesign,
   FontAwesome,
   Fontisto,
   Entypo,
 } from "react-native-vector-icons";
-import { useQuery } from "react-query";
+import { useMutation } from "react-query";
 
 import {
   Container,
@@ -26,6 +27,7 @@ import HomeHeader from "../../Components/HomeHeader";
 import AddEarningModal from "../../Components/AddEarningModal";
 import { colors, screenHeight, screenWidth } from "../../Constants/constants";
 import registerForPushNotificationsAsync from "../../Connection/registerForPushNotificationsAsync";
+import api from "../../Services/api";
 import { useAuth } from "../../Contexts/auth";
 
 const getRemaining = (time) => {
@@ -38,47 +40,46 @@ export default function Home({ navigation }) {
   const [remainingSecs, setRemainingSecs] = useState(0);
   const [isActive, setIsActive] = useState(false);
   const { mins, secs } = getRemaining(remainingSecs);
+  const [isLoading, setIsLoading] = useState(false);
   const { trackerId, setTrackerId } = useAuth();
 
   const toggle = () => {
     if (!isActive) {
-      postTracker();
+      postMutation.mutate({
+        startedAt: new Date(),
+      });
+      if (postMutation.isError) {
+        setIsLoading(false);
+        console.log(postMutation.error.message);
+      } else if (postMutation.isLoading) {
+        setIsLoading(true);
+      } else if (postMutation.isSuccess) {
+        setIsLoading(false);
+        setTrackerId(postMutation.data.data.id);
+        setIsActive(!isActive);
+      }
     } else {
-      patchTracker();
+      patchMutation.mutate({ id: trackerId, endedAt: new Date() });
+      if (patchMutation.isError) {
+        setIsLoading(false);
+        console.log(patchMutation.error.message);
+      } else if (patchMutation.isLoading) {
+        setIsLoading(true);
+      } else if (patchMutation.isSuccess) {
+        setIsLoading(false);
+        setTrackerId(null);
+        setIsActive(!isActive);
+      }
     }
   };
 
-  const postTracker = () => {
-    const startedAt = new Date();
-    const { error, data } = useQuery("postTracker", () =>
-      post("https://na-pista.herokuapp.com/trackers", { startedAt }).then(
-        (res) => res.json()
-      )
-    );
-    if (error) {
-      console.log(error);
-    }
-    if (data) {
-      setIsActive(!isActive);
-      setTrackerId(data.id);
-    }
-  };
+  const postMutation = useMutation((newTodo) => {
+    return api.post("/trackers", newTodo);
+  });
 
-  const patchTracker = () => {
-    const endedAt = new Date();
-    const { error, data } = useQuery("patchTracker", () =>
-      patch(`https://na-pista.herokuapp.com/trackers/${trackerId}`, {
-        endedAt,
-      }).then((res) => res.json())
-    );
-    if (error) {
-      console.log(error);
-    }
-    if (data) {
-      setIsActive(!isActive);
-      setTrackerId(0);
-    }
-  };
+  const patchMutation = useMutation((newTodo) => {
+    return api.patch(`/trackers/${newTodo.id}`, { endedAt: newTodo.endedAt, time: remainingSecs*1000 });
+  });
 
   useEffect(() => {
     let interval = null;
@@ -87,6 +88,7 @@ export default function Home({ navigation }) {
         setRemainingSecs((remainingSecs) => remainingSecs + 1);
       }, 1000);
     } else if (!isActive && remainingSecs !== 0) {
+      setRemainingSecs(0);
       clearInterval(interval);
     }
 
@@ -135,13 +137,22 @@ export default function Home({ navigation }) {
                 ? "Estamos gravando automaticamente o seu\ntempo de trabalho e distância percorrida.\nClique no botão abaixo se quiser pausar."
                 : "Clique no botão abaixo para começar e vamos gravar automaticamente o seu tempo de trabalho e a distância percorrida."}
             </Text>
-            <ActivityButton onPress={toggle}>
-              <FontAwesome
-                name={isActive ? "stop" : "play"}
-                size={screenWidth * 0.04}
-                color={colors.icon}
-              />
-            </ActivityButton>
+            {isLoading ? (
+              <ActivityButton>
+                <ActivityIndicator
+                  size={screenWidth * 0.04}
+                  color={colors.icon}
+                />
+              </ActivityButton>
+            ) : (
+              <ActivityButton onPress={toggle}>
+                <FontAwesome
+                  name={isActive ? "stop" : "play"}
+                  size={screenWidth * 0.04}
+                  color={colors.icon}
+                />
+              </ActivityButton>
+            )}
             <View
               marginTop={-screenHeight * 0.085}
               width={screenWidth * 0.28}
