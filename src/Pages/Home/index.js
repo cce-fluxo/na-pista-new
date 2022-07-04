@@ -5,7 +5,7 @@ import {
   Fontisto,
   Entypo,
 } from "react-native-vector-icons";
-import { QueryClient, useMutation } from "react-query";
+import { useQueryClient, QueryClient, useMutation, useQuery } from "react-query";
 
 import {
   Container,
@@ -35,54 +35,90 @@ const getRemaining = (time) => {
   return { mins, secs };
 };
 
+const createTracker = async(newTodo) => {
+  const response = await api.post("/trackers", newTodo);
+  return response.data;
+}
+
+const patchTracker = async(newTodo) => {
+return api.patch(`/trackers/${newTodo.id}`, {
+  endedAt: newTodo.endedAt,
+  time: newTodo.time * 1000,
+});}
+
 export default function Home({ navigation }) {
   const [remainingSecs, setRemainingSecs] = useState(0);
   const [isActive, setIsActive] = useState(false);
   const { mins, secs } = getRemaining(remainingSecs);
-  const { trackerId, setTrackerId } = useAuth();
+  const { trackerId, setTrackerId } = useAuth(); // avaliar se vai precisar de um contexto para isso
+  const queryClient = useQueryClient();
+
+  const { data: trackerData, isError } = useQuery(["currentTracker"], getCurrentTracker); // a função getCurrentTracker usa o endpoint trackers/current
+
+  const postMutation = useMutation(
+    createTracker,
+    {
+      onSuccess: (data, variables, context) => {
+        console.log({data, variables, context});
+        setTrackerId(data.id);
+        queryClient.invalidateQueries("currentTracker");
+      },
+      onError: () => {
+        queryClient.setQueryData("currentTracker", { startedAt: new Date() });
+        setIsActive(true);
+      },
+      retry: true,
+    }
+  );
+  
+  const patchMutation = useMutation(
+    patchTracker,
+    {
+      onSuccess: (data, variables, context) => {
+        queryClient.cancelQueries("currentTracker");
+        queryClient.setQueryData("currentTracker", undefined);
+      },
+      onError: () => {
+
+      },
+      retry: true,
+    }
+  );
+  
+  async function getCurrentTracker() {
+    return await api.get("trackers/current");
+  }
+
+  useEffect(() => {
+    if (isError) {
+      if (trackerData && trackerData.id) {// se o trackerData existe e tem um id, então o tracker foi criado
+        setTrackerId(trackerData.id);
+        setIsActive(true);
+      } else if (trackerData) {// se o trackerData existe e não tem um id, então o tracker não foi criado
+        console.log(postMutation.status);
+      } else {
+        setTrackerId(null);
+        setIsActive(false);
+      }
+    }
+  }, [isError])
+
+  useEffect(() => {
+    if (trackerData) {
+      setIsActive(!isActive);
+    }
+  }, [trackerData]);
 
   const toggle = () => {
     if (!isActive) {
       postMutation.mutate({
         startedAt: new Date(),
       });
-      if (postMutation.isError) {
-        console.log(postMutation.error.message);
-      } else if (postMutation.isSuccess) {
-        setTrackerId(postMutation.data.data.id);
-        setIsActive(!isActive);
-      }
     } else {
-      patchMutation.mutate({ id: trackerId, endedAt: new Date() });
-      if (patchMutation.isError) {
-        console.log(patchMutation.error.message);
-      } else if (patchMutation.isSuccess) {
-        setTrackerId(null);
-        setIsActive(!isActive);
-      }
+      setIsActive(!isActive);
+      patchMutation.mutate({ id: trackerData.Id, endedAt: new Date(), time: remainingSecs });
     }
   };
-
-  const postMutation = useMutation(
-    (newTodo) => {
-      return api.post("/trackers", newTodo);
-    },
-    {
-      retry: true
-    }
-  );
-
-  const patchMutation = useMutation(
-    (newTodo) => {
-      return api.patch(`/trackers/${newTodo.id}`, {
-        endedAt: newTodo.endedAt,
-        time: remainingSecs * 1000,
-      });
-    },
-    {
-      retry: true 
-    }
-  );
 
   useEffect(() => {
     let interval = null;
