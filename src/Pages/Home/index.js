@@ -5,7 +5,7 @@ import {
   Fontisto,
   Entypo,
 } from "react-native-vector-icons";
-import { useMutation } from "react-query";
+import { QueryClient, useMutation } from "react-query";
 
 import {
   Container,
@@ -63,16 +63,40 @@ export default function Home({ navigation }) {
     }
   };
 
-  const postMutation = useMutation((newTodo) => {
-    return api.post("/trackers", newTodo);
-  });
+  const postMutation = useMutation(
+    (newTodo) => {
+      return api.post("/trackers", newTodo);
+    },
+    {
+      onError: (err, newTodo) => {
+        if (err.message === "Network Error") {
+          QueryClient.setQueryData(newTodo, api.post("/trackers", newTodo));
+        }
+      },
+    }
+  );
 
-  const patchMutation = useMutation((newTodo) => {
-    return api.patch(`/trackers/${newTodo.id}`, {
-      endedAt: newTodo.endedAt,
-      time: remainingSecs * 1000,
-    });
-  });
+  const patchMutation = useMutation(
+    (newTodo) => {
+      return api.patch(`/trackers/${newTodo.id}`, {
+        endedAt: newTodo.endedAt,
+        time: remainingSecs * 1000,
+      });
+    },
+    {
+      onError: (err, newTodo) => {
+        if (err.message === "Network Error") {
+          QueryClient.setQueryData(
+            newTodo,
+            api.patch(`/trackers/${newTodo.id}`, {
+              endedAt: newTodo.endedAt,
+              time: remainingSecs * 1000,
+            })
+          );
+        }
+      },
+    }
+  );
 
   useEffect(() => {
     let interval = null;

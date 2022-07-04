@@ -13,24 +13,43 @@ import {
 } from "../../../Constants/constants";
 
 export default function SettingsExportData({ navigation }) {
-  const [corridasGanhos, setCorridasGanhos] = useState(false);
-  const [gastos, setGastos] = useState(false);
-  const [indicadores, setIndicadores] = useState(false);
-  const [historico, setHistorico] = useState(false);
-  const [trajetos, setTrajetos] = useState(false);
+  const [exportData, setExportData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
 
   async function addExport() {
     setLoading(true);
     try {
-      console.log(corridasGanhos, gastos, indicadores, historico, trajetos);
+      console.log(exportData);
       setModalVisible(true);
     } catch (error) {
       console.error(error);
     }
     setLoading(false);
   }
+
+  const data = [
+    {
+      id: "1",
+      name: "Corridas e Ganhos",
+    },
+    {
+      id: "2",
+      name: "Gastos",
+    },
+    {
+      id: "3",
+      name: "Indicadores",
+    },
+    {
+      id: "4",
+      name: "Histórico",
+    },
+    {
+      id: "5",
+      name: "Trajetos",
+    },
+  ];
 
   return (
     <SafeArea>
@@ -91,17 +110,15 @@ export default function SettingsExportData({ navigation }) {
         >
           Selecione abaixo quais dados você gostaria de exportar.
         </ExportText>
-        <Checkbox marginTop={screenHeight * 0.033} label="Corridas e ganhos" />
-        <Checkbox marginTop={screenHeight * 0.033} label="Gastos" />
-        <Checkbox
-          marginTop={screenHeight * 0.033}
-          label="Indicadores calculados"
-        />
-        <Checkbox marginTop={screenHeight * 0.033} label="Histórico de metas" />
-        <Checkbox
-          marginTop={screenHeight * 0.033}
-          label="Trajetos percorridos"
-        />
+        {data.map((item, index) => (
+          <Checkbox
+            key={index}
+            marginTop={screenHeight * 0.033}
+            object={item}
+            newList={exportData}
+            setNewList={setExportData}
+          />
+        ))}
         <Button
           width={screenWidth * 0.91}
           marginLeft={0}
