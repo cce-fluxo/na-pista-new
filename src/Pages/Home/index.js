@@ -68,11 +68,7 @@ export default function Home({ navigation }) {
       return api.post("/trackers", newTodo);
     },
     {
-      onError: (err, newTodo) => {
-        if (err.message === "Network Error") {
-          QueryClient.setQueryData(newTodo, api.post("/trackers", newTodo));
-        }
-      },
+      retry: true
     }
   );
 
@@ -84,17 +80,7 @@ export default function Home({ navigation }) {
       });
     },
     {
-      onError: (err, newTodo) => {
-        if (err.message === "Network Error") {
-          QueryClient.setQueryData(
-            newTodo,
-            api.patch(`/trackers/${newTodo.id}`, {
-              endedAt: newTodo.endedAt,
-              time: remainingSecs * 1000,
-            })
-          );
-        }
-      },
+      retry: true 
     }
   );
 
@@ -269,7 +255,7 @@ export default function Home({ navigation }) {
               </Text>
               <IconContainer
                 marginRight={screenWidth * 0.027}
-                onPress={() => navigation.navigate("Plataformas")}
+                onPress={() => navigation.navigate("Resultados")}
               >
                 <AntDesign
                   name="right"
@@ -366,7 +352,7 @@ export default function Home({ navigation }) {
               </Text>
               <IconContainer
                 marginRight={screenWidth * 0.03}
-                onPress={() => navigation.navigate("Plataformas")}
+                onPress={() => navigation.navigate("Resultados")}
               >
                 <AntDesign
                   name="right"
@@ -496,7 +482,7 @@ export default function Home({ navigation }) {
               </Text>
               <IconContainer
                 marginRight={screenWidth * 0.03}
-                onPress={() => navigation.navigate("Plataformas")}
+                onPress={() => navigation.navigate("Resultados")}
               >
                 <AntDesign
                   name="right"
@@ -626,7 +612,7 @@ export default function Home({ navigation }) {
               </Text>
               <IconContainer
                 marginRight={screenWidth * 0.03}
-                onPress={() => navigation.navigate("Plataformas")}
+                onPress={() => navigation.navigate("Resultados")}
               >
                 <AntDesign
                   name="right"
