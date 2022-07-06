@@ -83,11 +83,10 @@ export default function Home({ navigation }) {
       queryClient.setQueryData("currentTracker", undefined);
     },
     onError: () => {
-      queryClient.setQueryData("lastTracker", {
-        trackerData,
-        id: trackerId,
+      queryClient.setQueryData("currentTracker", {
+        id: trackerData.id,
         endedAt: new Date(),
-        time: remainingSecs * 1000,
+        time: remainingSecs,
       });
       setIsActive(false);
     },
