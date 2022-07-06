@@ -5,7 +5,12 @@ import {
   Fontisto,
   Entypo,
 } from "react-native-vector-icons";
-import { useQueryClient, QueryClient, useMutation, useQuery } from "react-query";
+import {
+  useQueryClient,
+  QueryClient,
+  useMutation,
+  useQuery,
+} from "react-query";
 
 import {
   Container,
@@ -35,16 +40,17 @@ const getRemaining = (time) => {
   return { mins, secs };
 };
 
-const createTracker = async(newTodo) => {
+const createTracker = async (newTodo) => {
   const response = await api.post("/trackers", newTodo);
   return response.data;
-}
+};
 
-const patchTracker = async(newTodo) => {
-return api.patch(`/trackers/${newTodo.id}`, {
-  endedAt: newTodo.endedAt,
-  time: newTodo.time * 1000,
-});}
+const patchTracker = async (newTodo) => {
+  return api.patch(`/trackers/${newTodo.id}`, {
+    endedAt: newTodo.endedAt,
+    time: newTodo.time * 1000,
+  });
+};
 
 export default function Home({ navigation }) {
   const [remainingSecs, setRemainingSecs] = useState(0);
@@ -53,55 +59,60 @@ export default function Home({ navigation }) {
   const { trackerId, setTrackerId } = useAuth(); // avaliar se vai precisar de um contexto para isso
   const queryClient = useQueryClient();
 
-  const { data: trackerData, isError } = useQuery(["currentTracker"], getCurrentTracker); // a função getCurrentTracker usa o endpoint trackers/current
+  const { data: trackerData, isError } = useQuery(
+    ["currentTracker"],
+    getCurrentTracker
+  ); // a função getCurrentTracker usa o endpoint trackers/current
 
-  const postMutation = useMutation(
-    createTracker,
-    {
-      onSuccess: (data, variables, context) => {
-        console.log({data, variables, context});
-        setTrackerId(data.id);
-        queryClient.invalidateQueries("currentTracker");
-      },
-      onError: () => {
-        queryClient.setQueryData("currentTracker", { startedAt: new Date() });
-        setIsActive(true);
-      },
-      retry: true,
-    }
-  );
-  
-  const patchMutation = useMutation(
-    patchTracker,
-    {
-      onSuccess: (data, variables, context) => {
-        queryClient.cancelQueries("currentTracker");
-        queryClient.setQueryData("currentTracker", undefined);
-      },
-      onError: () => {
+  const postMutation = useMutation(createTracker, {
+    onSuccess: (data, variables, context) => {
+      console.log({ data, variables, context });
+      setTrackerId(data.id);
+      queryClient.invalidateQueries("currentTracker");
+    },
+    onError: () => {
+      queryClient.setQueryData("currentTracker", { startedAt: new Date() });
+      setIsActive(true);
+    },
+    retry: true,
+  });
 
-      },
-      retry: true,
-    }
-  );
-  
+  const patchMutation = useMutation(patchTracker, {
+    onSuccess: (data, variables, context) => {
+      queryClient.cancelQueries("currentTracker");
+      queryClient.setQueryData("currentTracker", undefined);
+    },
+    onError: () => {
+      queryClient.setQueryData("lastTracker", {
+        trackerData,
+        id: trackerId,
+        endedAt: new Date(),
+        time: remainingSecs * 1000,
+      });
+      setIsActive(false);
+    },
+    retry: true,
+  });
+
   async function getCurrentTracker() {
     return await api.get("trackers/current");
   }
 
   useEffect(() => {
     if (isError) {
-      if (trackerData && trackerData.id) {// se o trackerData existe e tem um id, então o tracker foi criado
+      if (trackerData && trackerData.id) {
+        // se o trackerData existe e tem um id, então o tracker foi criado
         setTrackerId(trackerData.id);
         setIsActive(true);
-      } else if (trackerData) {// se o trackerData existe e não tem um id, então o tracker não foi criado
+      } else if (trackerData) {
+        // se o trackerData existe e não tem um id, então o tracker não foi criado
         console.log(postMutation.status);
       } else {
         setTrackerId(null);
         setIsActive(false);
       }
     }
-  }, [isError])
+  }, [isError]);
 
   useEffect(() => {
     if (trackerData) {
@@ -116,7 +127,11 @@ export default function Home({ navigation }) {
       });
     } else {
       setIsActive(!isActive);
-      patchMutation.mutate({ id: trackerData.Id, endedAt: new Date(), time: remainingSecs });
+      patchMutation.mutate({
+        id: trackerData.Id,
+        endedAt: new Date(),
+        time: remainingSecs,
+      });
     }
   };
 
