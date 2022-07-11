@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { ScrollView } from "react-native";
 
-import {
-  Container,
-  TitleContainer,
-  Text,
-  ButtonContainer,
-  FlatList,
-} from "./styles";
+import { Container, TitleContainer, Text, ButtonContainer } from "./styles";
 import SafeArea from "../../Utils/SafeArea";
 import Button from "../../Components/Button";
 import Checkbox from "../../Components/Checkbox";
@@ -76,30 +71,35 @@ export default function Platform({ navigation, route }) {
     vendorsGet();
   }, []);
 
-  const Item = ({ item }) => <Checkbox marginTop={30} object={item} newList={vendors} setNewList={setVendors} />;
-
-  const renderItem = ({ item }) => <Item item={item} />;
+  const Item = ({ item }) => (
+    <Checkbox
+      marginTop={30}
+      object={item}
+      newList={vendors}
+      setNewList={setVendors}
+    />
+  );
 
   return (
     <SafeArea>
       <Container>
-        <TitleContainer>
-          <Text title={true}>Plataformas</Text>
-          <Text>
-            Identificando para quais apps você trabalha,{"\n"}poderemos filtrar
-            as informações e mostrar, {"\n"}por exemplo, qual está pagando
-            melhor.
-          </Text>
-        </TitleContainer>
-        <FlatList
-          data={dataVendors}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-        />
-        <AddItemModal
-          text="Adicionar nova plataforma"
-          postRequest={vendorsPost}
-        />
+        <ScrollView>
+          <TitleContainer>
+            <Text title={true}>Plataformas</Text>
+            <Text>
+              Identificando para quais apps você trabalha,{"\n"}poderemos
+              filtrar as informações e mostrar, {"\n"}por exemplo, qual está
+              pagando melhor.
+            </Text>
+          </TitleContainer>
+          {dataVendors.map((item, index) => (
+            <Item key={index} item={item} />
+          ))}
+          <AddItemModal
+            text="Adicionar nova plataforma"
+            postRequest={vendorsPost}
+          />
+        </ScrollView>
         <ButtonContainer>
           <Button
             width={"90%"}

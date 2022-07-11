@@ -14,6 +14,7 @@ import Button from "../../Components/Button";
 import Checkbox from "../../Components/Checkbox";
 import AddItemModal from "../../Components/AddItemModal";
 import api from "../../Services/api";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function Vehicles({ navigation, route }) {
   const {
@@ -76,9 +77,14 @@ export default function Vehicles({ navigation, route }) {
     vehiclesGet();
   }, []);
 
-  const Item = ({ item }) => <Checkbox marginTop={30} object={item} newList={vehicles} setNewList={setVehicles} />;
-
-  const renderItem = ({ item }) => <Item item={item} />;
+  const Item = ({ item }) => (
+    <Checkbox
+      marginTop={30}
+      object={item}
+      newList={vehicles}
+      setNewList={setVehicles}
+    />
+  );
 
   return (
     <SafeArea>
@@ -89,12 +95,11 @@ export default function Vehicles({ navigation, route }) {
             Você pode editar essas informações{"\n"}a qualquer momento.
           </Text>
         </TitleContainer>
-
-        <FlatList
-          data={dataVehicles}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-        />
+        <ScrollView>
+          {dataVehicles.map((item, index) => (
+            <Item key={index} item={item} />
+          ))}
+        </ScrollView>
         <AddItemModal
           text="Adicionar novo veículo"
           postRequest={vehiclesPost}

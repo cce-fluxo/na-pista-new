@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { ScrollView } from "react-native";
 import { showMessage } from "react-native-flash-message";
 
 import { Container, TitleContainer, Text, ButtonContainer } from "./styles";
@@ -52,6 +53,7 @@ export default function BasicInfo({ navigation, route }) {
   return (
     <SafeArea>
       <Container>
+        <ScrollView>
         <TitleContainer>
           <Text title={true}>Informações Básicas</Text>
           <Text>
@@ -59,7 +61,6 @@ export default function BasicInfo({ navigation, route }) {
             compartilharemos com ninguém!
           </Text>
         </TitleContainer>
-
         <Input
           title={"Nome"}
           marginLeft={0}
@@ -88,6 +89,7 @@ export default function BasicInfo({ navigation, route }) {
           initialText="Selecione..."
           setSelectedDate={setBirthDate}
         />
+        </ScrollView>
         <ButtonContainer>
           <Button
             width={"90%"}
