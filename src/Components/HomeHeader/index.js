@@ -19,7 +19,7 @@ const HomeHeader = ({ text, height, onPressNavigate }) => {
     <Subcontainer text={text} height={height}>
       <TextContainer
         justifyContent={"space-between"}
-        marginTop={0}
+        marginTop={screenWidth * 0.01}
         maxWidth={screenWidth}
         marginLeft={0}
       >
@@ -40,10 +40,7 @@ const HomeHeader = ({ text, height, onPressNavigate }) => {
               color={colors.icon}
             />
           </IconContainer>
-          <IconContainer
-            marginRight={0}
-            onPress={onPressNavigate}
-          >
+          <IconContainer marginRight={0} onPress={onPressNavigate}>
             <Ionicons
               name="settings-sharp"
               size={screenWidth * 0.066}

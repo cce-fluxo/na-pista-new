@@ -14,11 +14,11 @@ export const Container = styled.View`
 
 export const TextContainer = styled.TouchableOpacity`
   flex: 1;
-  padding: 10px;
-  margin-top: 1px;
+  padding: ${screenWidth * 0}px;
   max-height: ${screenHeight * 0.1}px;
   flex-direction: row;
   justify-content: ${(props) => props.justifyContent};
+  align-items: center;
 `;
 
 export const Text = styled.Text`
@@ -36,7 +36,7 @@ export const IconContainer = styled.View`
   justify-content: space-around;
   align-items: center;
   max-height: ${screenHeight * 0.12}px;
-  max-width: ${screenWidth * 0.055}px;
+  max-width: ${screenWidth * 0.06}px;
   margin-right: ${(props) => props.marginRight}px;
   margin-left: ${(props) => props.marginLeft}px;
   margin-top: ${(props) => props.marginTop}px;
@@ -48,7 +48,7 @@ export const IconClose = styled.TouchableOpacity`
   justify-content: space-around;
   align-items: center;
   max-height: ${screenHeight * 0.12}px;
-  max-width: ${screenWidth * 0.055}px;
+  max-width: ${screenWidth * 0.065}px;
   margin-right: ${(props) => props.marginRight}px;
   margin-left: ${(props) => props.marginLeft}px;
   margin-top: ${(props) => props.marginTop}px;

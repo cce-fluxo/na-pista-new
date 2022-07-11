@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {KeyboardAvoidingView} from "react-native";
 import { showMessage } from "react-native-flash-message";
 
 import SafeArea from "../../Utils/SafeArea/index";
@@ -128,15 +129,20 @@ export default function AddGastos({ navigation }) {
           option="Selecione..."
           setOption={setCategory}
         />
-        <Input
-          title="Valor"
-          marginLeft={0}
-          marginTop={screenHeight * 0.02}
-          value={amount}
-          onChangeText={(text) => setAmount(text)}
-          placeholder="R$"
-          keyboardType="numeric"
-        />
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          style={{ flex: 1, backgroundColor: `#f8f8f8` }}
+        >
+          <Input
+            title="Valor"
+            marginLeft={0}
+            marginTop={screenHeight * 0.02}
+            value={amount}
+            onChangeText={(text) => setAmount(text)}
+            placeholder="R$"
+            keyboardType="numeric"
+          />
+        </KeyboardAvoidingView>
         <MaxContainer
           width={screenWidth * 0.9}
           marginTop={screenHeight * 0.04}
@@ -161,14 +167,14 @@ export default function AddGastos({ navigation }) {
         <Button
           width={screenWidth * 0.9}
           marginLeft={0}
-          marginTop={screenHeight * 0.15}
+          marginTop={screenHeight * 0.075}
           disabled={loading}
           loading={loading}
           text="Salvar"
           onPress={addExpense}
           color="black"
           background={colors.background}
-          border={4}
+          border={0}
           size={16}
         />
       </Container>
