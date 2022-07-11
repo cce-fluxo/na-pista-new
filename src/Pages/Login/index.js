@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import {
+  KeyboardAvoidingView,
+} from "react-native";
 
 import {
   Container,
@@ -31,6 +34,10 @@ export default function Login({ navigation }) {
   const { signIn } = useAuth();
 
   return (
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={{ flex: 1, backgroundColor: `${colors.background}` }}
+    >
     <SafeArea>
       <Container>
         <TitleContainer>
@@ -104,14 +111,31 @@ export default function Login({ navigation }) {
             text="Login"
             marginTop={350}
             marginLeft={0}
-            disabled={loading}
-            loading={loading}
-            background={"white"}
-            size={18}
-            onPress={() => signIn(email, password, setLoading, navigation)}
+            secureTextEntry
+            value={password}
+            onChangeText={(text) => setPassword(text)}
+            placeholder=""
           />
-        </ButtonContainer>
-      </Container>
-    </SafeArea>
+          <SignUpButton marginleft={0} margintop={screenWidth * 0.02}>
+            <TextButton fontstyle={"italic"} textdecoration={"underline"}>
+              Esqueci minha senha
+            </TextButton>
+          </SignUpButton>
+          <ButtonContainer>
+            <Button
+              width={"90%"}
+              text="Login"
+              marginTop={350}
+              marginLeft={0}
+              disabled={loading}
+              loading={loading}
+              background={"white"}
+              size={18}
+              onPress={() => signIn(email, password, setLoading, navigation)}
+            />
+          </ButtonContainer>
+        </Container>
+      </SafeArea>
+    </KeyboardAvoidingView>
   );
 }
