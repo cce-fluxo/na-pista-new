@@ -13,6 +13,7 @@ import {
   screenHeight,
   screenWidth,
   fonts,
+  dataState
 } from "../../../Constants/constants";
 import api from "../../../Services/api";
 import { useAuth } from "../../../Contexts/auth";
@@ -37,17 +38,14 @@ export default function SettingsPerfil({ navigation }) {
       id: "2",
       name: "Masculino",
     },
-  ];
-
-  const dataState = [
     {
-      id: "1",
-      name: "RJ",
+      id: "3",
+      name: "Não binário"
     },
     {
-      id: "2",
-      name: "SP",
-    },
+      id: "4",
+      name: "Não declarado"
+    }
   ];
 
   const dataCity = [

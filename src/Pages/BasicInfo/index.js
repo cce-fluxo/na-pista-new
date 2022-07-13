@@ -44,6 +44,14 @@ export default function BasicInfo({ navigation, route }) {
       id: "2",
       name: "Masculino",
     },
+    {
+      id: "3",
+      name: "Não binário"
+    },
+    {
+      id: "4",
+      name: "Não declarado"
+    }
   ];
 
   useEffect(() => {

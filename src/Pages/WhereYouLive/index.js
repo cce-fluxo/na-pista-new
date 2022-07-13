@@ -4,6 +4,7 @@ import { Container, TitleContainer, Text, ButtonContainer } from "./styles";
 import SafeArea from "../../Utils/SafeArea";
 import Button from "../../Components/Button";
 import Dropdown from "../../Components/Dropdown";
+import { dataState } from "../../Constants/constants";
 
 const WhereYouLive = ({ navigation, route }) => {
   const { email, password, firstName, lastName, gender, birthDate } =
@@ -33,17 +34,6 @@ const WhereYouLive = ({ navigation, route }) => {
       });
     }
   }
-
-  const dataState = [
-    {
-      id: "1",
-      name: "RJ",
-    },
-    {
-      id: "2",
-      name: "SP",
-    },
-  ];
 
   const dataCity = [
     {
