@@ -1,3 +1,5 @@
+import React from "react";
+
 import {
   Container,
   TextContainer,
@@ -10,15 +12,13 @@ import {
 import SafeArea from "../../Utils/SafeArea";
 import { AntDesign } from "react-native-vector-icons";
 import { colors, screenHeight, screenWidth } from "../../Constants/constants";
-import Button from "../../Components/Button";
+import { useAuth } from "../../Contexts/auth";
 
 export default function SettingsMenu({
   navigation,
-  fontSize,
-  marginLeft,
-  marginRight,
-  marginTop,
 }) {
+  const { signOut } = useAuth();
+
   return (
     <Container>
       <IconClose
@@ -142,7 +142,7 @@ export default function SettingsMenu({
           color={colors.inputTitle}
           marginLeft={screenWidth * 0.027}
           marginTop={0}
-          onPress={() => navigation.navigate("SignedOut")}
+          onPress={() => signOut(navigation)}
         >
           Deslogar
         </Text>

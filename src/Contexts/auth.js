@@ -145,7 +145,7 @@ export default function AuthContextProvider({ children }) {
     ]);
     setAccessToken("");
     setUser({});
-    navigation.navigate("SignedOut");
+    navigation.navigate("First");
   }, []);
 
   useEffect(() => {

@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import {
-  KeyboardAvoidingView,
-} from "react-native";
+import { KeyboardAvoidingView } from "react-native";
 
 import {
   Container,
@@ -38,98 +36,82 @@ export default function Login({ navigation }) {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={{ flex: 1, backgroundColor: `${colors.background}` }}
     >
-    <SafeArea>
-      <Container>
-        <TitleContainer>
-          <Text
-            fontSize={screenWidth * 0.066}
-            marginLeft={screenWidth * 0.022}
-            lineHeight={screenWidth * 0.0833}
-            marginTop={screenWidth * 0.055}
-            fontWeight={400}
-            color={"black"}
-            marginBottom={0}
-          >
-            Login
-          </Text>
-        </TitleContainer>
-        <Input
-          title={"Email"}
-          marginLeft={0}
-          marginTop={0}
-          keyboardType="email-address"
-          value={email}
-          onChangeText={(text) => setEmail(text)}
-          autoComplete="email"
-          placeholder=""
-        />
-        <Text
-          fontSize={18}
-          marginLeft={screenWidth * 0.05}
-          lineHeight={screenWidth * 0.0833}
-          marginTop={screenWidth * 0.06}
-          marginBottom={0}
-          fontWeight={"bold"}
-          color={colors.inputTitle}
-        >
-          Senha
-        </Text>
-        <InputView>
-          <InputPass
+      <SafeArea>
+        <Container>
+          <TitleContainer>
+            <Text
+              fontSize={screenWidth * 0.066}
+              marginLeft={screenWidth * 0.022}
+              lineHeight={screenWidth * 0.0833}
+              marginTop={screenWidth * 0.055}
+              fontWeight={400}
+              color="black"
+              marginBottom={0}
+            >
+              Login
+            </Text>
+          </TitleContainer>
+          <Input
+            title="Email"
             marginLeft={0}
             marginTop={0}
-            secureTextEntry={hidePass}
-            value={password}
-            onChangeText={(text) => setPassword(text)}
+            keyboardType="email-address"
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+            autoComplete="email"
             placeholder=""
           />
-          <IconButton onPress={() => setHidePass(!hidePass)}>
-            {hidePass ? (
-              <Ionicons
-                name="eye"
-                color={colors.inputTitle}
-                size={screenWidth * 0.07}
-              />
-            ) : (
-              <Ionicons
-                name="eye-off"
-                color={colors.inputTitle}
-                size={screenWidth * 0.07}
-              />
-            )}
-          </IconButton>
-        </InputView>
+          <Text
+            fontSize={18}
+            marginLeft={screenWidth * 0.05}
+            lineHeight={screenWidth * 0.0833}
+            marginTop={screenWidth * 0.06}
+            marginBottom={0}
+            fontWeight="bold"
+            color={colors.inputTitle}
+          >
+            Senha
+          </Text>
+          <InputView>
+            <InputPass
+              marginLeft={0}
+              marginTop={0}
+              secureTextEntry={hidePass}
+              value={password}
+              onChangeText={(text) => setPassword(text)}
+              placeholder=""
+            />
+            <IconButton onPress={() => setHidePass(!hidePass)}>
+              {hidePass ? (
+                <Ionicons
+                  name="eye"
+                  color={colors.inputTitle}
+                  size={screenWidth * 0.07}
+                />
+              ) : (
+                <Ionicons
+                  name="eye-off"
+                  color={colors.inputTitle}
+                  size={screenWidth * 0.07}
+                />
+              )}
+            </IconButton>
+          </InputView>
 
-        <SignUpButton marginleft={0} margintop={screenWidth * 0.005}>
-          <TextButton fontstyle={"italic"} textdecoration={"underline"}>
-            Esqueci minha senha
-          </TextButton>
-        </SignUpButton>
-        <ButtonContainer>
-          <Button
-            width={"90%"}
-            text="Login"
-            marginTop={350}
-            marginLeft={0}
-            secureTextEntry
-            value={password}
-            onChangeText={(text) => setPassword(text)}
-            placeholder=""
-          />
-          <SignUpButton marginleft={0} margintop={screenWidth * 0.02}>
+          <SignUpButton marginleft={0} margintop={screenWidth * 0.005}>
             <TextButton fontstyle={"italic"} textdecoration={"underline"}>
               Esqueci minha senha
             </TextButton>
           </SignUpButton>
           <ButtonContainer>
             <Button
-              width={"90%"}
+              width="90%"
               text="Login"
               marginTop={350}
               marginLeft={0}
               disabled={loading}
               loading={loading}
-              background={"white"}
+              background="white"
               size={18}
               onPress={() => signIn(email, password, setLoading, navigation)}
             />
