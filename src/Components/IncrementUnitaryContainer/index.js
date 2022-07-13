@@ -24,7 +24,7 @@ export default IncrementUnitaryContainer = ({
 
   function Decrement() {
     if (value > 0) {
-      setValue(value - 50);
+      setValue(value - 1);
     } else {
       setValue(0);
     }

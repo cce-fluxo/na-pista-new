@@ -158,9 +158,9 @@ export default function AddGanhos({ navigation, route }) {
           text="Adicionar"
           onPress={addEarning}
           color="black"
-          background={colors.background}
-          border={4}
+          background={colors.modalIcons}
           size={16}
+          textColor="white"
         />
       </Container>
     </SafeArea>

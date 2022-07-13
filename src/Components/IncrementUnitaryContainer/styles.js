@@ -17,7 +17,7 @@ export const Container = styled.View`
 `;
 
 export const Title = styled.Text`
-  font-size: 14px;
+  font-size: 18px;
   font-weight: bold;
   color: ${colors.inputTitle};
   font-family: ${fonts.Ubuntu};

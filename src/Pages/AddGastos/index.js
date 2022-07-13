@@ -173,9 +173,9 @@ export default function AddGastos({ navigation }) {
           text="Salvar"
           onPress={addExpense}
           color="black"
-          background={colors.background}
-          border={0}
+          background={colors.modalIcons}
           size={16}
+          textColor="white"
         />
       </Container>
     </SafeArea>

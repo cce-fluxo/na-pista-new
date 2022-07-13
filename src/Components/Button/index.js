@@ -17,6 +17,7 @@ const Button = ({
   background,
   border,
   size,
+  textColor
 }) => {
   return (
     <Container
@@ -32,7 +33,7 @@ const Button = ({
       {loading ? (
         <ActivityIndicator color={colors.background} size={"small"} />
       ) : (
-        <Text size={size}> {text}</Text>
+        <Text size={size} textColor={textColor}> {text}</Text>
       )}
     </Container>
   );

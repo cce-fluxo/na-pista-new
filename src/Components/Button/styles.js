@@ -21,6 +21,9 @@ export const Container = styled.TouchableOpacity`
 `;
 
 export const Text = styled.Text`
+  color: ${(props) => {
+    return props.textColor ? props.textColor : "black";
+  }};
   font-size: ${(props) => props.size}px;
   font-weight: bold;
   align-self: center;

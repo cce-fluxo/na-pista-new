@@ -167,8 +167,8 @@ export default function AddGanhosMultiplos({ navigation }) {
             onPress={addEarning}
             color="black"
             background={colors.modalIcons}
-            border={4}
             size={16}
+            textColor="white"
           />
           <View style={{ height: screenHeight * 0.025 }}></View>
         </ScrollView>
