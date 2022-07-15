@@ -7,7 +7,7 @@ import Header from "../../Components/SettingsHeader/index";
 import Button from "../../Components/Button/index";
 import Dropdown from "../../Components/Dropdown/index";
 import Date from "../../Components/Date/index";
-import Input from "../../Components/Input/index";
+import InputValue from "../../Components/InputValue/index";
 import {
   Container,
   InputContainer,
@@ -84,7 +84,7 @@ export default function AddGastos({ navigation }) {
           setAuxCategory("");
       }
       const response = await api.post("/expenses", {
-        amount: amount,
+        amount: parseFloat(amount),
         category: auxCategory,
         notes: notes,
         date: date,
@@ -133,7 +133,7 @@ export default function AddGastos({ navigation }) {
           behavior={Platform.OS === "ios" ? "padding" : "height"}
           style={{ flex: 1, backgroundColor: `#f8f8f8` }}
         >
-          <Input
+          <InputValue
             title="Valor"
             marginLeft={0}
             marginTop={screenHeight * 0.02}

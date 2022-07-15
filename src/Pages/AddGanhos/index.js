@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import { TouchableOpacity } from "react-native";
 import { showMessage } from "react-native-flash-message";
 
-import SafeArea from "../../Utils/SafeArea/index";
-import Header from "../../Components/SettingsHeader/index";
-import Dropdown from "../../Components/Dropdown/index";
-import Input from "../../Components/Input/index";
-import Date from "../../Components/Date/index";
-import Button from "../../Components/Button/index";
+import SafeArea from "../../Utils/SafeArea";
+import Header from "../../Components/SettingsHeader";
+import Dropdown from "../../Components/Dropdown";
+import Input from "../../Components/Input";
+import InputValue from "../../Components/InputValue";
+import Date from "../../Components/Date";
+import Button from "../../Components/Button";
 import { Container, AddView, AddText } from "./styles";
 import {
   colors,
@@ -17,7 +18,7 @@ import {
 } from "../../Constants/constants";
 import api from "../../Services/api";
 
-export default function AddGanhos({ navigation, route }) {
+export default function AddGanhos({ navigation }) {
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
   const [amount, setAmount] = useState(0);
@@ -42,16 +43,15 @@ export default function AddGanhos({ navigation, route }) {
     setLoading(true);
     try {
       const response = await api.post("/earnings", {
-        extraAmount: extraAmount,
-        amount: amount,
-        distance: distance,
-        duration: duration,
+        extraAmount: parseFloat(extraAmount),
+        amount: parseFloat(amount),
+        distance: parseFloat(distance),
+        duration: parseFloat(duration),
         vendor: {
           name: name,
         },
         date: date,
       });
-      console.log(response);
       showMessage({
         message: "Cadastro do ganho efetuado com sucesso!",
         type: "success",
@@ -60,6 +60,7 @@ export default function AddGanhos({ navigation, route }) {
       });
       navigation.navigate("Inicio");
     } catch (error) {
+      console.log(date);
       showMessage({
         message: "Nao foi possível cadastrar o ganho!",
         type: "danger",
@@ -95,13 +96,12 @@ export default function AddGanhos({ navigation, route }) {
           initialText="Selecione..."
           setSelectedDate={setDate}
         />
-        <Input
+        <InputValue
           title="Valor total"
           marginLeft={0}
           marginTop={screenHeight * 0.025}
           value={amount}
           onChangeText={(text) => setAmount(text)}
-          placeholder="R$"
           keyboardType="numeric"
         />
         {!click ? (
@@ -121,13 +121,12 @@ export default function AddGanhos({ navigation, route }) {
             </TouchableOpacity>
           </AddView>
         ) : (
-          <Input
+          <InputValue
             title="Total de gorjeta"
             marginLeft={0}
             marginTop={screenHeight * 0.025}
             value={extraAmount}
             onChangeText={(text) => setExtraAmount(text)}
-            placeholder="R$"
             keyboardType="numeric"
           />
         )}
