@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView, TouchableOpacity, View } from "react-native";
 
-import SafeArea from "../../Utils/SafeArea/index";
-import Header from "../../Components/SettingsHeader/index";
-import Dropdown from "../../Components/Dropdown/index";
-import Input from "../../Components/Input/index";
-import IncrementUnitaryContainer from "../../Components/IncrementUnitaryContainer/index";
-import Button from "../../Components/Button/index";
+import SafeArea from "../../Utils/SafeArea";
+import Header from "../../Components/SettingsHeader";
+import Dropdown from "../../Components/Dropdown";
+import InputValue from "../../Components/InputValue";
+import InputLeft from "../../Components/InputLeft";
+import IncrementUnitaryContainer from "../../Components/IncrementUnitaryContainer";
+import Button from "../../Components/Button";
 import { Container, AddView, AddText } from "./styles";
 import {
   colors,
@@ -68,7 +69,20 @@ export default function AddGanhosMultiplos({ navigation }) {
     setLoading(true);
     try {
       console.log(name, period, races, amount, extraAmount, distance, duration);
+      showMessage({
+        message: "Cadastro dos ganhos efetuado com sucesso!",
+        type: "success",
+        icon: "success",
+        duration: 4000,
+      });
+      navigation.navigate("Inicio");
     } catch (error) {
+      showMessage({
+        message: "Não foi possível cadastrar os ganhos!",
+        type: "danger",
+        icon: "danger",
+      });
+      console.log(error);
       console.log(error);
     }
     setLoading(false);
@@ -107,13 +121,12 @@ export default function AddGanhosMultiplos({ navigation }) {
             marginTop={screenHeight * 0.025}
             color="#F8F8F8"
           />
-          <Input
+          <InputValue
             title="Valor total"
             marginLeft={0}
             marginTop={screenHeight * 0.025}
             value={amount}
             onChangeText={(text) => setAmount(text)}
-            placeholder="R$"
           />
           {!click ? (
             <AddView
@@ -132,16 +145,15 @@ export default function AddGanhosMultiplos({ navigation }) {
               </TouchableOpacity>
             </AddView>
           ) : (
-            <Input
+            <InputValue
               title="Total de gorjeta"
               marginLeft={0}
               marginTop={screenHeight * 0.025}
               value={extraAmount}
               onChangeText={(text) => setExtraAmount(text)}
-              placeholder="R$"
             />
           )}
-          <Input
+          <InputLeft
             title="Distância percorrida"
             marginLeft={0}
             marginTop={screenHeight * 0.025}
@@ -149,7 +161,7 @@ export default function AddGanhosMultiplos({ navigation }) {
             onChangeText={(text) => setDistance(text)}
             placeholder="km"
           />
-          <Input
+          <InputLeft
             title="Duração total"
             marginLeft={0}
             marginTop={screenHeight * 0.025}

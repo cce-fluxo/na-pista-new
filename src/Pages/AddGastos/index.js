@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import {KeyboardAvoidingView} from "react-native";
+import React, { useEffect, useState } from "react";
+import { KeyboardAvoidingView } from "react-native";
 import { showMessage } from "react-native-flash-message";
 
 import SafeArea from "../../Utils/SafeArea/index";
@@ -61,30 +61,8 @@ export default function AddGastos({ navigation }) {
   async function addExpense() {
     setLoading(true);
     try {
-      switch (category) {
-        case "Combustível":
-          setAuxCategory("FUEL");
-          break;
-        case "Aluguel":
-          setAuxCategory("RENT");
-          break;
-        case "Alimentação":
-          setAuxCategory("FOOD");
-          break;
-        case "Manutenção":
-          setAuxCategory("MAINTENANCE");
-          break;
-        case "Multa":
-          setAuxCategory("FINE");
-          break;
-        case "Outro":
-          setAuxCategory("OTHER");
-          break;
-        default:
-          setAuxCategory("");
-      }
       const response = await api.post("/expenses", {
-        amount: parseFloat(amount),
+        amount: parseInt(amount * 100),
         category: auxCategory,
         notes: notes,
         date: date,
@@ -99,7 +77,7 @@ export default function AddGastos({ navigation }) {
       navigation.navigate("Inicio");
     } catch (error) {
       showMessage({
-        message: "Nao foi possível cadastrar o gasto!",
+        message: "Não foi possível cadastrar o gasto!",
         type: "danger",
         icon: "danger",
       });
@@ -107,6 +85,31 @@ export default function AddGastos({ navigation }) {
     }
     setLoading(false);
   }
+
+  useEffect(() => {
+    switch (category) {
+      case "Combustível":
+        setAuxCategory("FUEL");
+        break;
+      case "Aluguel":
+        setAuxCategory("RENT");
+        break;
+      case "Alimentação":
+        setAuxCategory("FOOD");
+        break;
+      case "Manutenção":
+        setAuxCategory("MAINTENANCE");
+        break;
+      case "Multa":
+        setAuxCategory("FINE");
+        break;
+      case "Outro":
+        setAuxCategory("OTHER");
+        break;
+      default:
+        setAuxCategory("");
+    }
+  }, [category]);
 
   return (
     <SafeArea>
