@@ -45,8 +45,8 @@ export default function AddGanhos({ navigation }) {
       const response = await api.post("/earnings", {
         extraAmount: parseInt(extraAmount * 100),
         amount: parseInt(amount * 100),
-        distance: parseInt(distance),
-        duration: parseInt(duration),
+        distance: parseInt(distance * 1000),
+        duration: parseInt(duration * 60 * 1000),
         vendor: {
           name: name,
         },
