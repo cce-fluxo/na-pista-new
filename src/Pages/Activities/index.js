@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Container, Text, Scroll, LineView } from "./styles";
+import "intl";
+import "intl/locale-data/jsonp/pt-BR";
+import dayjs from "dayjs";
+require("dayjs/locale/pt");
 
 import {
   fonts,
@@ -27,9 +31,37 @@ import api from "../../Services/api";
 export default function Activities({ navigation }) {
   const [activities, setActivities] = useState([]);
 
+  var updateLocale = require("dayjs/plugin/updateLocale");
+  dayjs.extend(updateLocale);
+
+  dayjs.updateLocale("pt", {
+    weekdays: [
+      "Domingo",
+      "Segunda-feira",
+      "Terça-feira",
+      "Quarta-feira",
+      "Quinta-feira",
+      "Sexta-feira",
+      "Sábado",
+    ],
+    months : [
+      "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho",
+      "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+    ]
+  });
+
+  const parseAmountToCurrency = (amount) =>
+    Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(
+      amount
+    );
+
   useEffect(() => {
     activitiesGet();
   }, []);
+
+  const formatHour = (hour) => dayjs(hour).format("HH:mm");
+
+  const formatDate = (date) => dayjs(date).locale("pt").format("dddd, DD [de] MMMM");
 
   async function activitiesGet() {
     try {
@@ -99,22 +131,26 @@ export default function Activities({ navigation }) {
               color={colors.inputTitle}
               marginTop={screenWidth * 0.211}
             >
-              {dates}
+              {`${formatDate(dates)}`}
             </Text>
             {activities[dates].map((activity) => (
               <ActivityTransactions
-                plataforma={activity.vendor.name}
+                plataforma={activity.vendor}
                 categoria={switchCategory(activity.category)}
                 color={`${
-                  type === "EXPENSE" ? colors.negative : colors.positive
+                  activity.type === "EXPENSE"
+                    ? colors.negative
+                    : colors.positive
                 }`}
                 preco={`${
-                  type === "EXPENSE" ? "-" : "+"
-                }${parseAmountToCurrency(amount / 100)}`}
-                horario={activity.date}
-                source={getVendorIcon(activity.vendor)}
+                  activity.type === "EXPENSE" ? "-" : "+"
+                }${parseAmountToCurrency(activity.amount / 100)}`}
+                horario={`${formatHour(activity.date)}`}
+                // source={getVendorIcon(activity.vendor)}
+                source={iFood}
               />
             ))}
+            <LineView />
           </>
         ))}
       </Container>
