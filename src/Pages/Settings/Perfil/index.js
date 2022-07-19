@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { ScrollView, View } from "react-native";
+import { showMessage } from "react-native-flash-message";
 
 import SafeArea from "../../../Utils/SafeArea";
 import Header from "../../../Components/SettingsHeader";
@@ -13,13 +14,13 @@ import {
   screenHeight,
   screenWidth,
   fonts,
-  dataState
+  dataState,
 } from "../../../Constants/constants";
 import api from "../../../Services/api";
 import { useAuth } from "../../../Contexts/auth";
 
 export default function SettingsPerfil({ navigation }) {
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
   const [gender, setGender] = useState(user.gender);
@@ -40,12 +41,12 @@ export default function SettingsPerfil({ navigation }) {
     },
     {
       id: "3",
-      name: "Não binário"
+      name: "Não binário",
     },
     {
       id: "4",
-      name: "Não declarado"
-    }
+      name: "Não declarado",
+    },
   ];
 
   const dataCity = [
@@ -80,19 +81,31 @@ export default function SettingsPerfil({ navigation }) {
 
   async function patchUser() {
     setLoading(true);
-    const data = {
-      firstName: firstName,
-      lastName: lastName,
-      gender: gender,
-      birthDate: birthDate,
-      state: state,
-      city: city,
-      neighborhood: neighborhood,
-    };
     try {
-      response = await api.patch("/me", data);
-      console.log(response);
+      const data = {
+        firstName: firstName,
+        lastName: lastName,
+        gender: gender,
+        birthDate: birthDate,
+        state: state,
+        city: city,
+        neighborhood: neighborhood,
+      };
+      const response = await api.patch("/me", data);
+      setUser(response.data);
+      showMessage({
+        message: "Alterações do perfil efetuadas com sucesso!",
+        type: "success",
+        icon: "success",
+        duration: 4000,
+      });
+      navigation.navigate("Inicio");
     } catch (error) {
+      showMessage({
+        message: "Não foi possível alterar o perfil!",
+        type: "danger",
+        icon: "danger",
+      });
       console.log(error.message);
     }
     setLoading(false);
@@ -167,7 +180,6 @@ export default function SettingsPerfil({ navigation }) {
             onPress={patchUser}
             color="black"
             background={colors.background}
-            border={4}
             size={16}
           />
           <View style={{ marginBottom: screenHeight * 0.025 }}></View>

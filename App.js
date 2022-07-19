@@ -25,8 +25,6 @@ export default function App() {
     return <AppLoading />;
   }
   
-  
-
   return (
     <>
       <QueryClientProvider client={queryClient}>
