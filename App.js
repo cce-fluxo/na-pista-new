@@ -8,7 +8,7 @@ import { useFonts, BebasNeue_400Regular } from "@expo-google-fonts/bebas-neue";
 import { Ubuntu_500Medium, Ubuntu_400Regular } from "@expo-google-fonts/ubuntu";
 import { QueryClient, QueryClientProvider } from "react-query";
 
-import { useOnlineManager } from "./src/Hooks/useOnlineManager";
+import { useOnlineManager } from "./src/hooks/useOnlineManager";
 
 const queryClient = new QueryClient();
 
