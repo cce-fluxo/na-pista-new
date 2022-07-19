@@ -15,6 +15,7 @@ export default function AuthContextProvider({ children }) {
   const [signInLoading, setSignInLoading] = useState(true);
   const [accessToken, setAccessToken] = useState("");
   const [user, setUser] = useState({});
+  const [trackerId, setTrackerId] = useState(null);
 
   const loadStoragedData = useCallback(async () => {
     setSignInLoading(true);
@@ -136,9 +137,7 @@ export default function AuthContextProvider({ children }) {
     []
   );
 
-  const signOut = useCallback(async (
-    navigation
-  ) => {
+  const signOut = useCallback(async (navigation) => {
     await AsyncStorage.multiRemove([
       "@AppNaPista:accessToken",
       "@AppNaPista:user",
@@ -160,6 +159,8 @@ export default function AuthContextProvider({ children }) {
         signUp,
         accessToken,
         user,
+        trackerId,
+        setTrackerId,
         setUser,
         signInLoading,
       }}

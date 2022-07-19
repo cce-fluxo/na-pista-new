@@ -15,52 +15,20 @@ const Stack = createStackNavigator();
 
 export default function SignedInRoutes() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="TabNavigatorRoutes"
-        component={TabNavigatorRoutes}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Menu Configurações"
-        component={SettingsMenu}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Ajuda"
-        component={SettingsHelp}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="ExportarDados"
-        component={SettingsExportData}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Perfil"
-        component={SettingsPerfil}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Configurações"
-        component={Settings}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Add Ganhos"
-        component={AddGanhos}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Add Ganhos Multiplos"
-        component={AddGanhosMultiplos}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Add Gastos"
-        component={AddGastos}
-        options={{ headerShown: false }}
-      />
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name="TabNavigatorRoutes" component={TabNavigatorRoutes} />
+      <Stack.Screen name="Menu Configurações" component={SettingsMenu} />
+      <Stack.Screen name="Ajuda" component={SettingsHelp} />
+      <Stack.Screen name="ExportarDados" component={SettingsExportData} />
+      <Stack.Screen name="Perfil" component={SettingsPerfil} />
+      <Stack.Screen name="Configurações" component={Settings} />
+      <Stack.Screen name="Add Ganhos" component={AddGanhos} />
+      <Stack.Screen name="Add Ganhos Multiplos" component={AddGanhosMultiplos} />
+      <Stack.Screen name="Add Gastos" component={AddGastos} />
     </Stack.Navigator>
   );
 }

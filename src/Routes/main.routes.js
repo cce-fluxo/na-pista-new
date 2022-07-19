@@ -10,17 +10,13 @@ const Stack = createStackNavigator();
 export default function MainRoutes() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="SignedOut"
-          component={SignedOut}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="SignedIn"
-          component={SignedIn}
-          options={{ headerShown: false }}
-        />
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen name="SignedOut" component={SignedOut} />
+        <Stack.Screen name="SignedIn" component={SignedIn} />
       </Stack.Navigator>
     </NavigationContainer>
   );

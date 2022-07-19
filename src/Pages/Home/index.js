@@ -5,6 +5,12 @@ import {
   Fontisto,
   Entypo,
 } from "react-native-vector-icons";
+import {
+  useQueryClient,
+  QueryClient,
+  useMutation,
+  useQuery,
+} from "react-query";
 
 import {
   Container,
@@ -24,7 +30,9 @@ import Progress from "../../Components/Progress";
 import HomeHeader from "../../Components/HomeHeader";
 import AddEarningModal from "../../Components/AddEarningModal";
 import { colors, screenHeight, screenWidth } from "../../Constants/constants";
-import registerForPushNotificationsAsync from "../../Notifications/registerForPushNotificationsAsync";
+import registerForPushNotificationsAsync from "../../Connection/registerForPushNotificationsAsync";
+import api from "../../Services/api";
+import { useAuth } from "../../Contexts/auth";
 
 const getRemaining = (time) => {
   const mins = Math.floor(time / 60);
@@ -32,13 +40,98 @@ const getRemaining = (time) => {
   return { mins, secs };
 };
 
+const createTracker = async (newTodo) => {
+  const response = await api.post("/trackers", newTodo);
+  return response.data;
+};
+
+const patchTracker = async (newTodo) => {
+  return api.patch(`/trackers/${newTodo.id}`, {
+    endedAt: newTodo.endedAt,
+    time: newTodo.time * 1000,
+  });
+};
+
 export default function Home({ navigation }) {
   const [remainingSecs, setRemainingSecs] = useState(0);
   const [isActive, setIsActive] = useState(false);
   const { mins, secs } = getRemaining(remainingSecs);
+  const { trackerId, setTrackerId } = useAuth(); // avaliar se vai precisar de um contexto para isso
+  const queryClient = useQueryClient();
+
+  const { data: trackerData, isError } = useQuery(
+    ["currentTracker"],
+    getCurrentTracker
+  ); // a função getCurrentTracker usa o endpoint trackers/current
+
+  const postMutation = useMutation(createTracker, {
+    onSuccess: (data, variables, context) => {
+      console.log({ data, variables, context });
+      setTrackerId(data.id);
+      queryClient.invalidateQueries("currentTracker");
+    },
+    onError: () => {
+      queryClient.setQueryData("currentTracker", { startedAt: new Date() });
+      setIsActive(true);
+    },
+    retry: true,
+  });
+
+  const patchMutation = useMutation(patchTracker, {
+    onSuccess: (data, variables, context) => {
+      queryClient.cancelQueries("currentTracker");
+      queryClient.setQueryData("currentTracker", undefined);
+    },
+    onError: () => {
+      queryClient.setQueryData("currentTracker", {
+        id: trackerData.id,
+        endedAt: new Date(),
+        time: remainingSecs,
+      });
+      setIsActive(false);
+    },
+    retry: true,
+  });
+
+  async function getCurrentTracker() {
+    return await api.get("trackers/current");
+  }
+
+  useEffect(() => {
+    if (isError) {
+      if (trackerData && trackerData.id) {
+        // se o trackerData existe e tem um id, então o tracker foi criado
+        setTrackerId(trackerData.id);
+        setIsActive(true);
+      } else if (trackerData) {
+        // se o trackerData existe e não tem um id, então o tracker não foi criado
+        console.log(postMutation.status);
+      } else {
+        setTrackerId(null);
+        setIsActive(false);
+      }
+    }
+  }, [isError]);
+
+  useEffect(() => {
+    if (trackerData) {
+      setIsActive(!isActive);
+    }
+  }, [trackerData]);
 
   const toggle = () => {
-    setIsActive(!isActive);
+    if (!isActive) {
+      postMutation.mutate({
+        startedAt: new Date(),
+      });
+    } else {
+      setIsActive(!isActive);
+      patchMutation.mutate({
+        id: trackerData.Id,
+        endedAt: new Date(),
+        time: remainingSecs,
+      });
+    }
   };
 
   useEffect(() => {
@@ -48,6 +141,7 @@ export default function Home({ navigation }) {
         setRemainingSecs((remainingSecs) => remainingSecs + 1);
       }, 1000);
     } else if (!isActive && remainingSecs !== 0) {
+      setRemainingSecs(0);
       clearInterval(interval);
     }
 
@@ -229,7 +323,7 @@ export default function Home({ navigation }) {
               </Text>
               <IconContainer
                 marginRight={screenWidth * 0.027}
-                onPress={() => navigation.navigate("Plataformas")}
+                onPress={() => navigation.navigate("Resultados")}
               >
                 <AntDesign
                   name="right"
@@ -325,7 +419,7 @@ export default function Home({ navigation }) {
               </Text>
               <IconContainer
                 marginRight={screenWidth * 0.03}
-                onPress={() => navigation.navigate("Plataformas")}
+                onPress={() => navigation.navigate("Resultados")}
               >
                 <AntDesign
                   name="right"
@@ -447,7 +541,7 @@ export default function Home({ navigation }) {
               </Text>
               <IconContainer
                 marginRight={screenWidth * 0.03}
-                onPress={() => navigation.navigate("Plataformas")}
+                onPress={() => navigation.navigate("Resultados")}
               >
                 <AntDesign
                   name="right"
@@ -569,7 +663,7 @@ export default function Home({ navigation }) {
               </Text>
               <IconContainer
                 marginRight={screenWidth * 0.03}
-                onPress={() => navigation.navigate("Plataformas")}
+                onPress={() => navigation.navigate("Resultados")}
               >
                 <AntDesign
                   name="right"
