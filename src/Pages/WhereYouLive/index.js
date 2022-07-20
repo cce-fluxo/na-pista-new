@@ -5,6 +5,7 @@ import SafeArea from "../../Utils/SafeArea";
 import Button from "../../Components/Button";
 import Dropdown from "../../Components/Dropdown";
 import { dataState } from "../../Constants/constants";
+import { useAuth } from "../../Contexts/auth";
 
 const WhereYouLive = ({ navigation, route }) => {
   const { email, password, firstName, lastName, gender, birthDate } =
@@ -12,28 +13,7 @@ const WhereYouLive = ({ navigation, route }) => {
   const [state, setState] = useState("");
   const [city, setCity] = useState("");
   const [neighborhood, setNeighborhood] = useState("");
-
-  function nextScreen() {
-    if (!state || !city || !neighborhood) {
-      showMessage({
-        message: "Falta preencher a sua residência!",
-        type: "danger",
-        icon: "danger",
-      });
-    } else {
-      navigation.navigate("Veiculos", {
-        email,
-        password,
-        firstName,
-        lastName,
-        gender,
-        birthDate,
-        state,
-        city,
-        neighborhood,
-      });
-    }
-  }
+  const { signUp } = useAuth();
 
   const dataCity = [
     {
@@ -104,7 +84,18 @@ const WhereYouLive = ({ navigation, route }) => {
             marginLeft={0}
             background={"white"}
             size={18}
-            onPress={nextScreen}
+            onPress={() => signUp(
+              email,
+              password,
+              firstName,
+              lastName,
+              gender,
+              birthDate,
+              state,
+              city,
+              neighborhood,
+              navigation
+            )}
           />
         </ButtonContainer>
       </Container>

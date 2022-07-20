@@ -1,9 +1,22 @@
 import React from "react";
-import { Container, TitleContainer, Text, ButtonContainer } from "./styles";
 
+import { Container, TitleContainer, Text, ButtonContainer } from "./styles";
 import Button from "../../Components/Button";
+import { useAuth } from "../../Contexts/auth";
 
 export default function Success({ navigation }) {
+  const { setUser } = useAuth();
+
+  async function nextScreen() {
+    try {
+      const response = api.get("/me");
+      setUser(response.data);
+      navigation.navigate("SignedIn");
+    } catch(error) {
+      console.log(error);
+    }
+  }
+
   return (
     <Container>
       <TitleContainer>
@@ -18,7 +31,7 @@ export default function Success({ navigation }) {
           marginLeft={0}
           background={"white"}
           size={18}
-          onPress={() => navigation.navigate("SignedIn")}
+          onPress={nextScreen}
         />
       </ButtonContainer>
     </Container>

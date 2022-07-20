@@ -83,8 +83,6 @@ export default function AuthContextProvider({ children }) {
       state,
       city,
       neighborhood,
-      vehicles,
-      vendors,
       navigation
     ) => {
       try {
@@ -99,13 +97,9 @@ export default function AuthContextProvider({ children }) {
           state,
           city,
           neighborhood,
-          vehicles,
-          vendors,
         };
         const response = await api.post("/auth/signup", data);
         const { accessToken, user } = response.data;
-        console.log("Requisição enviada, resposta recebida");
-
         showMessage({
           message: "Login efetuado com sucesso",
           description: "Bem vindo ao App Na Pista",
@@ -113,15 +107,13 @@ export default function AuthContextProvider({ children }) {
           icon: "success",
           duration: 4000,
         });
-
         await AsyncStorage.multiSet([
           ["@AppNaPista:accessToken", accessToken],
           ["@AppNaPista:user", JSON.stringify(user)],
         ]);
-
         setUser(user);
         setAccessToken(accessToken);
-        navigation.navigate("Metas de Ganho");
+        navigation.navigate("Veiculos");
       } catch (err) {
         console.log(err);
         showMessage({

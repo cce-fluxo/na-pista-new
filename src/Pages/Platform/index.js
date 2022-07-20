@@ -7,29 +7,14 @@ import Button from "../../Components/Button";
 import Checkbox from "../../Components/Checkbox";
 import AddItemModal from "../../Components/AddItemModal";
 import api from "../../Services/api";
-import { useAuth } from "../../Contexts/auth";
 
-export default function Platform({ navigation, route }) {
-  const {
-    email,
-    password,
-    firstName,
-    lastName,
-    gender,
-    birthDate,
-    state,
-    city,
-    neighborhood,
-    vehicles,
-  } = route.params;
+export default function Platform({ navigation }) {
   const [dataVendors, setDataVendors] = useState([]);
   const [vendors, setVendors] = useState([]);
-  const { signUp } = useAuth();
 
   async function vendorsGet() {
     try {
-      response = await api.get("/vendors");
-      console.log(response.data);
+      const response = await api.get("/vendors");
       setDataVendors(response.data);
     } catch (error) {
       console.log(error);
@@ -40,6 +25,17 @@ export default function Platform({ navigation, route }) {
     try {
       const response = await api.post("/vendors", { name: vendor });
       console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function nextScreen() {
+    try {
+      const response = api.post("/me", {
+        vendors: vendors,
+      });
+      navigation.navigate("Metas de Ganho");
     } catch (error) {
       console.log(error);
     }
@@ -86,22 +82,7 @@ export default function Platform({ navigation, route }) {
             marginLeft={0}
             background={"white"}
             size={18}
-            onPress={() =>
-              signUp(
-                email,
-                password,
-                firstName,
-                lastName,
-                gender,
-                birthDate,
-                state,
-                city,
-                neighborhood,
-                vehicles,
-                vendors,
-                navigation
-              )
-            }
+            onPress={nextScreen}
           />
         </ButtonContainer>
       </Container>

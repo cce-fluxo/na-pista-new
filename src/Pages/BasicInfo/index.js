@@ -30,7 +30,7 @@ export default function BasicInfo({ navigation, route }) {
         firstName,
         lastName,
         gender,
-        birthDate,
+        birthDate: toString(birthDate),
       });
     }
   }
@@ -55,8 +55,8 @@ export default function BasicInfo({ navigation, route }) {
   ];
 
   useEffect(() => {
-    console.log(gender);
-  }, [gender]);
+    console.log(birthDate);
+  }, [birthDate]);
 
   return (
     <SafeArea>

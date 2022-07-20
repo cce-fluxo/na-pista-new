@@ -33,12 +33,11 @@ export default function CreateAccount({ navigation, route }) {
     setLoading(true);
     if (password === confirmPassword) {
       try {
-        const isAvailable = await api.post("/auth/email-availability", {
+        const response = await api.post("/auth/email-availability", {
           email,
           password,
         });
-        console.log(isAvailable);
-        if (!isAvailable) {
+        if (!response.data.isAvailable) {
           showMessage({
             message: "Email ou senha não disponíveis!",
             type: "danger",

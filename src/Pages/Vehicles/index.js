@@ -5,9 +5,6 @@ import {
   TitleContainer,
   Text,
   ButtonContainer,
-  AddContainer,
-  AddText,
-  FlatList,
 } from "./styles";
 import SafeArea from "../../Utils/SafeArea";
 import Button from "../../Components/Button";
@@ -16,25 +13,13 @@ import AddItemModal from "../../Components/AddItemModal";
 import api from "../../Services/api";
 import { ScrollView } from "react-native-gesture-handler";
 
-export default function Vehicles({ navigation, route }) {
-  const {
-    email,
-    password,
-    firstName,
-    lastName,
-    gender,
-    birthDate,
-    state,
-    city,
-    neighborhood,
-  } = route.params;
+export default function Vehicles({ navigation }) {
   const [dataVehicles, setDataVehicles] = useState([]);
   const [vehicles, setVehicles] = useState([]);
 
   async function vehiclesGet() {
     try {
-      response = await api.get("/vehicles");
-      console.log(response.data);
+      const response = await api.get("/vehicles");
       setDataVehicles(response.data);
     } catch (error) {
       console.log(error);
@@ -44,32 +29,19 @@ export default function Vehicles({ navigation, route }) {
   async function vehiclesPost(vehicle) {
     try {
       const response = await api.post("/vehicles", { name: vehicle });
-      console.log(response);
     } catch (error) {
       console.log(error);
     }
   }
 
   function nextScreen() {
-    if (!vehicles) {
-      showMessage({
-        message: "Falta preencher a lista de veículos!",
-        type: "danger",
-        icon: "danger",
+    try {
+      const response = api.post("/me", {
+        vehicles: vehicles,
       });
-    } else {
-      navigation.navigate("Plataformas", {
-        email,
-        password,
-        firstName,
-        lastName,
-        gender,
-        birthDate,
-        state,
-        city,
-        neighborhood,
-        vehicles,
-      });
+      navigation.navigate("Plataformas");
+    } catch (error) {
+      console.log(error);
     }
   }
 
