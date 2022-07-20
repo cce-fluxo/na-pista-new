@@ -85,10 +85,8 @@ export default function AuthContextProvider({ children }) {
       neighborhood,
       vehicles,
       vendors,
-      setLoading,
       navigation
     ) => {
-      setLoading(true);
       try {
         let data;
         data = {
@@ -123,7 +121,7 @@ export default function AuthContextProvider({ children }) {
 
         setUser(user);
         setAccessToken(accessToken);
-        navigation.navigate("Sucesso");
+        navigation.navigate("Metas de Ganho");
       } catch (err) {
         console.log(err);
         showMessage({
@@ -132,7 +130,6 @@ export default function AuthContextProvider({ children }) {
           icon: "danger",
         });
       }
-      setLoading(false);
     },
     []
   );

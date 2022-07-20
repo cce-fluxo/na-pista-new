@@ -7,6 +7,7 @@ import Button from "../../Components/Button";
 import Checkbox from "../../Components/Checkbox";
 import AddItemModal from "../../Components/AddItemModal";
 import api from "../../Services/api";
+import { useAuth } from "../../Contexts/auth";
 
 export default function Platform({ navigation, route }) {
   const {
@@ -23,6 +24,7 @@ export default function Platform({ navigation, route }) {
   } = route.params;
   const [dataVendors, setDataVendors] = useState([]);
   const [vendors, setVendors] = useState([]);
+  const { signUp } = useAuth();
 
   async function vendorsGet() {
     try {
@@ -40,30 +42,6 @@ export default function Platform({ navigation, route }) {
       console.log(response);
     } catch (error) {
       console.log(error);
-    }
-  }
-
-  function nextScreen() {
-    if (!vendors) {
-      showMessage({
-        message: "Falta preencher a lista de plataformas!",
-        type: "danger",
-        icon: "danger",
-      });
-    } else {
-      navigation.navigate("Metas de Ganho", {
-        email,
-        password,
-        firstName,
-        lastName,
-        gender,
-        birthDate,
-        state,
-        city,
-        neighborhood,
-        vehicles,
-        vendors,
-      });
     }
   }
 
@@ -108,7 +86,22 @@ export default function Platform({ navigation, route }) {
             marginLeft={0}
             background={"white"}
             size={18}
-            onPress={nextScreen}
+            onPress={() =>
+              signUp(
+                email,
+                password,
+                firstName,
+                lastName,
+                gender,
+                birthDate,
+                state,
+                city,
+                neighborhood,
+                vehicles,
+                vendors,
+                navigation
+              )
+            }
           />
         </ButtonContainer>
       </Container>

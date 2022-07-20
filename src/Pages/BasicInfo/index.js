@@ -13,8 +13,8 @@ export default function BasicInfo({ navigation, route }) {
   const { email, password } = route.params;
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [gender, setGender] = useState("m");
-  const [birthDate, setBirthDate] = useState("2022-05-19T19:16:09.259Z");
+  const [gender, setGender] = useState("");
+  const [birthDate, setBirthDate] = useState("");
 
   function nextScreen() {
     if (!firstName || !lastName || !gender || !birthDate) {

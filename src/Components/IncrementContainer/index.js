@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import Icon from "react-native-vector-icons/Entypo";
+
 import {
   Container,
   Title,
@@ -7,21 +9,17 @@ import {
   ButtonIncrementContainer,
 } from "./styles";
 
-import Icon from "react-native-vector-icons/Entypo";
-
 const IncrementContainer = (props) => {
-  const [quantity, setQuantity] = useState(0);
-  const [actualItem, setActualItem] = useState({});
 
   function Increment() {
-    setQuantity(quantity + 50);
+    props.setQuantity(props.quantity + props.interval);
   }
 
   function Decrement() {
-    if (quantity > 0) {
-      setQuantity(quantity - 50);
+    if (props.quantity - props.interval > 0) {
+      props.setQuantity(props.quantity - props.interval);
     } else {
-      setQuantity(0);
+      props.setQuantity(0);
     }
   }
 
@@ -36,7 +34,7 @@ const IncrementContainer = (props) => {
         <ButtonIncrementContainer onPress={() => Decrement()}>
           <Icon name="minus" size={25} />
         </ButtonIncrementContainer>
-        <Text>R${quantity}</Text>
+        <Text>R${props.quantity}</Text>
         <ButtonIncrementContainer onPress={() => Increment()}>
           <Icon name="plus" size={25} />
         </ButtonIncrementContainer>
