@@ -97,8 +97,6 @@ export default function AuthContextProvider({ children }) {
           state,
           city,
           neighborhood,
-          vehicles: [],
-          vendors: [],
         };
         const response = await api.post("/auth/signup", data);
         const { accessToken, user } = response.data;
