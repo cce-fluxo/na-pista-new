@@ -3,6 +3,7 @@ import React from "react";
 import { Container, TitleContainer, Text, ButtonContainer } from "./styles";
 import Button from "../../Components/Button";
 import { useAuth } from "../../Contexts/auth";
+import api from "../../Services/api";
 
 export default function Success({ navigation }) {
   const { setUser } = useAuth();

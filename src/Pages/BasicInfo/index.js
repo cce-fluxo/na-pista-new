@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { ScrollView } from "react-native";
 import { showMessage } from "react-native-flash-message";
 
@@ -30,7 +30,7 @@ export default function BasicInfo({ navigation, route }) {
         firstName,
         lastName,
         gender,
-        birthDate: toString(birthDate),
+        birthDate,
       });
     }
   }
@@ -53,10 +53,6 @@ export default function BasicInfo({ navigation, route }) {
       name: "Não declarado"
     }
   ];
-
-  useEffect(() => {
-    console.log(birthDate);
-  }, [birthDate]);
 
   return (
     <SafeArea>
