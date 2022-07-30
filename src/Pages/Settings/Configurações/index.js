@@ -8,11 +8,7 @@ import VendorsView from "./Components/vendors";
 import VehiclesView from "./Components/vehicles";
 import SafeArea from "../../../Utils/SafeArea/index";
 import Header from "../../../Components/SettingsHeader/index";
-import {
-  Container,
-  MiniView,
-  TitleText,
-} from "./styles";
+import { Container, MiniView, TitleText } from "./styles";
 import {
   colors,
   screenHeight,
@@ -63,6 +59,9 @@ export default function Settings({ navigation }) {
   const [userCategories, setUserCategories] = useState([]);
   const [userVendors, setUserVendors] = useState([]);
   const [userVehicles, setUserVehicles] = useState([]);
+  const [userDaily, setUserDaily] = useState(0);
+  const [userWeekly, setUserWeekly] = useState(0);
+  const [userMonthly, setUserMonthly] = useState(0);
 
   async function getInfo() {
     try {
@@ -74,13 +73,42 @@ export default function Settings({ navigation }) {
     }
   }
 
+  async function getGoals() {
+    try {
+      const { data } = await api.get("/goals");
+      const daily = data.filter((goal) => goal.type === "DAILY").shift();
+      const weekly = data.filter((goal) => goal.type === "WEEKLY").shift();
+      const monthly = data.filter((goal) => goal.type === "MONTHLY").shift();
+      setUserDaily(daily.amount/100);
+      setUserWeekly(weekly.amount/100);
+      setUserMonthly(monthly.amount/100);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   async function updateInfo() {
     try {
-      const response = await api.patch("/me", {
+      const response1 = await api.patch("/me", {
         vendors: userVendors,
         vehicles: userVehicles,
       });
-      console.log(response);
+      const response2 = await api.patch("/goals/bulk", {
+        bulk: [
+          {
+            type: "DAILY",
+            amount: userDaily * 100
+          },
+          {
+            type: "WEEKLY",
+            amount: userWeekly * 100
+          },
+          {
+            type: "MONTHLY",
+            amount: userWeekly * 100
+          }
+        ]
+      });
       navigation.navigate("Menu Configurações");
     } catch (error) {
       console.log(error);
@@ -125,6 +153,7 @@ export default function Settings({ navigation }) {
 
   useEffect(() => {
     getInfo();
+    getGoals();
     vendorsGet();
     vehiclesGet();
   }, []);
@@ -154,7 +183,15 @@ export default function Settings({ navigation }) {
               </TouchableOpacity>
             </MiniView>
           ) : (
-            <GoalsView setClickMetas={setClickMetas} />
+            <GoalsView
+              setClickMetas={setClickMetas}
+              userDaily={userDaily}
+              setUserDaily={setUserDaily}
+              userWeekly={userWeekly}
+              setUserWeekly={setUserWeekly}
+              userMonthly={userMonthly}
+              setUserMonthly={setUserMonthly}
+            />
           )}
           {!clickCategorias ? (
             <MiniView

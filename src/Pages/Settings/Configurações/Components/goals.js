@@ -3,13 +3,7 @@ import { View, TouchableOpacity } from "react-native";
 import { AntDesign } from "react-native-vector-icons";
 
 import IncrementContainer from "../../../../Components/IncrementContainer";
-import {
-  MiniView,
-  MaxView,
-  TitleText,
-  LineView,
-  NormalText,
-} from "../styles";
+import { MiniView, MaxView, TitleText, LineView, NormalText } from "../styles";
 import {
   colors,
   screenHeight,
@@ -17,7 +11,15 @@ import {
   fonts,
 } from "../../../../Constants/constants";
 
-export default function Goals({setClickMetas}) {
+export default function Goals({
+  setClickMetas,
+  userDaily,
+  setUserDaily,
+  userWeekly,
+  setUserWeekly,
+  userMonthly,
+  setUserMonthly,
+}) {
   return (
     <MaxView width={screenWidth * 0.91} marginTop={screenHeight * 0.025}>
       <MiniView
@@ -49,18 +51,27 @@ export default function Goals({setClickMetas}) {
         marginLeft={0}
         marginTop={screenHeight * 0.025}
         color="white"
+        quantity={userDaily}
+        setQuantity={setUserDaily}
+        interval={5}
       />
       <IncrementContainer
         title="Semanal"
         marginLeft={0}
         marginTop={screenHeight * 0.025}
         color="white"
+        quantity={userWeekly}
+        setQuantity={setUserWeekly}
+        interval={10}
       />
       <IncrementContainer
         title="Mensal"
         marginLeft={0}
         marginTop={screenHeight * 0.025}
         color="white"
+        quantity={userMonthly}
+        setQuantity={setUserMonthly}
+        interval={25}
       />
       <View style={{ height: screenHeight * 0.025 }}></View>
     </MaxView>
